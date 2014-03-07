@@ -1,6 +1,8 @@
 .player {
+	padding: 8px;
 	max-width: 480px;
 	margin: 0 auto;
+	background: $dark-gray;
 }
 
 .player__name, .player__score, .player__skills {
@@ -9,8 +11,30 @@
 
 .player__name {
 	font-size: 2em;
+	color: $orange;
+	width: 50%;
 }
 
 .player__score {
 	font-size: 1.5em;
+	color: $yellow;
+	width: 50%;
+}
+
+.player__skills {
+	color: $bluegreen;
+	float: right;
+}
+
+.player__skills__label {
+	padding: 8px;
+	width: 32px;
+	float: left;
+}
+
+.player__skills__bar {
+	padding: 8px;
+	background: $green;
+	float: left;
+	font-size: 4px;
 }
