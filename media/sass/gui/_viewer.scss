@@ -1,0 +1,16 @@
+.player {
+	max-width: 480px;
+	margin: 0 auto;
+}
+
+.player__name, .player__score, .player__skills {
+	padding: 8px;
+}
+
+.player__name {
+	font-size: 2em;
+}
+
+.player__score {
+	font-size: 1.5em;
+}
