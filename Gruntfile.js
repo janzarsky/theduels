@@ -5,14 +5,16 @@ module.exports = function(grunt) {
 		concat: {
 			debug: {
 				files: {
-					'media/js/viewer.js': ['media/src/external/jquery.js', 'media/src/viewer.js']
+					'media/js/viewer.js': ['media/src/external/jquery.js', 'media/src/viewer.js'],
+					'media/js/control.js': ['media/src/external/jquery.js', 'media/src/conrtol.js']
 				}
 			}
 		},
 		uglify: {
 		  dist: {
 		    files: {
-					'media/js/viewer.js': ['media/src/external/jquery.js', 'media/src/viewer.js']
+					'media/js/viewer.js': ['media/src/external/jquery.js', 'media/src/viewer.js'],
+					'media/js/control.js': ['media/src/external/jquery.js', 'media/src/conrtol.js']
 				}
 		  }
 		},
