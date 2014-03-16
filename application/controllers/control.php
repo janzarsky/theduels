@@ -20,4 +20,18 @@ class Control extends CI_Controller {
 		$html_footer_data['script'] = 'control.js';
 		$this->load->view('templates/html_footer', $html_footer_data);
 	}
+	
+	public function submit() {		
+		try {
+			$this->control_model->submit_duel($this->input->post('player1'), $this->input->post('player2'), $this->input->post('score'));
+		}
+		catch (Exception $e) {
+			$error_message .= $e->getMessage();
+		}
+		
+		if (isset($error_message))
+			redirect('control?error=' . $error_message);
+		else
+			redirect('control');
+	}
 }

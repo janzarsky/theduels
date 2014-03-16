@@ -1,12 +1,12 @@
 <div class="content">
-	<form>
+	<form action="control/submit" method="post">
 		<div class="player" id="player1">
 			<header class="player__header">
 				player 1
 			</header>
-			<select class="player__select" name="player1" size="<?php echo count($players); ?>" autofocus>
+			<select class="player__select" name="player1" autofocus>
 				<?php	foreach ($players as $player) : ?>
-					<option class="player__select__player" value="<?php echo $player['id']; ?>">
+					<option class="player__select__option" value="<?php echo $player['id']; ?>">
 						<?php echo $player['name']; ?>
 					</option>
 				<?php endforeach; ?>
@@ -17,7 +17,7 @@
 			<header class="score__header">
 				score
 			</header>
-			<select class="score__select" name="score" size="3">
+			<select class="score__select" name="score">
 				<option class="score__select__option" value="2">
 					2:0
 				</option>
@@ -34,9 +34,9 @@
 			<header class="player__header">
 				player 2
 			</header>
-			<select class="player__select" name="player2" size="<?php echo count($players); ?>">
+			<select class="player__select" name="player2">
 				<?php	foreach ($players as $player) : ?>
-					<option class="player__select__player" value="<?php echo $player['id']; ?>">
+					<option class="player__select__option" value="<?php echo $player['id']; ?>">
 						<?php echo $player['name']; ?>
 					</option>
 				<?php endforeach; ?>
