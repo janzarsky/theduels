@@ -1,26 +1,22 @@
-.playerSelect {
+.player {
 	background: $dark-gray;
 	width: 40%;
 	float: left;
 }
-.playerSelect__header {
+.player__header {
 	padding: 16px;
 	text-align: center;
 }
-.playerSelect__player {
+.player__select {
+	background: $dark-gray;
+	border: none;
+	width: 100%;
+}
+.player__select__player {
 	color: $yellow;
 	padding: 8px;
 	line-height: 32px;
 	cursor: pointer;
-	
-	&.playerSelect__player--selected {
-		background: $light-gray;
-		color: $orange;
-	}
-	
-	&:hover {
-		color: $orange;
-	}
 }
 
 .score {
@@ -32,34 +28,37 @@
 	padding: 16px;
 	text-align: center;
 }
-.score__option {
+.score__select {
+	background: $dark-gray;
+	border: none;
+	width: 100%;
+}
+.score__select__option {
 	color: $green;
 	padding: 8px 32px;
 	text-align: center;
-	
-	&:hover {
-		color: $bluegreen;
-	}
-	
-	&.score__option--selected {
-		background: $light_gray;
-		color: $bluegreen;
-	}
 }
 
 .submit {
 	color: $green;
 	background: $dark-gray;
+	border: none;
 	float: right;
 	padding: 16px;
 	cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {
-	.playerSelect, .score {
+	.player, .score {
 		width: 100%;
 	}
 	.score__option {
 		float: left;
+	}
+}
+@media screen and (min-width: 800px) {
+	.content {
+		width: 800px;
+		margin: 0 auto;
 	}
 }
