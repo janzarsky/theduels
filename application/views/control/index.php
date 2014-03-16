@@ -1,40 +1,48 @@
-<div class="playerSelect" id="playerSelect1">
-	<header class="playerSelect__header">
-		Select player 1
-	</header>
-	<?php	foreach ($players as $player) : ?>
-		<span class="playerSelect__player">
-			<?php echo $player['name']; ?>
-		</span>
-	<?php endforeach; ?>
-</div>
-
-<div class="score">
-	<header class="score__header">
-		Set score
-	</header>
-	<div class="score__option">
-		2:0
-	</div>
-	<div class="score__option">
-		1:1
-	</div>
-	<div class="score__option">
-		0:2
-	</div>
-</div>
-
-<div class="playerSelect" id="playerSelect2">
-	<header class="playerSelect__header">
-		Select player 2
-	</header>
-	<?php	foreach ($players as $player) : ?>
-		<span class="playerSelect__player">
-			<?php echo $player['name']; ?>
-		</span>
-	<?php endforeach; ?>
-</div>
-
-<div class="submit">
-	OK
+<div class="content">
+	<form>
+		<div class="player" id="player1">
+			<header class="player__header">
+				player 1
+			</header>
+			<select class="player__select" name="player1" size="<?php echo count($players); ?>" autofocus>
+				<?php	foreach ($players as $player) : ?>
+					<option class="player__select__player" value="<?php echo $player['id']; ?>">
+						<?php echo $player['name']; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+		
+		<div class="score">
+			<header class="score__header">
+				score
+			</header>
+			<select class="score__select" name="score" size="3">
+				<option class="score__select__option" value="2">
+					2:0
+				</option>
+				<option class="score__select__option" value="1">
+					1:1
+				</option>
+				<option class="score__select__option" value="0">
+					0:2
+				</option>
+			</select>
+		</div>
+		
+		<div class="player" id="player2">
+			<header class="player__header">
+				player 2
+			</header>
+			<select class="player__select" name="player2" size="<?php echo count($players); ?>">
+				<?php	foreach ($players as $player) : ?>
+					<option class="player__select__player" value="<?php echo $player['id']; ?>">
+						<?php echo $player['name']; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+		
+		<input type="submit" class="submit" value="OK"/>
+	</form>
 </div>
