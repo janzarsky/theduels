@@ -1,37 +1,45 @@
 .player {
-	background: $dark-gray;
 	width: 40%;
 	float: left;
+	text-align: center;
 }
 .player__header {
+	color: $light-gray;
+	background: $black;
 	padding: 16px;
 	text-align: center;
 }
 .player__select {
+	color: $orange;
 	background: $dark-gray;
 	border: none;
-	width: 100%;
+	padding: 16px;
+	cursor: pointer;
 }
-.player__select__player {
-	color: $yellow;
+.player__select__option {
+	color: $orange;
 	padding: 8px;
 	line-height: 32px;
 	cursor: pointer;
 }
 
 .score {
-	background: $dark-gray;
 	width: 20%;
 	float: left;
+	text-align: center;
 }
 .score__header {
+	color: $light-gray;
+	background: $black;
 	padding: 16px;
 	text-align: center;
 }
 .score__select {
+	color: $green;
 	background: $dark-gray;
 	border: none;
-	width: 100%;
+	padding: 16px;
+	cursor: pointer;
 }
 .score__select__option {
 	color: $green;
@@ -43,22 +51,37 @@
 	color: $green;
 	background: $dark-gray;
 	border: none;
-	float: right;
 	padding: 16px;
+	margin-top: 16px;
 	cursor: pointer;
+	width: 100%;
 }
 
-@media screen and (max-width: 480px) {
-	.player, .score {
-		width: 100%;
-	}
-	.score__option {
-		float: left;
-	}
-}
 @media screen and (min-width: 800px) {
 	.content {
 		width: 800px;
 		margin: 0 auto;
 	}
 }
+@media screen and (max-width: 480px) {
+	.player, .score {
+		width: 100%;
+	}
+	.player__header, .score__header {
+		width: 40%;
+		padding: 16px 5%;
+		float: left;
+	}
+	.player__select, .score__select {
+		width: 40%;
+		padding: 16px 5%;
+		float: left;
+	}
+}
+@media screen and (max-width: 320px) {
+	.player__header, .score__header, .player__select, .score__select {
+		float: none;
+		width: 100%;
+	}
+}
+
