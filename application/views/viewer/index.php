@@ -1,7 +1,9 @@
 <section class="player">
 	<div class="player__info">
 		<header class="player__name"><?php echo $player['name']; ?></header>
-		<div class="player__image"></div>
+		<div class="player__image">
+			<img src="/theduely/media/images/avatars/<?php echo $player['avatar']; ?>.png">
+		</div>
 		<div class="player__score">Skóre: <?php echo $player['score']; ?></div>
 	</div>
 	

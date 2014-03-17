@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in {0..29}
+do
+	composite -gravity center $i.png blank.png $i.new.png
+done
