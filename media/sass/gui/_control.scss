@@ -56,16 +56,21 @@
 		margin: 0 auto;
 	}
 }
+@media screen and (max-width: 800px) {
+	.player, .score, .game {
+		width: 50%;
+	}
+}
 @media screen and (max-width: 480px) {
-	.player, .score {
+	.player, .score, .game {
 		width: 100%;
 	}
-	.player__header, .score__header {
+	.player__header, .score__header, .game__header {
 		width: 40%;
 		padding: 16px 5%;
 		float: left;
 	}
-	.player__select, .score__select {
+	.player__select, .score__select, .game__select {
 		width: 40%;
 		padding: 16px 5%;
 		float: left;
