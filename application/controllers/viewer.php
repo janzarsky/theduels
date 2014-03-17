@@ -16,6 +16,7 @@ class Viewer extends CI_Controller {
 		
 		if ($id !== '') {
 			$viewer_data['player'] = $this->viewer_model->get_player($id);
+			$viewer_data['player_skills'] = $this->viewer_model->get_player_skills($id);
 			$this->load->view('viewer/index', $viewer_data);
 		}
 		

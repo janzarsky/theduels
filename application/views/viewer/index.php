@@ -9,19 +9,19 @@
 		<table>
 			<tbody>
 				<tr class="player__skills__bars">
-					<td><div class="player__skills__bar" style="height: <?php echo $player['skill_power']; ?>em"></div></td>
-					<td><div class="player__skills__bar" style="height: <?php echo $player['skill_mind']; ?>em"></div></td>
-					<td><div class="player__skills__bar" style="height: <?php echo $player['skill_magic']; ?>em"></div></td>
+					<?php foreach ($player_skills as $skill): ?>
+						<td><div class="player__skills__bar" style="height: <?php echo $skill['value']; ?>em"></div></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr class="player__skills__values">
-					<td><div class="player__skills__value"><?php echo $player['skill_power']; ?></div></td>
-					<td><div class="player__skills__value"><?php echo $player['skill_mind']; ?></div></td>
-					<td><div class="player__skills__value"><?php echo $player['skill_magic']; ?></div></td>
+					<?php foreach ($player_skills as $skill): ?>
+						<td><div class="player__skills__value"><?php echo $skill['value']; ?></div></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr class="player__skills__labels">
-					<td><div class="player__skills__label">síla</div></td>
-					<td><div class="player__skills__label">mysl</div></td>
-					<td><div class="player__skills__label">magie</div></td>
+					<?php foreach ($player_skills as $skill): ?>
+						<td><div class="player__skills__label"><?php echo $skill['name']; ?></div></td>
+					<?php endforeach; ?>
 				</tr>
 			</tbody>
 		</table>
