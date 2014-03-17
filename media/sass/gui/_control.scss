@@ -1,50 +1,43 @@
-.player {
-	width: 40%;
+@mixin formField($width) {
+	width: $width;
 	float: left;
 	text-align: center;
 }
-.player__header {
+@mixin formField__header() {
 	color: $light-gray;
 	background: $black;
 	padding: 16px;
 	text-align: center;
 }
-.player__select {
-	color: $orange;
-	background: $dark-gray;
-	border: none;
-	padding: 16px;
-	cursor: pointer;
+
+.game {
+	@include formField(25%);
 }
-.player__select__option {
+.game__header {
+	@include formField__header();
+}
+.game__select, .game__select__option {
+	color: $green;
+}
+
+.player {
+	@include formField(30%);
+}
+.player__header {
+	@include formField__header();
+}
+.player__select, .player__select__option {
 	color: $orange;
-	padding: 8px;
-	line-height: 32px;
-	cursor: pointer;
 }
 
 .score {
-	width: 20%;
-	float: left;
-	text-align: center;
+	@include formField(15%);
 }
 .score__header {
-	color: $light-gray;
-	background: $black;
-	padding: 16px;
-	text-align: center;
+	@include formField__header();
 }
-.score__select {
+.score__select, .score__select__option {
 	color: $green;
-	background: $dark-gray;
-	border: none;
-	padding: 16px;
-	cursor: pointer;
-}
-.score__select__option {
-	color: $green;
-	padding: 8px 32px;
-	text-align: center;
 }
 
 .submit {
