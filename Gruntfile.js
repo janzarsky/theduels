@@ -6,7 +6,8 @@ module.exports = function(grunt) {
 			debug: {
 				files: {
 					'media/js/viewer.js': ['media/src/external/jquery.js', 'media/src/viewer.js'],
-					'media/js/control.js': ['media/src/external/jquery.js', 'media/src/conrtol.js']
+					'media/js/control.js': ['media/src/external/jquery.js', 'media/src/control.js'],
+					'media/js/overview.js': ['media/src/external/jquery.js', 'media/src/overview.js']
 				}
 			}
 		},
@@ -14,7 +15,8 @@ module.exports = function(grunt) {
 		  dist: {
 		    files: {
 					'media/js/viewer.js': ['media/src/external/jquery.js', 'media/src/viewer.js'],
-					'media/js/control.js': ['media/src/external/jquery.js', 'media/src/conrtol.js']
+					'media/js/control.js': ['media/src/external/jquery.js', 'media/src/conrtol.js'],
+					'media/js/overview.js': ['media/src/external/jquery.js', 'media/src/overview.js']
 				}
 		  }
 		},
