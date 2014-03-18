@@ -10,7 +10,8 @@ class Viewer_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('players');
-		$this->db->where('id', $id);
+		$this->db->join('avatars', 'players.avatar_id = avatars.id', 'left');
+		$this->db->where('players.id', $id);
 			
 		return $this->db->get()->row_array();
 	}
