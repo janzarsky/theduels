@@ -1,3 +1,20 @@
+@mixin formField($width) {
+	width: $width;
+	float: left;
+	text-align: center;
+}
+@mixin formField__header() {
+	color: $light-gray;
+	padding: 16px;
+	text-align: center;
+}
+
+input {
+	color: $white;
+	background: $dark-gray;
+	border: none;
+	padding: 16px;
+}
 select {
 	color: $white;
 	background: $dark-gray;

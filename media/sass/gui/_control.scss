@@ -1,14 +1,3 @@
-@mixin formField($width) {
-	width: $width;
-	float: left;
-	text-align: center;
-}
-@mixin formField__header() {
-	color: $light-gray;
-	padding: 16px;
-	text-align: center;
-}
-
 .game {
 	@include formField(25%);
 }
