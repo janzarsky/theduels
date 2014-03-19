@@ -3,9 +3,9 @@
 $output = array();
 
 foreach ($players_data as $player) {
-	$output['player' . $player['id']]['scale'] = $player['score']/1000;
+	$output['player' . $player['playerid']]['scale'] = $player['score']/1000;
 	
-	$skills['player' . $player['id']][$player['skill_id']] = $player['value'];
+	$skills['player' . $player['playerid']][$player['skill_id']] = $player['value'];
 }
 
 foreach ($skills as $id => $player_skills) {
@@ -26,8 +26,8 @@ foreach ($skills as $id => $player_skills) {
 			$alpha -= (2*pi())/3;
 		}
 		
-		$output[$id]['x'] = $x;
-		$output[$id]['y'] = $y;
+		$output[$id]['x'] = round($x, 3);
+		$output[$id]['y'] = round($y, 3);
 	}
 }
 
