@@ -21,4 +21,18 @@ class Admin extends CI_Controller {
 		$html_footer_data['script'] = 'addplayers.js';
 		$this->load->view('templates/html_footer', $html_footer_data);
 	}
+	
+	public function addplayers_submit() {
+		try {
+			$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
+		}
+		catch (Exception $e) {
+			$message .= $e->getMessage();
+		}
+		
+		if (isset($message))
+			redirect('admin/addplayers?message=' . $message);
+		else
+			redirect('admin/addplayers?message=success');
+	}
 }
