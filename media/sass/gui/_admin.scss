@@ -11,6 +11,12 @@
 	padding: 16px;
 	margin: 0;
 }
+.players__delete__select {
+	@include formField(60%);
+}
+.players__delete__submit {
+	@include formField(40%);
+}
 
 .content {
 	float: right;

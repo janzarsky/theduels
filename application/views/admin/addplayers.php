@@ -10,6 +10,21 @@
 			</li>
 		<?php endforeach; ?>
 	</ul>
+	<div class="players__delete">
+		<form action="deleteplayers_submit" method="post">
+			<div class="players__delete__select">
+				<select name="id">
+					<?php	foreach ($players as $player) : ?>
+						<option value="<?php echo $player['playerid']; ?>">
+							<?php echo $player['name']; ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+			
+			<input class="players__delete__submit" type="submit" value="Smazat">
+		</form>
+	</div>
 </aside>
 
 <div class="content">

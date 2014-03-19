@@ -8,7 +8,7 @@ class Admin_model extends CI_Model {
 
 	public function get_players()
 	{
-		$this->db->select('*');
+		$this->db->select('*, players.id as playerid');
 		$this->db->from('players');
 		$this->db->join('avatars', 'avatars.id = players.avatar_id', 'left');
 		$this->db->order_by('name');
@@ -54,12 +54,27 @@ class Admin_model extends CI_Model {
 			throw new Exception('dberror');
 		}
 		
-		$avatars_data = array(
-			'free' => 0
-		);
-		
 		try {
-			$this->db->update('avatars', $avatars_data, 'id = ' . $avatar_id);
+			$this->db->update('avatars', array('free' => 0), array('id' => $avatar_id));
+		}
+		catch (Exception $e) {
+			throw new Exception('dberror');
+		}
+	}
+	
+	public function delete_player($id)
+	{
+		try {
+			$this->db->delete('players_skills', array('player_id' => $id));
+			$this->db->delete('log_duels', array('player_1_id' => $id));
+			$this->db->delete('log_duels', array('player_2_id' => $id));
+			
+			$this->db->select('avatar_id')->from('players')->where('id', $id);
+			$avatar_id = $this->db->get()->row_array()['avatar_id'];
+			
+			$this->db->update('avatars', array('free' => 1), array('id' => $avatar_id));
+			
+			$this->db->delete('players', array('id' => $id));
 		}
 		catch (Exception $e) {
 			throw new Exception('dberror');
