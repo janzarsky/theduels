@@ -8,7 +8,8 @@ setInterval(function () {
 		var windowHeight = $(window).outerHeight();
 		var windowWidth = $(window).outerWidth();
 		
-		var margin = 32;
+		var margin = 16;
+		var imageSize = 100;
 		
 		$.each(data, function(key, val) {
 			console.log(key, val);
@@ -18,8 +19,8 @@ setInterval(function () {
 			var left = val.x*windowWidth;
 			var top = val.y*windowHeight;
 			
-			var width = player.outerWidth()/player.outerHeight()*300*val.scale;
-			var height = 300*val.scale;
+			var width = player.outerWidth()/player.outerHeight()*imageSize*val.scale;
+			var height = imageSize*val.scale;
 			
 			left = (left - width/2 < margin) ? margin + width/2 : left;
 			left = (left + width/2> windowWidth - margin) ? windowWidth - margin - width/2 : left;
@@ -38,7 +39,7 @@ setInterval(function () {
 				'font-size': val.scale + 'em'
 			}, 400);
 			player.children('.player__image').animate({
-				'height': 300*val.scale + 'px'
+				'height': imageSize*val.scale + 'px'
 			}, 400);
 		});
 	});
