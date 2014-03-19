@@ -3,19 +3,27 @@ setInterval(function () {
 		var windowHeight = $(window).outerHeight();
 		var windowWidth = $(window).outerWidth();
 		
+		var margin = 32;
+		
 		$.each(data, function(key, val) {
 			console.log(key, val);
 			
 			var player = $('#' + key);
 			
-			var left = val.x*windowWidth - (player.outerWidth()/2);
-			var top = val.y*windowHeight - (player.outerHeight()/2);
+			var left = val.x*windowWidth;
+			var top = val.y*windowHeight;
 			
-			left = (left < 0) ? 0 : left;
-			left = (left > windowWidth) ? windowWidth : left;
+			var width = player.outerWidth()/player.outerHeight()*300*val.scale;
+			var height = 300*val.scale;
 			
-			top = (top < 0) ? 0 : top;
-			top = (top > windowHeight) ? windowHeight : top;
+			left = (left - width/2 < margin) ? margin + width/2 : left;
+			left = (left + width/2> windowWidth - margin) ? windowWidth - margin - width/2 : left;
+			
+			top = (top - height/2 < margin) ? margin + height/2 : top;
+			top = (top + height/2 > windowHeight - margin) ? windowHeight - margin - height/2 : top;
+			
+			left -= width/2;
+			top -= height/2;
 			
 			player.animate({
 				'left': left + 'px',
