@@ -65,6 +65,9 @@ class Control_model extends CI_Model {
 	
 	private function update_skill($player_id, $skill_id, $skill_value) {
 		$this->db->update('players_skills', array('value' => $skill_value), array('player_id' => $player_id, 'skill_id' => $skill_id));
+		
+		$score = $this->db->select_sum('value')->from('players_skills')->where('player_id', $player_id)->get()->row_array()['value'];
+		$this->db->update('players', array('score' => $score), array('id' => $player_id));
 	}
 	
 	private function log_duel($game_id, $player_1_id, $player_2_id, $score) {
