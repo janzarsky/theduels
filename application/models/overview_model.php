@@ -10,6 +10,7 @@ class Overview_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('players');
+		$this->db->join('avatars', 'players.avatar_id = avatars.id', 'left');
 		$this->db->order_by('score', 'asc');
 			
 		return $this->db->get()->result_array();
