@@ -8,7 +8,7 @@ class Overview_model extends CI_Model {
 
 	public function get_players()
 	{
-		$this->db->select('*');
+		$this->db->select('*, players.id as playerid');
 		$this->db->from('players');
 		$this->db->join('avatars', 'players.avatar_id = avatars.id', 'left');
 		$this->db->order_by('score', 'asc');
@@ -18,10 +18,10 @@ class Overview_model extends CI_Model {
 	
 	public function get_players_data()
 	{
-		$this->db->select('players.id, score, skill_id, value');
+		$this->db->select('players.id as playerid, score, skill_id, value');
 		$this->db->from('players');
 		$this->db->join('players_skills', 'players_skills.player_id = players.id', 'left');
-		$this->db->order_by('score', 'asc');
+		$this->db->order_by('players.id', 'asc');
 			
 		return $this->db->get()->result_array();
 	}

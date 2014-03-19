@@ -9,6 +9,8 @@ setInterval(function () {
 		var windowWidth = $(window).outerWidth();
 		
 		$.each(data, function(key, val) {
+			console.log(key, val);
+			
 			var player = $('#' + key);
 			
 			var left = val.x*windowWidth - (player.outerWidth()/2);
