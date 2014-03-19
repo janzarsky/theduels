@@ -35,4 +35,18 @@ class Admin extends CI_Controller {
 		else
 			redirect('admin/addplayers?message=success');
 	}
+	
+	public function deleteplayers_submit() {
+		try {
+			$this->admin_model->delete_player($this->input->post('id'));
+		}
+		catch (Exception $e) {
+			$message .= $e->getMessage();
+		}
+		
+		if (isset($message))
+			redirect('admin/addplayers?message=' . $message);
+		else
+			redirect('admin/addplayers?message=success');
+	}
 }
