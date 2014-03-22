@@ -29,32 +29,19 @@ foreach ($players_data as $player) {
 	$skills['player' . $player['playerid']][$player['skill_id']] = $player['value'];
 }
 
+$counter = 0;
+
+$players_num = count($skills);
+$number_x = 7;
+$number_y = round($players_num/$number_x);
+
 foreach ($skills as $id => $player_skills) {
 	if (isset($player_skills['1']) && isset($player_skills['2']) && isset($player_skills['3'])) {
-		$x = 0.5;
-		$y = 0.5;
-		$alpha = pi();
+		$x = $counter%$number_x + 1;
+		$y = floor($counter/$number_x) + 1;
 		
-		$skill_max = max($player_skills['1'], $player_skills['2'], $player_skills['3']);
-		$skill_min = min($player_skills['1'], $player_skills['2'], $player_skills['3']);
-		$skill_diff = $skill_max - $skill_min;
-		$skill_mid = $skill_min + $skill_diff/2;
-		
-		for ($i = 1; $i <= 3; $i++) {
-			if ($skill_diff == 0)
-				$value = 0;
-			else {
-				$value = 0 + 2*(($player_skills[$i]-$skill_mid)/$skill_diff);
-				$value = ($value < 0) ? 0 : $value;
-			}
-			
-			$dx = ($value/2)*0.8*sin($alpha);
-			$dy = ($value/2)*0.8*cos($alpha);
-			
-			$x += $dx;
-			$y += $dy;
-			$alpha -= (2*pi())/3;
-		}
+		$x /= $number_x + 1;
+		$y /= $number_y + 1;
 		
 		$absolute_x = round($width*$x - $output[$id]['image_height']*$image_ratio/2, 3);
 		$absolute_y = round($height*$y - $output[$id]['image_height']/2, 3);
@@ -63,6 +50,8 @@ foreach ($skills as $id => $player_skills) {
 		$output[$id]['y'] = $absolute_y;
 		
 		$output[$id]['hash'] = md5($absolute_x . $absolute_y . $output[$id]['font_size'] . $output[$id]['image_height']);
+		
+		$counter++;
 	}
 }
 
