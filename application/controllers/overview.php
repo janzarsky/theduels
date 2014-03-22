@@ -23,6 +23,16 @@ class Overview extends CI_Controller {
 	
 	public function data() {
 		$overview_data['players_data'] = $this->overview_model->get_players_data();
+		
+		if ($this->input->get('w') !== false && $this->input->get('w') !== false) {
+			$overview_data['width'] = $this->input->get('w');
+			$overview_data['height'] = $this->input->get('h');
+		}
+		else {
+			$overview_data['width'] = 800;
+			$overview_data['height'] = 600;
+		}
+		
 		$this->load->view('overview/data', $overview_data);
 	}
 }

@@ -2,6 +2,8 @@
 
 $output = array();
 
+$image_ratio = 21/36;
+
 $score_max = $players_data[0]['score'];
 $score_min = $players_data[0]['score'];
 
@@ -17,9 +19,12 @@ $score_mid = $score_min + $score_diff/2;
 
 foreach ($players_data as $player) {
 	if ($score_diff == 0)
-		$output['player' . $player['playerid']]['scale'] = 1;
+		$scale = 1;
 	else
-		$output['player' . $player['playerid']]['scale'] = 1 + ($player['score'] - $score_mid)/$score_diff;
+		$scale = 1 + 2*(($player['score'] - $score_mid)/$score_diff);
+	
+	$output['player' . $player['playerid']]['font_size'] = round($scale, 3);
+	$output['player' . $player['playerid']]['image_height'] = round(($height/5)*$scale, 3);
 	
 	$skills['player' . $player['playerid']][$player['skill_id']] = $player['value'];
 }
@@ -32,29 +37,32 @@ foreach ($skills as $id => $player_skills) {
 		
 		$skill_max = max($player_skills['1'], $player_skills['2'], $player_skills['3']);
 		$skill_min = min($player_skills['1'], $player_skills['2'], $player_skills['3']);
-		$skill_mid = $skill_min + ($skill_max - $skill_min)/2;
+		$skill_diff = $skill_max - $skill_min;
+		$skill_mid = $skill_min + $skill_diff/2;
 		
 		for ($i = 1; $i <= 3; $i++) {
-			$diff = ($skill_max - $skill_mid);
-			
-			if ($diff == 0)
+			if ($skill_diff == 0)
 				$value = 0;
 			else {
-				$value = 0.5 + (($player_skills[$i]-$skill_mid)/$diff)/4;
-				$value = ($value > 0.5) ? 0.5 : $value;
+				$value = 0 + 2*(($player_skills[$i]-$skill_mid)/$skill_diff);
 				$value = ($value < 0) ? 0 : $value;
 			}
 			
-			$dx = $value * sin($alpha);
-			$dy = $value * cos($alpha);
+			$dx = ($value/2)*0.8*sin($alpha);
+			$dy = ($value/2)*0.8*cos($alpha);
 			
 			$x += $dx;
 			$y += $dy;
 			$alpha -= (2*pi())/3;
 		}
 		
-		$output[$id]['x'] = round($x, 3);
-		$output[$id]['y'] = round($y, 3);
+		$absolute_x = round($width*$x - $output[$id]['image_height']*$image_ratio/2, 3);
+		$absolute_y = round($height*$y - $output[$id]['image_height']/2, 3);
+		
+		$output[$id]['x'] = $absolute_x;
+		$output[$id]['y'] = $absolute_y;
+		
+		$output[$id]['hash'] = md5($absolute_x . $absolute_y . $output[$id]['font_size'] . $output[$id]['image_height']);
 	}
 }
 
