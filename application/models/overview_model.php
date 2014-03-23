@@ -21,7 +21,7 @@ class Overview_model extends CI_Model {
 		$this->db->select('players.id as playerid, score, skill_id, value');
 		$this->db->from('players');
 		$this->db->join('players_skills', 'players_skills.player_id = players.id', 'left');
-		$this->db->order_by('players.id', 'asc');
+		$this->db->order_by('score', 'desc');
 			
 		return $this->db->get()->result_array();
 	}
