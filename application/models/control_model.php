@@ -48,6 +48,9 @@ class Control_model extends CI_Model {
 		$this->update_skill($player_2_id, $skill_id, $player_2_skill);
 		
 		$this->log_duel($game_id, $player_1_id, $player_2_id, $score);
+		
+		$this->update_achievement_player($player_1_id);
+		$this->update_achievement_player($player_2_id);
 	}
 	
 	public function get_skill_id($game_id) {
@@ -79,5 +82,23 @@ class Control_model extends CI_Model {
 		);
 		
 		$this->db->insert('log_duels', $data);
+	}
+	
+	private function update_achievement_player($player_id) {
+		$level = $this->db->select('level')->from('players_achievements')->where(array('player_id' => $player_id, 'achievement_id' => 2))
+			->get()->row_array()['level'];
+		
+		if ($level == 3)
+			return;
+		
+		$limit = $this->db->select('limit' . ($level + 1))->from('achievements')->where('id', 2)->get()->row_array()['limit' . ($level + 1)];
+		
+		$games = $this->db->select('id')->from('log_duels')->where(array('player_1_id' => $player_id))->get()->num_rows();
+		$games += $this->db->select('id')->from('log_duels')->where(array('player_2_id' => $player_id))->get()->num_rows();
+	
+		if ($games >= $limit) {
+			$level++;
+			$this->db->update('players_achievements', array('level' => $level), array('player_id' => $player_id, 'achievement_id' => 2));
+		}
 	}
 }
