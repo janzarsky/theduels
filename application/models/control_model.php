@@ -53,6 +53,11 @@ class Control_model extends CI_Model {
 		
 		$this->update_achievement_gamer($player_1_id);
 		$this->update_achievement_gamer($player_2_id);
+		
+		if ($score_1 == 1)
+			$this->update_achievement_winner($player_1_id);
+		else if ($score_2 == 1)
+			$this->update_achievement_winner($player_2_id);
 	}
 	
 	public function get_skill_id($game_id) {
@@ -87,20 +92,48 @@ class Control_model extends CI_Model {
 	}
 	
 	private function update_achievement_gamer($player_id) {
-		$level = $this->db->select('level')->from('players_achievements')->where(array('player_id' => $player_id, 'achievement_id' => 2))
-			->get()->row_array()['level'];
+		$level = $this->get_achievement_level($player_id, 2);
 		
 		if ($level == 3)
 			return;
 		
-		$limit = $this->db->select('limit' . ($level + 1))->from('achievements')->where('id', 2)->get()->row_array()['limit' . ($level + 1)];
+		$limit = $this->get_achievement_limit(2, $level + 1);
 		
 		$games = $this->db->select('id')->from('log_duels')->where(array('player_1_id' => $player_id))->get()->num_rows();
 		$games += $this->db->select('id')->from('log_duels')->where(array('player_2_id' => $player_id))->get()->num_rows();
 	
-		if ($games >= $limit) {
-			$level++;
-			$this->db->update('players_achievements', array('level' => $level), array('player_id' => $player_id, 'achievement_id' => 2));
-		}
+		if ($games >= $limit)
+			$this->set_achievement_level($player_id, 2, $level+1);
+	}
+	
+	private function update_achievement_winner($player_id) {
+		$level = $this->get_achievement_level($player_id, 3);
+		
+		if ($level == 3)
+			return;
+		
+		$limit = $this->get_achievement_limit(3, $level + 1);
+		
+		$nth_win_time = $this->db->select('timestamp')->from('log_duels')->where(array('player_1_id' => $player_id, 'score' => 2))
+			->order_by('timestamp', 'desc')->get()->row_array($limit - 1)['timestamp'];
+		
+		$last_lose_time = $this->db->select('timestamp')->from('log_duels')->where(array('player_2_id' => $player_id, 'score' => 2))
+			->order_by('timestamp', 'desc')->get()->row_array(0)['timestamp'];
+		
+		if ($last_lose_time < $nth_win_time)
+			$this->set_achievement_level($player_id, 3, $level+1);
+	}
+	
+	private function get_achievement_level($player_id, $achievement_id) {
+		return $this->db->select('level')->from('players_achievements')->where(array('player_id' => $player_id, 'achievement_id' => $achievement_id))
+			->get()->row_array()['level'];
+	}
+	
+	private function set_achievement_level($player_id, $achievement_id, $level) {
+		$this->db->update('players_achievements', array('level' => $level), array('player_id' => $player_id, 'achievement_id' => $achievement_id));
+	}
+	
+	private function get_achievement_limit($achievement_id, $limit_num) {
+		return $this->db->select('limit' . $limit_num)->from('achievements')->where('id', $achievement_id)->get()->row_array()['limit' . $limit_num];
 	}
 }
