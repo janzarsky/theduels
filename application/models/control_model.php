@@ -51,8 +51,8 @@ class Control_model extends CI_Model {
 		
 		$this->log_duel($game_id, $player_1_id, $player_2_id, $score);
 		
-		$this->update_achievement_player($player_1_id);
-		$this->update_achievement_player($player_2_id);
+		$this->update_achievement_gamer($player_1_id);
+		$this->update_achievement_gamer($player_2_id);
 	}
 	
 	public function get_skill_id($game_id) {
@@ -86,7 +86,7 @@ class Control_model extends CI_Model {
 		$this->db->insert('log_duels', $data);
 	}
 	
-	private function update_achievement_player($player_id) {
+	private function update_achievement_gamer($player_id) {
 		$level = $this->db->select('level')->from('players_achievements')->where(array('player_id' => $player_id, 'achievement_id' => 2))
 			->get()->row_array()['level'];
 		
