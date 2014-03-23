@@ -33,7 +33,7 @@ $counter = 0;
 
 $players_num = count($skills);
 $number_x = 7;
-$number_y = round($players_num/$number_x);
+$number_y = ceil($players_num/$number_x);
 
 foreach ($skills as $id => $player_skills) {
 	if (isset($player_skills['1']) && isset($player_skills['2']) && isset($player_skills['3'])) {
