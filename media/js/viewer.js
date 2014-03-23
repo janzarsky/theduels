@@ -11,7 +11,7 @@ setInterval(function () {
 			$('.player__score').text('Skóre: ' + data.score);
 			
 			$.each(data.skills, function(key, val) {
-				$('#player__skills__bar' + val.skill_id).css('height', val.value + 'em');
+				$('#player__skills__bar' + val.skill_id).css('height', val.value*2 + 'px');
 				$('#player__skills__value' + val.skill_id).text(val.value);
 			});
 			
