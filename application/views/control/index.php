@@ -37,9 +37,6 @@
 				<option class="score__select__option" value="1">
 					1:1
 				</option>
-				<option class="score__select__option" value="0">
-					0:2
-				</option>
 			</select>
 		</div>
 		
