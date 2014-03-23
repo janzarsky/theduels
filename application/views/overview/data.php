@@ -21,7 +21,7 @@ foreach ($players_data as $player) {
 	if ($score_diff == 0)
 		$scale = 1;
 	else
-		$scale = 1 + 2*(($player['score'] - $score_mid)/$score_diff);
+		$scale = 1 + ($player['score'] - $score_mid)/$score_diff;
 	
 	$output['player' . $player['playerid']]['font_size'] = round($scale, 3);
 	$output['player' . $player['playerid']]['image_height'] = round(($height/5)*$scale, 3);
