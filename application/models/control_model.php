@@ -41,27 +41,29 @@ class Control_model extends CI_Model {
 		$score_1 = $score/2;
 		$score_2 = 1 - $score/2;
 		
-		if ($score_1 == 1) {
-			$this->update_achievement_winner($player_1_id);
-			$this->update_achievement_jumper($player_1_id, $player_1_skill, $player_2_skill);
-		}
-		else if ($score_2 == 1) {
-			$this->update_achievement_winner($player_2_id);
-			$this->update_achievement_jumper($player_2_id, $player_2_skill, $player_1_skill);
-		}
-		
 		$k = 10;
 		
-		$player_1_skill += $k*($score_1 - $expected_score_1);
-		$player_2_skill += $k*($score_2 - $expected_score_2);
+		$player_1_skill_new = $player_1_skill + $k*($score_1 - $expected_score_1);
+		$player_2_skill_new = $player_2_skill + $k*($score_2 - $expected_score_2);
 		
-		$this->update_skill($player_1_id, $skill_id, $player_1_skill);
-		$this->update_skill($player_2_id, $skill_id, $player_2_skill);
+		$this->update_skill($player_1_id, $skill_id, $player_1_skill_new);
+		$this->update_skill($player_2_id, $skill_id, $player_2_skill_new);
 		
 		$this->log_duel($game_id, $player_1_id, $player_2_id, $score);
 		
 		$this->update_achievement_gamer($player_1_id);
 		$this->update_achievement_gamer($player_2_id);
+		
+		if ($score_1 == 1) {
+			$this->update_achievement_winner($player_1_id);
+			$this->update_achievement_jumper($player_1_id, $player_1_skill, $player_2_skill);
+			$this->update_achievement_skiller($player_1_id, $player_1_skill_new);
+		}
+		else if ($score_2 == 1) {
+			$this->update_achievement_winner($player_2_id);
+			$this->update_achievement_jumper($player_2_id, $player_2_skill, $player_1_skill);
+			$this->update_achievement_skiller($player_2_id, $player_2_skill_new);
+		}
 	}
 	
 	public function get_skill_id($game_id) {
@@ -93,6 +95,18 @@ class Control_model extends CI_Model {
 		);
 		
 		$this->db->insert('log_duels', $data);
+	}
+	
+	private function update_achievement_skiller($player_id, $skill_value) {
+		$level = $this->get_achievement_level($player_id, 1);
+		
+		if ($level == 3)
+			return;
+		
+		$limit = $this->get_achievement_limit(1, $level + 1);
+		
+		if ($skill_value >= $limit)
+			$this->set_achievement_level($player_id, 1, $level+1);
 	}
 	
 	private function update_achievement_gamer($player_id) {
@@ -141,7 +155,7 @@ class Control_model extends CI_Model {
 		
 		$diff = (($skill_value_2/$skill_value_1) - 1)*100;
 		
-		if ($diff > $limit)
+		if ($diff >= $limit)
 			$this->set_achievement_level($player_id, 4, $level+1);
 	}
 	
