@@ -47,8 +47,17 @@ class Admin_model extends CI_Model {
 			);
 		}
 		
+		for ($i = 1; $i <= 5; $i++) {
+			$players_achievements_data[$i] = array(
+				'player_id' => $this->db->insert_id(),
+				'achievement_id' => $i,
+				'level' => 0
+			);
+		}
+		
 		try {
 			$this->db->insert_batch('players_skills', $players_skills_data);
+			$this->db->insert_batch('players_achievements', $players_achievements_data);
 		}
 		catch (Exception $e) {
 			throw new Exception('dberror');
@@ -66,6 +75,7 @@ class Admin_model extends CI_Model {
 	{
 		try {
 			$this->db->delete('players_skills', array('player_id' => $id));
+			$this->db->delete('players_achievements', array('player_id' => $id));
 			$this->db->delete('log_duels', array('player_1_id' => $id));
 			$this->db->delete('log_duels', array('player_2_id' => $id));
 			
