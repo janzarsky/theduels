@@ -15,6 +15,10 @@ setInterval(function () {
 				$('#player__skills__value' + val.skill_id).text(val.value);
 			});
 			
+			$.each(data.achievements, function(key, val) {
+				$('#player__achievements__icon' + val.achievement_id + ' img').attr('src', '/theduely/media/images/achievements/' + val.number + '-' + val.level + '.png');
+			});
+			
 			player.attr('hash', data.hash);
 		}
 	});
