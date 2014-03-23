@@ -26,4 +26,15 @@ class Viewer_model extends CI_Model {
 		
 		return $this->db->get()->result_array();
 	}
+	
+	public function get_player_achievements($id = FALSE)
+	{
+		$this->db->select('*');
+		$this->db->from('players_achievements');
+		$this->db->join('achievements', 'players_achievements.achievement_id = achievements.id');
+		$this->db->where('player_id', $id);
+		$this->db->order_by('achievement_id', 'asc');
+		
+		return $this->db->get()->result_array();
+	}
 }

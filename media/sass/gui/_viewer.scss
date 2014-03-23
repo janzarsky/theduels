@@ -59,12 +59,21 @@
 	float: left;
 }
 
+.player__achievements {
+	float: left;
+	margin-top: 16px;
+}
+.player__achievements__icon {
+	float: left;
+	margin-right: 8px;
+}
+
+
 @media screen and (max-width: 480px) {
-	.player__info {
+	.player__info, .player__skills, .player__achievements {
 		width: 100%;
 	}
-	.player__skills {
+	.player__skills, .player__achievements {
 		float: none;
-		width: 100%;
 	}
 }
