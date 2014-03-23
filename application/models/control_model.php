@@ -36,13 +36,15 @@ class Control_model extends CI_Model {
 		$expected_score_1 = $this->count_score($player_1_skill, $player_2_skill);
 		$expected_score_2 = 1 - $expected_score_1;
 		
+		echo $expected_score_1;
+		
 		$score_1 = $score/2;
 		$score_2 = 1 - $score/2;
 		
 		$k = 10;
 		
-		$player_1_skill += $k*($expected_score_1 - $score_1);
-		$player_2_skill += $k*($expected_score_2 - $score_2);
+		$player_1_skill += $k*($score_1 - $expected_score_1);
+		$player_2_skill += $k*($score_2 - $expected_score_2);
 		
 		$this->update_skill($player_1_id, $skill_id, $player_1_skill);
 		$this->update_skill($player_2_id, $skill_id, $player_2_skill);
