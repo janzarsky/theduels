@@ -8,7 +8,7 @@ class Viewer_model extends CI_Model {
 
 	public function get_player($id = FALSE)
 	{
-		$this->db->select('*');
+		$this->db->select('*, players.id as player_id');
 		$this->db->from('players');
 		$this->db->join('avatars', 'players.avatar_id = avatars.id', 'left');
 		$this->db->where('players.id', $id);
