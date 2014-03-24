@@ -132,8 +132,13 @@ class Control_model extends CI_Model {
 		
 		$limit = $this->get_achievement_limit(3, $level + 1);
 		
-		$nth_win_time = $this->db->select('timestamp')->from('log_duels')->where(array('player_1_id' => $player_id, 'score' => 2))
-			->order_by('timestamp', 'desc')->get()->row_array($limit - 1)['timestamp'];
+		$r = $this->db->select('timestamp')->from('log_duels')->where(array('player_1_id' => $player_id, 'score' => 2))
+			->order_by('timestamp', 'desc')->get();
+			
+		if ($r->num_rows() < $limit)
+			return;
+		
+		$nth_win_time = $r->row_array($limit - 1)['timestamp'];
 		
 		$last_lose_time = $this->db->select('timestamp')->from('log_duels')->where(array('player_2_id' => $player_id, 'score' => 2))
 			->order_by('timestamp', 'desc')->get()->row_array(0)['timestamp'];
