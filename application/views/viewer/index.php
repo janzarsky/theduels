@@ -7,6 +7,14 @@
 		<div class="player__score">Skóre: <?php echo $player['score']; ?></div>
 	</div>
 	
+	<div class="player__achievements">
+		<?php foreach ($player_achievements as $achievement): ?>
+			<span class="player__achievements__icon" id="player__achievements__icon<?php echo $achievement['achievement_id'];?>">
+				<img src="/theduely/media/images/achievements/<?php echo $achievement['number'] . '-' . $achievement['level']; ?>.png">
+			</span>
+		<?php endforeach; ?>
+	</div>
+	
 	<div class="player__skills">
 		<table>
 			<tbody>
@@ -28,14 +36,6 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	
-	<div class="player__achievements">
-		<?php foreach ($player_achievements as $achievement): ?>
-			<div class="player__achievements__icon" id="player__achievements__icon<?php echo $achievement['achievement_id'];?>">
-				<img src="/theduely/media/images/achievements/<?php echo $achievement['number'] . '-' . $achievement['level']; ?>.png">
-			</div>
-		<?php endforeach; ?>
 	</div>
 </section>
 
