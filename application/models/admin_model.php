@@ -29,7 +29,8 @@ class Admin_model extends CI_Model {
 	{
 		$players_data = array(
 			'name' => $name,
-			'avatar_id' => $avatar_id
+			'avatar_id' => $avatar_id,
+			'pure_score' => 300
 		);
 		
 		try {

@@ -36,8 +36,6 @@ class Control_model extends CI_Model {
 		$expected_score_1 = $this->count_score($player_1_skill, $player_2_skill);
 		$expected_score_2 = 1 - $expected_score_1;
 		
-		echo $expected_score_1;
-		
 		$score_1 = $score/2;
 		$score_2 = 1 - $score/2;
 		
@@ -82,8 +80,10 @@ class Control_model extends CI_Model {
 	private function update_skill($player_id, $skill_id, $skill_value) {
 		$this->db->update('players_skills', array('value' => $skill_value), array('player_id' => $player_id, 'skill_id' => $skill_id));
 		
-		$score = $this->db->select_sum('value')->from('players_skills')->where('player_id', $player_id)->get()->row_array()['value'];
-		$this->db->update('players', array('score' => $score), array('id' => $player_id));
+		$pure_score = $this->db->select_sum('value')->from('players_skills')->where('player_id', $player_id)->get()->row_array()['value'];
+		$this->db->update('players', array('pure_score' => $pure_score), array('id' => $player_id));
+		
+		$this->update_score($player_id);
 	}
 	
 	private function log_duel($game_id, $player_1_id, $player_2_id, $score) {
@@ -166,9 +166,36 @@ class Control_model extends CI_Model {
 	
 	private function set_achievement_level($player_id, $achievement_id, $level) {
 		$this->db->update('players_achievements', array('level' => $level), array('player_id' => $player_id, 'achievement_id' => $achievement_id));
+		
+		$this->update_bonus_score($player_id);
 	}
 	
 	private function get_achievement_limit($achievement_id, $limit_num) {
 		return $this->db->select('limit' . $limit_num)->from('achievements')->where('id', $achievement_id)->get()->row_array()['limit' . $limit_num];
+	}
+	
+	private function update_bonus_score($player_id) {
+		$level_1_count = $this->db->select('id')->from('players_achievements')
+			->where(array('player_id' => $player_id, 'level' => 1))->get()->num_rows();
+		
+		$level_2_count = $this->db->select('id')->from('players_achievements')
+			->where(array('player_id' => $player_id, 'level' => 2))->get()->num_rows();
+		
+		$level_3_count = $this->db->select('id')->from('players_achievements')
+			->where(array('player_id' => $player_id, 'level' => 3))->get()->num_rows();
+		
+		$bonus_score = 3*$level_1_count + 5*$level_2_count + 10*$level_3_count;
+		
+		$this->db->update('players', array('bonus_score' => $bonus_score), array('id' => $player_id));
+		
+		$this->update_score($player_id);
+	}
+	
+	private function update_score($player_id) {
+		$result = $this->db->select('pure_score, bonus_score')->from('players')->where('id', $player_id)->get()->row_array();
+		
+		$score = $result['pure_score'] + $result['bonus_score'];
+		
+		$this->db->update('players', array('score' => $score), array('id' => $player_id));
 	}
 }
