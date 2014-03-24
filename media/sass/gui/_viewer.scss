@@ -30,6 +30,7 @@
 	width: 50%;
 	color: $bluegreen;
 	float: right;
+	margin-top: 16px;
 	
 	table {
 		margin: 0 auto;
@@ -49,7 +50,7 @@
 
 .player__skills__bars {
 	vertical-align: bottom;
-	height: 340px;
+	height: 278px;
 }
 
 .player__skills__bar {
@@ -61,11 +62,11 @@
 
 .player__achievements {
 	float: left;
-	margin-top: 16px;
+	text-align: center;
 }
 .player__achievements__icon {
-	float: left;
-	margin-right: 8px;
+	display: inline;
+	margin-left: 16px;
 }
 
 
@@ -73,7 +74,11 @@
 	.player__info, .player__skills, .player__achievements {
 		width: 100%;
 	}
-	.player__skills, .player__achievements {
+	.player__info, .player__skills, .player__achievements {
 		float: none;
+		margin-top: 16px;
+	}
+	.player__skills__bars {
+		height: auto;
 	}
 }
