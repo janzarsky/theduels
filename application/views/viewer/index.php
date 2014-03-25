@@ -7,8 +7,11 @@
 		<div class="player__score">
 			Skóre: <?php echo $player['score']; ?>
 		</div>
+		
 		<div class="player__position">
-			Pořadí: <?php echo $player_position; ?>.
+			<?php if (isset($player_position)) : ?>
+				Pořadí: <?php echo $player_position; ?>.
+			<?php endif; ?>
 		</div>
 	</div>
 	

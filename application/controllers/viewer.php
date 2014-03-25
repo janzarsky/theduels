@@ -16,7 +16,10 @@ class Viewer extends CI_Controller {
 		
 		if ($id !== '') {
 			$viewer_data['player'] = $this->viewer_model->get_player($id);
-			$viewer_data['player_position'] = $this->viewer_model->get_player_position($id);
+			
+			if ($this->viewer_model->is_position_visible())
+				$viewer_data['player_position'] = $this->viewer_model->get_player_position($id);
+				
 			$viewer_data['player_skills'] = $this->viewer_model->get_player_skills($id);
 			$viewer_data['player_achievements'] = $this->viewer_model->get_player_achievements($id);
 			$this->load->view('viewer/index', $viewer_data);
@@ -36,7 +39,10 @@ class Viewer extends CI_Controller {
 	public function data($id = '') {
 		if (isset($id)) {
 			$viewer_data['player'] = $this->viewer_model->get_player($id);
-			$viewer_data['player_position'] = $this->viewer_model->get_player_position($id);
+			
+			if ($this->viewer_model->is_position_visible())
+				$viewer_data['player_position'] = $this->viewer_model->get_player_position($id);
+			
 			$viewer_data['player_skills'] = $this->viewer_model->get_player_skills($id);
 			$viewer_data['player_achievements'] = $this->viewer_model->get_player_achievements($id);
 			
