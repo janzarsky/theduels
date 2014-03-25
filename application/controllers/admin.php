@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('admin_model');
+		$this->load->model('ip_model');
 	}
 
 	public function addplayers() {
@@ -24,6 +25,9 @@ class Admin extends CI_Controller {
 	
 	public function addplayers_submit() {
 		try {
+			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
+				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+			
 			$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
 		}
 		catch (Exception $e) {
@@ -38,6 +42,9 @@ class Admin extends CI_Controller {
 	
 	public function deleteplayers_submit() {
 		try {
+			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
+				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+			
 			$this->admin_model->delete_player($this->input->post('id'));
 		}
 		catch (Exception $e) {
