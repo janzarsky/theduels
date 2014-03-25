@@ -41,8 +41,13 @@
 $route['viewer/(:num)'] = "viewer/index/$1";
 $route['viewer/data/(:num)'] = "viewer/data/$1";
 $route['viewer/(:any)'] = "viewer/player/$1";
+
+$route['control/(:any)'] = "control/$1";
 $route['control/submit'] = "control/submit";
 $route['control/(:num)'] = "control/index/$1";
+
+$route['admin/(:any)'] = "admin/$1";
+$route['admin/(:any)'] = "admin/$1";
 
 $route['default_controller'] = "viewer";
 $route['404_override'] = '';
