@@ -9,6 +9,7 @@ setInterval(function () {
 		
 		if (player.attr('hash') != data.hash) {
 			$('.player__score').text('Skóre: ' + data.score);
+			$('.player__position').text('Pořadí: ' + data.position + '.');
 			
 			$.each(data.skills, function(key, val) {
 				$('#player__skills__bar' + val.skill_id).css('height', val.value*2 + 'px');

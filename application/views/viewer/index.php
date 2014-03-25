@@ -4,7 +4,12 @@
 		<div class="player__image">
 			<img src="/theduely/media/images/avatars/<?php echo $player['number']; ?>.png">
 		</div>
-		<div class="player__score">Skóre: <?php echo $player['score']; ?></div>
+		<div class="player__score">
+			Skóre: <?php echo $player['score']; ?>
+		</div>
+		<div class="player__position">
+			Pořadí: <?php echo $player_position; ?>.
+		</div>
 	</div>
 	
 	<div class="player__achievements">

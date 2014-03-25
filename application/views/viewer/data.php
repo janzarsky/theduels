@@ -2,6 +2,7 @@
 
 $output = array();
 $output['score'] = $player['score'];
+$output['position'] = $player_position;
 
 foreach ($player_skills as $id => $skill) {
 	$output['skills'][$id]['skill_id'] = $skill['id'];
