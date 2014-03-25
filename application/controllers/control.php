@@ -7,6 +7,7 @@ class Control extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('control_model');
+		$this->load->model('ip_model');
 	}
 
 	public function index($game_id = false) {
@@ -26,8 +27,11 @@ class Control extends CI_Controller {
 		$this->load->view('templates/html_footer', $html_footer_data);
 	}
 	
-	public function submit($game_id = false) {		
+	public function submit($game_id = false) {
 		try {
+			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
+				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+			
 			$this->control_model->submit_duel($this->input->post('game_id'), $this->input->post('player_1_id'),
 																				$this->input->post('player_2_id'), $this->input->post('score'));
 		}
