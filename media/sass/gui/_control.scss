@@ -65,7 +65,8 @@
 	}
 }
 @media screen and (max-width: 320px) {
-	.player__header, .score__header, .player__select, .score__select {
+	.player__header, .score__header, .game__header,
+		.player__select, .score__select, .game__select {
 		float: none;
 		width: 100%;
 	}
