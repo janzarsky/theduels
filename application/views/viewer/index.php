@@ -49,4 +49,5 @@
 
 <script>
 	var id = <?php echo $player['player_id']; ?>;
+	var url = '<?php echo base_url('viewer/data'); ?>';
 </script>

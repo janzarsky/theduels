@@ -2,7 +2,7 @@ setInterval(function () {
 	var windowHeight = $(window).outerHeight();
 	var windowWidth = $(window).outerWidth();
 	
-	$.getJSON('overview/data?w=' + windowWidth + '&h=' + windowHeight, function (data) {
+	$.getJSON(url + '?w=' + windowWidth + '&h=' + windowHeight, function (data) {
 		$.each(data, function(key, val) {
 			var player = $('#' + key);
 			
