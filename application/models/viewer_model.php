@@ -16,6 +16,10 @@ class Viewer_model extends CI_Model {
 		return $this->db->get()->row_array();
 	}
 	
+	public function get_player_id($nick = FALSE) {
+		return $this->db->select('id')->from('players')->where('nick', $nick)->get()->row_array()['id'];
+	}
+	
 	public function get_player_position($id = FALSE) {
 		$score = $this->db->select('score')->from('players')->where('id', $id)->get()->row_array()['score'];
 		
