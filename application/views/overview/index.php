@@ -8,3 +8,7 @@
 		</div>
 	<?php endforeach; ?>
 </div>
+
+<script>
+	var url = '<?php echo base_url('overview/data'); ?>';
+</script>
