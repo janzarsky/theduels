@@ -6,6 +6,12 @@ class Viewer_model extends CI_Model {
 		$this->load->database();
 	}
 
+	public function is_position_visible() {
+		$visible = $this->db->select('value')->from('settings')->where('name', 'position_visible')->get()->row_array()['value'];
+		
+		return ($visible == 'true');
+	}
+	
 	public function get_player($id = FALSE)
 	{
 		$this->db->select('*, players.id as player_id');
