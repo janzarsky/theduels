@@ -1,6 +1,6 @@
 <div class="players">
 	<header class="players__header">
-		Players
+		Hráči:
 	</header>
 	<ul class="players__list">
 		<?php foreach ($players as $player): ?>

@@ -12,7 +12,7 @@
 		<?php else : ?>
 			<div class="game">
 				<header class="game__header">
-					game
+					hra
 				</header>
 				<select class="game__select" name="game_id">
 					<?php	foreach ($games as $game) : ?>
@@ -26,7 +26,7 @@
 		
 		<div class="player" id="player1">
 			<header class="player__header">
-				player 1
+				hráč 1
 			</header>
 			<select class="player__select" name="player_1_id" autofocus>
 				<?php	foreach ($players as $player) : ?>
@@ -39,7 +39,7 @@
 		
 		<div class="score">
 			<header class="score__header">
-				score
+				skóre
 			</header>
 			<select class="score__select" name="score">
 				<option class="score__select__option" value="2">
@@ -53,7 +53,7 @@
 		
 		<div class="player" id="player2">
 			<header class="player__header">
-				player 2
+				hráč 2
 			</header>
 			<select class="player__select" name="player_2_id">
 				<?php	foreach ($players as $player) : ?>
