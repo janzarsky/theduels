@@ -27,10 +27,15 @@ class Admin_model extends CI_Model {
 	
 	public function add_player($name, $avatar_id)
 	{
+		$nick = str_replace(array('ě', 'é', 'ř', 'ť', 'ý', 'ú', 'ů', 'í', 'ó', 'á', 'š', 'ď', 'ž', 'č', 'ň'),
+												array('e', 'e', 'r', 't', 'y', 'u', 'u', 'i', 'o', 'a', 's', 'd', 'z', 'c', 'n'),
+												strtolower($name));
+		
 		$players_data = array(
 			'name' => $name,
 			'avatar_id' => $avatar_id,
-			'pure_score' => 300
+			'pure_score' => 300,
+			'nick' => $nick
 		);
 		
 		try {
