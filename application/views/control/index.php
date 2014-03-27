@@ -1,28 +1,6 @@
 <div class="content">
-	<?php
-		if (isset($game_id))
-			$url = '/control/submit/' . $game_id;
-		else
-			$url = '/control/submit';
-	?>
-	<form action="<?php echo base_url($url); ?>" method="post">
-		
-		<?php if (isset($game_id)) : ?>
-			<input type="hidden" name="game_id" value="<?php echo $game_id; ?>">
-		<?php else : ?>
-			<div class="game">
-				<header class="game__header">
-					hra
-				</header>
-				<select class="game__select" name="game_id">
-					<?php	foreach ($games as $game) : ?>
-						<option class="game__select__option" value="<?php echo $game['id']; ?>">
-							<?php echo $game['name']; ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
-			</div>
-		<?php endif; ?>
+	<form action="<?php echo base_url('control/submit/' . $game_id); ?>" method="post">
+		<input type="hidden" name="game_id" value="<?php echo $game_id; ?>">
 		
 		<div class="player" id="player1">
 			<header class="player__header">

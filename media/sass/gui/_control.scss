@@ -1,15 +1,5 @@
-.game {
-	@include formField(25%);
-}
-.game__header {
-	@include formField__header();
-}
-.game__select, .game__select__option {
-	color: $green;
-}
-
 .player {
-	@include formField(30%);
+	@include formField(40%);
 }
 .player__header {
 	@include formField__header();
@@ -19,7 +9,7 @@
 }
 
 .score {
-	@include formField(15%);
+	@include formField(20%);
 }
 .score__header {
 	@include formField__header();
@@ -45,28 +35,28 @@
 	}
 }
 @media screen and (max-width: 800px) {
-	.player, .score, .game {
+	.player, .score {
 		width: 50%;
 	}
 }
 @media screen and (max-width: 480px) {
-	.player, .score, .game {
+	.player, .score {
 		width: 100%;
 	}
-	.player__header, .score__header, .game__header {
+	.player__header, .score__header {
 		width: 40%;
 		padding: 16px 5%;
 		float: left;
 	}
-	.player__select, .score__select, .game__select {
+	.player__select, .score__select {
 		width: 40%;
 		padding: 16px 5%;
 		float: left;
 	}
 }
 @media screen and (max-width: 320px) {
-	.player__header, .score__header, .game__header,
-		.player__select, .score__select, .game__select {
+	.player__header, .score__header,
+		.player__select, .score__select {
 		float: none;
 		width: 100%;
 	}

@@ -11,20 +11,32 @@ class Control extends CI_Controller {
 	}
 
 	public function index($game_id = false) {
+		if ($game_id === false) {
+			$this->select();
+			return;
+		}
+		
 		$html_header_data['title'] = 'Control';
 		$html_header_data['style'] = 'control.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
-		if ($game_id === false)
-			$control_data['games'] = $this->control_model->get_games();
-		else
-			$control_data['game_id'] = $game_id;
-		
+		$control_data['game_id'] = $game_id;
 		$control_data['players'] = $this->control_model->get_players();
 		$this->load->view('control/index', $control_data);
 		
 		$html_footer_data['script'] = 'control.js';
 		$this->load->view('templates/html_footer', $html_footer_data);
+	}
+	
+	public function select() {
+		$html_header_data['title'] = 'Vyber hru';
+		$html_header_data['style'] = 'control_select.css';
+		$this->load->view('templates/html_header', $html_header_data);
+		
+		$control_data['games'] = $this->control_model->get_games();
+		$this->load->view('control/select', $control_data);
+		
+		$this->load->view('templates/html_footer');
 	}
 	
 	public function submit($game_id = false) {
