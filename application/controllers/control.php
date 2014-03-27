@@ -21,6 +21,7 @@ class Control extends CI_Controller {
 		$this->load->view('templates/html_header', $html_header_data);
 		
 		$control_data['game_id'] = $game_id;
+		$control_data['game_name'] = $this->control_model->get_game_name($game_id);
 		$control_data['players'] = $this->control_model->get_players();
 		$this->load->view('control/index', $control_data);
 		

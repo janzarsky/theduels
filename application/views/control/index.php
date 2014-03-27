@@ -1,4 +1,8 @@
 <div class="content">
+	<header class="content__header">
+		<?php echo $game_name; ?>
+	</header>
+	
 	<form action="<?php echo base_url('control/submit/' . $game_id); ?>" method="post">
 		<input type="hidden" name="game_id" value="<?php echo $game_id; ?>">
 		

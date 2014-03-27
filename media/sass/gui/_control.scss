@@ -1,3 +1,10 @@
+.content__header {
+	font-size: 32px;
+	color: $orange;
+	text-align: center;
+	margin: 16px 0;
+}
+
 .player {
 	@include formField(40%);
 }

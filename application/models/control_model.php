@@ -19,9 +19,13 @@ class Control_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('games');
-		$this->db->order_by('name');
+		$this->db->order_by('id');
 			
 		return $this->db->get()->result_array();
+	}
+	
+	public function get_game_name($game_id) {
+		return $this->db->select('name')->from('games')->where('id', $game_id)->get()->row_array()['name'];
 	}
 	
 	public function submit_duel($game_id, $player_1_id, $player_2_id, $score) {
