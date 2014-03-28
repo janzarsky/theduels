@@ -14,7 +14,8 @@ setInterval(function () {
 			if (player.attr('hash') != val.hash) {
 				player.animate({
 					'left': val.x + 'px',
-					'top': val.y + 'px'
+					'top': val.y + 'px',
+					'width' : val.image_height + 'px'
 				}, 300);
 				
 				player.children('.player__name').animate({

@@ -4,6 +4,13 @@ $output = array();
 
 $image_ratio = 21/36;
 
+$players_num = count($players_data)/3;
+$number_x = floor($width/200);
+$number_y = ceil($players_num/$number_x);
+
+$size = ($height/$number_y)/2;
+$max_size = $size*1.5;
+
 $score_max = $players_data[0]['score'];
 $score_min = $players_data[0]['score'];
 
@@ -24,16 +31,12 @@ foreach ($players_data as $player) {
 		$scale = 1 + ($player['score'] - $score_mid)/$score_diff;
 	
 	$output['player' . $player['playerid']]['font_size'] = round($scale, 3);
-	$output['player' . $player['playerid']]['image_height'] = round(($height/5)*$scale, 3);
+	$output['player' . $player['playerid']]['image_height'] = round($size*$scale, 3);
 	
 	$skills['player' . $player['playerid']][$player['skill_id']] = $player['value'];
 }
 
 $counter = 0;
-
-$players_num = count($skills);
-$number_x = 7;
-$number_y = ceil($players_num/$number_x);
 
 foreach ($skills as $id => $player_skills) {
 	if (isset($player_skills['1']) && isset($player_skills['2']) && isset($player_skills['3'])) {
@@ -43,7 +46,7 @@ foreach ($skills as $id => $player_skills) {
 		$x /= $number_x + 1;
 		$y /= $number_y + 1;
 		
-		$absolute_x = round($width*$x - $output[$id]['image_height']*$image_ratio/2, 3);
+		$absolute_x = round($width*$x - $output[$id]['image_height']/2, 3);
 		$absolute_y = round($height*$y - $output[$id]['image_height']/2, 3);
 		
 		$output[$id]['x'] = $absolute_x;
