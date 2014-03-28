@@ -10,8 +10,18 @@ class Admin extends CI_Controller {
 		$this->load->model('ip_model');
 	}
 
-	public function addplayers() {
+	public function index() {
 		$html_header_data['title'] = 'Admin';
+		$html_header_data['style'] = 'admin_index.css';
+		$this->load->view('templates/html_header', $html_header_data);
+		
+		$this->load->view('admin/index');
+		
+		$this->load->view('templates/html_footer');
+	}
+
+	public function addplayers() {
+		$html_header_data['title'] = 'Správa hráčů';
 		$html_header_data['style'] = 'admin.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
