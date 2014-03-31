@@ -9,28 +9,35 @@
 	width: 50%;
 	float: left;
 }
-
 .player__name {
 	font-size: 32px;
 	color: $orange;
 	margin-bottom: 8px;
 }
-
 .player__score {
 	font-size: 20px;
 	color: $yellow;
+	margin-bottom: 8px;
 }
-
 .player__position {
 	font-size: 20px;
 	color: $green;
-	margin-top: 8px;
 }
-
 .player__image {
 	height: 300px;
 	margin-bottom: 8px;
 }
+
+
+.player__achievements {
+	float: left;
+	text-align: center;
+}
+.player__achievements__icon {
+	display: inline;
+	margin-left: 16px;
+}
+
 
 .player__skills {
 	width: 50%;
@@ -42,37 +49,24 @@
 		margin: 0 auto;
 	}
 }
-
 .player__skills__label, .player__skills__value {
 	width: 32px;
 	float: left;
 	margin: 8px 8px 0px 24px;
 }
-
 .player__skills__label {
 	font-size: 12px;
 	color: $orange;
 }
-
 .player__skills__bars {
 	vertical-align: bottom;
 	height: 308px;
 }
-
 .player__skills__bar {
 	padding: 16px;
 	background: $green;
 	margin: 0 24px;
 	float: left;
-}
-
-.player__achievements {
-	float: left;
-	text-align: center;
-}
-.player__achievements__icon {
-	display: inline;
-	margin-left: 16px;
 }
 
 
