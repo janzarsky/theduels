@@ -2,7 +2,7 @@
 	<div class="player__info">
 		<header class="player__name"><?php echo $player['name']; ?></header>
 		<div class="player__image">
-			<img src="/theduely/media/images/avatars/<?php echo $player['number']; ?>.png">
+			<img src="<?php echo base_url('/media/images/avatars/' . $player['number']); ?>.png">
 		</div>
 		<div class="player__score">
 			Skóre: <?php echo $player['score']; ?>
@@ -18,7 +18,7 @@
 	<div class="player__achievements">
 		<?php foreach ($player_achievements as $achievement): ?>
 			<span class="player__achievements__icon" id="player__achievements__icon<?php echo $achievement['achievement_id'];?>">
-				<img src="/theduely/media/images/achievements/<?php echo $achievement['number'] . '-' . $achievement['level']; ?>.png">
+				<img src="<?php echo base_url('/media/images/achievements/' . $achievement['number'] . '-' . $achievement['level'] . '.png'); ?>">
 			</span>
 		<?php endforeach; ?>
 	</div>
@@ -50,4 +50,5 @@
 <script>
 	var id = <?php echo $player['player_id']; ?>;
 	var url = '<?php echo base_url('viewer/data'); ?>';
+	var imageUrl = '<?php echo base_url('/media/images/achievements/'); ?>';
 </script>

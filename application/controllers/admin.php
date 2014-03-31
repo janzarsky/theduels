@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
 
 	public function index() {
 		$html_header_data['title'] = 'Admin';
-		$html_header_data['style'] = 'admin_index.css';
+		$html_header_data['style'] = 'admin.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
 		$this->load->view('admin/index');
@@ -22,7 +22,7 @@ class Admin extends CI_Controller {
 
 	public function addplayers() {
 		$html_header_data['title'] = 'Správa hráčů';
-		$html_header_data['style'] = 'admin.css';
+		$html_header_data['style'] = 'admin_addplayers.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
 		$admin_data['players'] = $this->admin_model->get_players();

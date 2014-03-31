@@ -5,7 +5,7 @@
 	<ul class="players__list">
 		<?php foreach ($players as $player): ?>
 			<li class="players__list__item">
-				<img src="/theduely/media/images/avatars/<?php echo $player['number']; ?>.png" height="32">
+				<img src="<?php echo base_url('/media/images/avatars/' . $player['number']); ?>.png" height="32">
 				<?php echo $player['name']; ?>
 			</li>
 		<?php endforeach; ?>
@@ -52,7 +52,7 @@
 		<div class="images">
 			<?php	foreach ($avatars as $avatar) : ?>
 				<div class="images__option" value="<?php echo $avatar['id']; ?>">
-					<img src="/theduely/media/images/avatars/<?php echo $avatar['number']; ?>.png">
+					<img src="<?php echo base_url('/media/images/avatars/' . $avatar['number']); ?>.png">
 					<div class="images__id">
 						<?php echo $avatar['id']; ?>
 					</div>
