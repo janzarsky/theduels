@@ -6,6 +6,15 @@ class Admin_model extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_pages() {
+		return array(
+			array('label' => 'Zadávání duelů', 'url' => '/control'),
+			array('label' => 'Správa hráčů', 'url' => '/admin/addplayers'),
+			array('label' => 'Přehled', 'url' => '/overview'),
+			array('label' => 'Prohlížeč', 'url' => '/viewer')
+		);
+	}
+	
 	public function get_players()
 	{
 		$this->db->select('*, players.id as playerid');
