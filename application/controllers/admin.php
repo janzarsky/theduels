@@ -28,7 +28,7 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/html_header', $html_header_data);
 		
 		$admin_data['players'] = $this->admin_model->get_players();
-		$admin_data['avatars'] = $this->admin_model->get_avatars();
+		$admin_data['avatars'] = $this->admin_model->get_free_avatars();
 		$this->load->view('admin/addplayers', $admin_data);
 		
 		$html_footer_data['script'] = 'addplayers.js';
