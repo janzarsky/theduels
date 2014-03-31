@@ -12,10 +12,12 @@ class Admin extends CI_Controller {
 
 	public function index() {
 		$html_header_data['title'] = 'Admin';
-		$html_header_data['style'] = 'admin.css';
+		$html_header_data['style'] = 'list.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
-		$this->load->view('admin/index');
+		$list_data['header'] = 'Admin';
+		$list_data['items'] = $this->admin_model->get_pages();
+		$this->load->view('templates/list', $list_data);
 		
 		$this->load->view('templates/html_footer');
 	}

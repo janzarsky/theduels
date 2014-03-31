@@ -34,11 +34,12 @@ class Viewer extends CI_Controller {
 	
 	public function select() {
 		$html_header_data['title'] = 'Vyber hráče';
-		$html_header_data['style'] = 'viewer_select.css';
+		$html_header_data['style'] = 'list.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
-		$viewer_data['players'] = $this->viewer_model->get_players();
-		$this->load->view('viewer/select', $viewer_data);
+		$list_data['header'] = 'Hráči: ';
+		$list_data['items'] = $this->viewer_model->get_players();
+		$this->load->view('templates/list', $list_data);
 		
 		$this->load->view('templates/html_footer');
 	}

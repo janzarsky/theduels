@@ -27,7 +27,8 @@ class Viewer_model extends CI_Model {
 	
 	public function get_players() {
 		return $this->db
-			->select('*, players.id as player_id')
+			->select("players.name as label, CONCAT('/media/images/avatars/', avatars.number ) as image_url,
+							 CONCAT('/viewer/', players.id ) as url")
 			->from('players')
 			->join('avatars', 'players.avatar_id = avatars.id', 'left')
 			->order_by('name')
