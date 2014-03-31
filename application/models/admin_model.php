@@ -17,73 +17,79 @@ class Admin_model extends CI_Model {
 	
 	public function get_players()
 	{
-		$this->db->select('*, players.id as playerid');
-		$this->db->from('players');
-		$this->db->join('avatars', 'avatars.id = players.avatar_id', 'left');
-		$this->db->order_by('name');
-			
-		return $this->db->get()->result_array();
+		$this->db
+			->select('*, players.id as playerid')
+			->from('players')
+			->join('avatars', 'avatars.id = players.avatar_id', 'left')
+			->order_by('name')
+			->get()->result_array();
 	}
 	
-	public function get_avatars()
+	public function get_free_avatars()
 	{
-		$this->db->select('*');
-		$this->db->from('avatars');
-		$this->db->where('free', '1');
-			
-		return $this->db->get()->result_array();
+		$this->db
+			->select('*')
+			->from('avatars')
+			->where('free', '1')
+			->get()->result_array();
 	}
 	
 	public function add_player($name, $avatar_id)
 	{
-		$nick = str_replace(array('ě', 'é', 'ř', 'ť', 'ý', 'ú', 'ů', 'í', 'ó', 'á', 'š', 'ď', 'ž', 'č', 'ň'),
-												array('e', 'e', 'r', 't', 'y', 'u', 'u', 'i', 'o', 'a', 's', 'd', 'z', 'c', 'n'),
-												strtolower($name));
+		$this->add_player_data($name, $avatar_id);
 		
+		$player_id = $this->db->insert_id();
+		$this->add_player_skills($player_id);
+		$this->add_player_achievements($player_id);
+		
+		$this->set_avatar_availability($avatar_id, 0);
+	}
+	
+	private function add_player_data($name, $avatar_id) {
 		$players_data = array(
 			'name' => $name,
 			'avatar_id' => $avatar_id,
 			'pure_score' => 300,
-			'nick' => $nick
+			'nick' => $this->get_nick($name)
 		);
 		
-		try {
-			$this->db->insert('players', $players_data);
-		}
-		catch (Exception $e) {
-			throw new Exception('dberror');
-		}
-		
+	$this->db->insert('players', $players_data);
+	}
+	
+	private function add_player_skills($player_id) {
 		for ($i = 1; $i <= 3; $i++) {
 			$players_skills_data[$i] = array(
-				'player_id' => $this->db->insert_id(),
+				'player_id' => $player_id,
 				'skill_id' => $i,
 				'value' => 100
 			);
 		}
 		
-		for ($i = 1; $i <= 5; $i++) {
+		$this->db->insert_batch('players_skills', $players_skills_data);
+	}
+	
+	private function add_player_achievements($player_id) {
+		for ($i = 1; $i <= 4; $i++) {
 			$players_achievements_data[$i] = array(
-				'player_id' => $this->db->insert_id(),
+				'player_id' => $player_id,
 				'achievement_id' => $i,
 				'level' => 0
 			);
 		}
-		
-		try {
-			$this->db->insert_batch('players_skills', $players_skills_data);
-			$this->db->insert_batch('players_achievements', $players_achievements_data);
-		}
-		catch (Exception $e) {
-			throw new Exception('dberror');
-		}
-		
-		try {
-			$this->db->update('avatars', array('free' => 0), array('id' => $avatar_id));
-		}
-		catch (Exception $e) {
-			throw new Exception('dberror');
-		}
+
+		$this->db->insert_batch('players_achievements', $players_achievements_data);
+	}
+	
+	private function set_avatar_availability($avatar_id, $available) {
+		$this->db->update('avatars', array('free' => $available), array('id' => $avatar_id));
+	}
+	
+	private function get_nick($name) {
+		return str_replace(
+			array('ě', 'é', 'ř', 'ť', 'ý', 'ú', 'ů', 'í', 'ó', 'á', 'š', 'ď', 'ž', 'č', 'ň'),
+			array('e', 'e', 'r', 't', 'y', 'u', 'u', 'i', 'o', 'a', 's', 'd', 'z', 'c', 'n'),
+			strtolower($name)
+		);
 	}
 	
 	public function delete_player($id)
@@ -94,10 +100,8 @@ class Admin_model extends CI_Model {
 			$this->db->delete('log_duels', array('player_1_id' => $id));
 			$this->db->delete('log_duels', array('player_2_id' => $id));
 			
-			$this->db->select('avatar_id')->from('players')->where('id', $id);
-			$avatar_id = $this->db->get()->row_array()['avatar_id'];
-			
-			$this->db->update('avatars', array('free' => 1), array('id' => $avatar_id));
+			$avatar_id = $this->db->select('avatar_id')->from('players')->where('id', $id)->get()->row_array()['avatar_id'];
+			$this->set_avatar_availability($avatar_id, 1);
 			
 			$this->db->delete('players', array('id' => $id));
 		}
