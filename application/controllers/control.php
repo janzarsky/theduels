@@ -31,11 +31,12 @@ class Control extends CI_Controller {
 	
 	public function select() {
 		$html_header_data['title'] = 'Vyber hru';
-		$html_header_data['style'] = 'control_select.css';
+		$html_header_data['style'] = 'list.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
-		$control_data['games'] = $this->control_model->get_games();
-		$this->load->view('control/select', $control_data);
+		$list_data['header'] = 'Hry:';
+		$list_data['items'] = $this->control_model->get_games();
+		$this->load->view('templates/list', $list_data);
 		
 		$this->load->view('templates/html_footer');
 	}
