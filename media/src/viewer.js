@@ -16,7 +16,7 @@ setInterval(function () {
 			});
 			
 			$.each(data.achievements, function(key, val) {
-				$('#player__achievements__icon' + val.achievement_id + ' img').attr('src', '/theduely/media/images/achievements/' + val.number + '-' + val.level + '.png');
+				$('#player__achievements__icon' + val.achievement_id + ' img').attr('src', imageUrl + '/' + val.number + '-' + val.level + '.png');
 			});
 			
 			player.attr('hash', data.hash);

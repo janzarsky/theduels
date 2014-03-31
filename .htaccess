@@ -1,7 +1,7 @@
 DirectoryIndex index.php
 
 RewriteEngine on
-RewriteBase /theduely/
+RewriteBase /theduely
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond $1 !^(index\.php|robots\.txt|media)
