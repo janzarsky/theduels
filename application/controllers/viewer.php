@@ -44,13 +44,6 @@ class Viewer extends CI_Controller {
 		$this->load->view('templates/html_footer');
 	}
 	
-	public function player($name = false) {
-		if ($name !== false) {
-			$id = $this->viewer_model->get_player_id($name);
-			$this->index($id);
-		}
-	}
-	
 	public function data($id = '') {
 		if (isset($id)) {
 			$viewer_data['player'] = $this->viewer_model->get_player($id);

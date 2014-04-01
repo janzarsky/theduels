@@ -40,7 +40,6 @@
 
 $route['viewer/(:num)'] = "viewer/index/$1";
 $route['viewer/data/(:num)'] = "viewer/data/$1";
-$route['viewer/(:any)'] = "viewer/player/$1";
 
 $route['control/(:num)'] = "control/index/$1";
 
