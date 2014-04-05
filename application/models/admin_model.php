@@ -17,7 +17,7 @@ class Admin_model extends CI_Model {
 	
 	public function get_players()
 	{
-		$this->db
+		return $this->db
 			->select('*, players.id as playerid')
 			->from('players')
 			->join('avatars', 'avatars.id = players.avatar_id', 'left')
@@ -27,7 +27,7 @@ class Admin_model extends CI_Model {
 	
 	public function get_free_avatars()
 	{
-		$this->db
+		return $this->db
 			->select('*')
 			->from('avatars')
 			->where('free', '1')
