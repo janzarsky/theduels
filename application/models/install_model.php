@@ -7,8 +7,12 @@ class Install_model extends CI_Model {
 	}
 
 	public function create_db() {
-		$sql = file_get_contents('../theduels.sql');
+		$sql = file_get_contents(base_url('/theduels.sql'));
 		
-		$this->db->query($sql);
+		foreach (explode(';',$sql) as $query)
+			if (trim($query) != '')
+				$this->db->query($query);
+		
+		return $sql;
 	}
 }
