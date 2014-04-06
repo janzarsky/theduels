@@ -74,10 +74,46 @@ class Admin extends CI_Controller {
 		$html_header_data['style'] = 'editable_list.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
-		$list_data['header'] = 'Povolené IP adresy:';
-		$list_data['items'] = $this->admin_model->get_ips();
-		$this->load->view('templates/editable_list', $list_data);
+		$data['header'] = 'Povolené IP adresy:';
+		$data['items'] = $this->admin_model->get_ips();
+		$data['add_url'] = 'admin/whitelist_add_submit';
+		$data['delete_url'] = 'admin/whitelist_delete_submit';
+		$this->load->view('templates/editable_list', $data);
 		
 		$this->load->view('templates/html_footer');
+	}
+	
+	public function whitelist_add_submit() {
+		try {
+			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
+				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+			
+			$this->admin_model->add_ip($this->input->post('ip'), $this->input->post('name'));
+		}
+		catch (Exception $e) {
+			$message .= $e->getMessage();
+		}
+		
+		if (isset($message))
+			redirect('admin/whitelist?message=' . $message);
+		else
+			redirect('admin/whitelist?message=success');
+	}
+	
+	public function whitelist_delete_submit() {
+		try {
+			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
+				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+			
+			$this->admin_model->delete_ip($this->input->post('id'));
+		}
+		catch (Exception $e) {
+			$message .= $e->getMessage();
+		}
+		
+		if (isset($message))
+			redirect('admin/whitelist?message=' . $message);
+		else
+			redirect('admin/whitelist?message=success');
 	}
 }
