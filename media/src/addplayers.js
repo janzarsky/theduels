@@ -3,5 +3,5 @@ $('.images').on('click', '.images__option', function () {
 	t.addClass('images__option--selected');
 	t.siblings().removeClass('images__option--selected');
 	
-	$('.avatar__select').val(t.attr('value'));
+	$('#avatar__select').val(t.attr('value'));
 });

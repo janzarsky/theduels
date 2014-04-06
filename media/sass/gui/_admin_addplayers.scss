@@ -3,7 +3,9 @@
 	width: 20%;
 }
 .players__header {
-	@include formField__header();
+	color: $light-gray;
+	padding: 16px;
+	text-align: center;
 }
 .players__list {
 	color: $bluegreen;
@@ -11,30 +13,10 @@
 	padding: 16px;
 	margin: 0;
 }
-.players__delete__select {
-	@include formField(60%);
-}
-.players__delete__submit {
-	@include formField(40%);
-}
 
 .content {
 	float: right;
 	width: 80%;
-}
-
-.name {
-	@include formField(50%);
-}
-.name__header {
-	@include formField__header();
-}
-
-.avatar {
-	@include formField(50%);
-}
-.avatar__header {
-	@include formField__header();
 }
 
 .images {
@@ -55,11 +37,6 @@
 .images__id {
 	text-align: center;
 	color: $light-gray;
-}
-
-.submit {
-	margin-top: 8px;
-	@include formField(100%);
 }
 
 @media screen and (max-width: 1024px) {

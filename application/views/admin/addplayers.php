@@ -12,8 +12,12 @@
 	</ul>
 	<div class="players__delete">
 		<form action="deleteplayers_submit" method="post">
-			<div class="players__delete__select">
-				<select name="id">
+			<div class="field">
+				<header class="field__header">
+					Hráč:
+				</header>
+				
+				<select class="field__select" name="id">
 					<?php	foreach ($players as $player) : ?>
 						<option value="<?php echo $player['playerid']; ?>">
 							<?php echo $player['name']; ?>
@@ -22,27 +26,27 @@
 				</select>
 			</div>
 			
-			<input class="players__delete__submit" type="submit" value="Smazat">
+			<input class="field__submit" type="submit" value="Smazat">
 		</form>
 	</div>
 </aside>
 
 <div class="content">
 	<form action="addplayers_submit" method="post">
-		<div class="name">
-			<header class="name__header">
+		<div class="field">
+			<header class="field__header">
 				jméno
 			</header>
-			<input type="text" name="name">
+			<input class="field__text" type="text" name="name">
 		</div>
 		
-		<div class="avatar">
-			<header class="avatar__header">
+		<div class="field">
+			<header class="field__header">
 				avatar
 			</header>
-			<select class="avatar__select" name="avatar_id">
+			<select class="field__select" id="avatar__select" name="avatar_id">
 				<?php	foreach ($avatars as $avatar) : ?>
-					<option class="avatar__select__option" value="<?php echo $avatar['id']; ?>">
+					<option value="<?php echo $avatar['id']; ?>">
 						<?php echo $avatar['id']; ?>
 					</option>
 				<?php endforeach; ?>
@@ -60,6 +64,6 @@
 			<?php endforeach; ?>
 		</div>
 		
-		<input class="submit" type="submit" value="Přidat">
+		<input class="field__submit" type="submit" value="Přidat">
 	</form>
 </div>

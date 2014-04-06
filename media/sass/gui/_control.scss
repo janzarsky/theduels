@@ -5,67 +5,9 @@
 	margin: 16px 0;
 }
 
-.player {
-	@include formField(40%);
-}
-.player__header {
-	@include formField__header();
-}
-.player__select, .player__select__option {
-	color: $orange;
-}
-
-.score {
-	@include formField(20%);
-}
-.score__header {
-	@include formField__header();
-}
-.score__select, .score__select__option {
-	color: $green;
-}
-
-.submit {
-	color: $green;
-	background: $dark-gray;
-	border: none;
-	padding: 16px;
-	margin-top: 16px;
-	cursor: pointer;
-	width: 100%;
-}
-
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 480px) {
 	.content {
-		width: 800px;
+		width: 480px;
 		margin: 0 auto;
 	}
 }
-@media screen and (max-width: 800px) {
-	.player, .score {
-		width: 50%;
-	}
-}
-@media screen and (max-width: 480px) {
-	.player, .score {
-		width: 100%;
-	}
-	.player__header, .score__header {
-		width: 40%;
-		padding: 16px 5%;
-		float: left;
-	}
-	.player__select, .score__select {
-		width: 40%;
-		padding: 16px 5%;
-		float: left;
-	}
-}
-@media screen and (max-width: 320px) {
-	.player__header, .score__header,
-		.player__select, .score__select {
-		float: none;
-		width: 100%;
-	}
-}
-

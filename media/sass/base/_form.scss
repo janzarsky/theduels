@@ -1,14 +1,3 @@
-@mixin formField($width) {
-	width: $width;
-	float: left;
-	text-align: center;
-}
-@mixin formField__header() {
-	color: $light-gray;
-	padding: 16px;
-	text-align: center;
-}
-
 input {
 	color: $white;
 	background: $dark-gray;
@@ -16,7 +5,6 @@ input {
 	padding: 16px;
 }
 select {
-	color: $white;
 	background: $dark-gray;
 	border: none;
 	padding: 16px;
@@ -25,4 +13,48 @@ select {
 option {
 	padding: 8px;
 	cursor: pointer;
+}
+
+.field {
+	float: left;
+	text-align: center;
+}
+.field__header {
+	color: $light-gray;
+	padding: 16px;
+	text-align: center;
+}
+.field__select {
+	color: $orange;
+}
+.field__submit {
+	color: $green;
+	background: $dark-gray;
+	border: none;
+	padding: 16px;
+	margin-top: 16px;
+	cursor: pointer;
+	width: 100%;
+}
+
+@media screen and (min-width: 320px) {
+	.field {
+		width: 100%;
+	}
+	.field__header {
+		width: 40%;
+		padding: 16px 5%;
+		float: left;
+	}
+	.field__select {
+		width: 40%;
+		padding: 16px 5%;
+		float: left;
+	}
+}
+@media screen and (max-width: 320px) {
+	.field, .field__select {
+		float: none;
+		width: 100%;
+	}
 }
