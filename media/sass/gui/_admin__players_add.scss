@@ -1,0 +1,19 @@
+.images {
+	width: 100%;
+	margin-top: 8px;
+}
+.images__option {
+	float: left;
+	cursor: pointer;
+	
+	img {
+		height: 200px;
+	}
+}
+.images__option--selected {
+	background: $dark-gray;
+}
+.images__id {
+	text-align: center;
+	color: $light-gray;
+}

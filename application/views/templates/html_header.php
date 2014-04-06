@@ -7,5 +7,10 @@
 	<?php if (isset($style)) { ?>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('/media/css/' . $style); ?>"/>
 	<?php } ?>
+	<?php if (isset($styles)) { ?>
+		<?php foreach($styles as $style) : ?>
+			<link rel="stylesheet" type="text/css" href="<?php echo base_url('/media/css/' . $style); ?>"/>
+		<?php endforeach; ?>
+	<?php } ?>
 </head>
 <body>
