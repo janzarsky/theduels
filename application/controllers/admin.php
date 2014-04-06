@@ -60,32 +60,36 @@ class Admin extends CI_Controller {
 		try {
 			$this->ip_model->validate_ip();
 			
-			$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
+			try {
+				$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/players', $message);
 		}
 		catch (Exception $e) {
-			$message .= $e->getMessage();
+			$this->show_error_page($e);
 		}
-		
-		if (isset($message))
-			redirect('admin/players?message=' . $message);
-		else
-			redirect('admin/players?message=success');
 	}
 	
 	public function players_delete_submit() {
 		try {
 			$this->ip_model->validate_ip();
 			
-			$this->admin_model->delete_player($this->input->post('id'));
+			try {
+				$this->admin_model->delete_player($this->input->post('id'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/players', $message);
 		}
 		catch (Exception $e) {
-			$message .= $e->getMessage();
+			$this->show_error_page($e);
 		}
-		
-		if (isset($message))
-			redirect('admin/players?message=' . $message);
-		else
-			redirect('admin/players?message=success');
 	}
 	
 	public function whitelist() {
@@ -117,32 +121,43 @@ class Admin extends CI_Controller {
 		try {
 			$this->ip_model->validate_ip();
 			
-			$this->admin_model->add_ip($this->input->post('ip'), $this->input->post('name'));
+			try {
+				$this->admin_model->add_ip($this->input->post('ip'), $this->input->post('name'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/whitelist', $message);
 		}
 		catch (Exception $e) {
-			$message .= $e->getMessage();
+			$this->show_error_page($e);
 		}
-		
-		if (isset($message))
-			redirect('admin/whitelist?message=' . $message);
-		else
-			redirect('admin/whitelist?message=success');
 	}
 	
 	public function whitelist_delete_submit() {
 		try {
 			$this->ip_model->validate_ip();
 			
-			$this->admin_model->delete_ip($this->input->post('id'));
+			try {
+				$this->admin_model->delete_ip($this->input->post('id'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/whitelist', $message);
 		}
 		catch (Exception $e) {
-			$message .= $e->getMessage();
+			$this->show_error_page($e);
 		}
-		
-		if (isset($message))
-			redirect('admin/whitelist?message=' . $message);
+	}
+	
+	private function redirect_with_message($url, $message) {
+		if (isset($message) || $message != '')
+			redirect(base_url($url) . '?message=' . $message);
 		else
-			redirect('admin/whitelist?message=success');
+			redirect(base_url($url) . '?message=success');
 	}
 	
 	private function show_error_page($error) {
