@@ -8,8 +8,9 @@ class Admin_model extends CI_Model {
 
 	public function get_pages() {
 		return array(
+			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
+			array('label' => 'IP whitelist', 'url' => '/admin/whitelist'),
 			array('label' => 'Zadávání duelů', 'url' => '/control'),
-			array('label' => 'Správa hráčů', 'url' => '/admin/addplayers'),
 			array('label' => 'Přehled', 'url' => '/overview'),
 			array('label' => 'Prohlížeč', 'url' => '/viewer')
 		);
