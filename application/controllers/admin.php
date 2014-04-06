@@ -76,8 +76,12 @@ class Admin extends CI_Controller {
 		
 		$data['header'] = 'Povolené IP adresy:';
 		$data['items'] = $this->admin_model->get_ips();
-		$data['add_url'] = 'admin/whitelist_add_submit';
-		$data['delete_url'] = 'admin/whitelist_delete_submit';
+		
+		$data['add'] = $this->load->view('admin/whitelist_add', null, true);
+		
+		$delete_data['items'] = $data['items'];
+		$data['delete'] = $this->load->view('admin/whitelist_delete', $delete_data, true);
+		
 		$this->load->view('templates/editable_list', $data);
 		
 		$this->load->view('templates/html_footer');
