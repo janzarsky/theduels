@@ -18,10 +18,18 @@
 	</section>
 	
 	<section class="add">
+		<header class="section__header">
+			Přidat
+		</header>
+		
 		<?php echo $add; ?>
 	</section>
 	
 	<section class="delete">
+		<header class="section__header">
+			Smazat
+		</header>
+		
 		<?php echo $delete; ?>
 	</section>
 </div>
