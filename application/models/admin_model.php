@@ -132,9 +132,43 @@ class Admin_model extends CI_Model {
 	}
 	
 	public function delete_ip($id = false) {
-		if ($ip === false)
+		if ($id === false)
 			throw new Exception('empty');
 		
 		$this->db->delete('ip_whitelist', array('id' => $id));
+	}
+	
+	public function get_games() {
+		return $this->db
+			->select("CONCAT(`games`.`name`, ' (', `skills`.`name`, ')') as label, `games`.`id` as id", false)
+			->join("skills", "skills.id = games.skill_id")
+			->from('games')
+			->get()->result_array();
+	}
+	
+	public function get_skills() {
+		return $this->db
+			->select('id, name')
+			->from('skills')
+			->get()->result_array();
+	}
+	
+	public function add_game($name = false, $skill_id = false) {
+		if ($name === false || $skill_id === false)
+			throw new Exception('empty');
+		
+		$data = array(
+			'name' => $name,
+			'skill_id' => $skill_id
+		);
+		
+		$this->db->insert('games', $data);
+	}
+	
+	public function delete_game($id = false) {
+		if ($id === false)
+			throw new Exception('empty');
+		
+		$this->db->delete('games', array('id' => $id));
 	}
 }
