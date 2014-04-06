@@ -24,7 +24,7 @@ class Admin extends CI_Controller {
 
 	public function players() {
 		$html_header_data['title'] = 'Správa hráčů';
-		$html_header_data['style'] = 'editable_list.css';
+		$html_header_data['styles'] = array('editable_list.css', 'admin__players_add.css');
 		$this->load->view('templates/html_header', $html_header_data);
 		
 		$data['header'] = 'Správa hráčů';
