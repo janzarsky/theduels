@@ -18,9 +18,10 @@ class Admin_model extends CI_Model {
 	public function get_players()
 	{
 		return $this->db
-			->select('*, players.id as playerid')
+			->select("`players`.`name` as label, CONCAT('/media/images/avatars/', `avatars`.`number` ) as image_url,
+							 CONCAT('/viewer/', `players`.`id` ) as url, `players`.`id` as id", false)
 			->from('players')
-			->join('avatars', 'avatars.id = players.avatar_id', 'left')
+			->join('avatars', 'players.avatar_id = avatars.id', 'left')
 			->order_by('name')
 			->get()->result_array();
 	}
