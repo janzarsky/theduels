@@ -17,7 +17,7 @@ class Control_model extends CI_Model {
 	
 	public function get_games()
 	{
-		$this->db->select("name as label, CONCAT('/control/', games.id ) as url");
+		$this->db->select("`name` as label, CONCAT('/control/', `games`.`id`) as url", false);
 		$this->db->from('games');
 		$this->db->order_by('id');
 			
