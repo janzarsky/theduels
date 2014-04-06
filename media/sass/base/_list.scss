@@ -1,15 +1,10 @@
 .list {
-	max-width: 480px;
-	margin: 16px auto;
-}
-.list__header {
-	color: $light-gray;
-	font-size: 32px;
-	text-align: center;
+	margin: 16px 0;
 }
 .list__list {
 	list-style: none;
-	font-size:  24px;
+	font-size:  20px;
+	padding: 16px;
 }
 .list__list__item {
 	color: $orange;
