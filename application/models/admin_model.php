@@ -109,4 +109,11 @@ class Admin_model extends CI_Model {
 			throw new Exception('dberror');
 		}
 	}
+	
+	public function get_ips() {
+		return $this->db
+			->select("CONCAT(`name`, ' (', `ip`, ')') as label, id as url", false)
+			->from('ip_whitelist')
+			->get()->result_array();
+	}
 }
