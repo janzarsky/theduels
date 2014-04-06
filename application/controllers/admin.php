@@ -22,20 +22,27 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/html_footer');
 	}
 
-	public function addplayers() {
+	public function players() {
 		$html_header_data['title'] = 'Správa hráčů';
-		$html_header_data['style'] = 'admin_addplayers.css';
+		$html_header_data['style'] = 'editable_list.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
-		$admin_data['players'] = $this->admin_model->get_players();
-		$admin_data['avatars'] = $this->admin_model->get_free_avatars();
-		$this->load->view('admin/addplayers', $admin_data);
+		$data['header'] = 'Správa hráčů';
+		$data['items'] = $this->admin_model->get_players();
 		
-		$html_footer_data['script'] = 'addplayers.js';
+		$add_data['avatars'] = $this->admin_model->get_free_avatars();
+		$data['add'] = $this->load->view('admin/players_add', $add_data, true);
+		
+		$delete_data['items'] = $data['items'];
+		$data['delete'] = $this->load->view('admin/players_delete', $delete_data, true);
+		
+		$this->load->view('templates/editable_list', $data);
+		
+		$html_footer_data['script'] = 'players.js';
 		$this->load->view('templates/html_footer', $html_footer_data);
 	}
 	
-	public function addplayers_submit() {
+	public function players_add_submit() {
 		try {
 			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
 				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
@@ -47,12 +54,12 @@ class Admin extends CI_Controller {
 		}
 		
 		if (isset($message))
-			redirect('admin/addplayers?message=' . $message);
+			redirect('admin/players?message=' . $message);
 		else
-			redirect('admin/addplayers?message=success');
+			redirect('admin/players?message=success');
 	}
 	
-	public function deleteplayers_submit() {
+	public function players_delete_submit() {
 		try {
 			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
 				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
@@ -64,9 +71,9 @@ class Admin extends CI_Controller {
 		}
 		
 		if (isset($message))
-			redirect('admin/addplayers?message=' . $message);
+			redirect('admin/players?message=' . $message);
 		else
-			redirect('admin/addplayers?message=success');
+			redirect('admin/players?message=success');
 	}
 	
 	public function whitelist() {
