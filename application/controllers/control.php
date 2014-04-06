@@ -11,34 +11,48 @@ class Control extends CI_Controller {
 	}
 
 	public function index($game_id = false) {
-		if ($game_id === false) {
-			$this->select();
-			return;
+		try {
+			$this->ip_model->validate_ip();
+			
+			if ($game_id === false) {
+				$this->select();
+				return;
+			}
+			
+			$html_header_data['title'] = 'Control';
+			$html_header_data['style'] = 'control.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$control_data['game_id'] = $game_id;
+			$control_data['game_name'] = $this->control_model->get_game_name($game_id);
+			$control_data['players'] = $this->control_model->get_players();
+			$this->load->view('control/index', $control_data);
+			
+			$html_footer_data['script'] = 'control.js';
+			$this->load->view('templates/html_footer', $html_footer_data);
 		}
-		
-		$html_header_data['title'] = 'Control';
-		$html_header_data['style'] = 'control.css';
-		$this->load->view('templates/html_header', $html_header_data);
-		
-		$control_data['game_id'] = $game_id;
-		$control_data['game_name'] = $this->control_model->get_game_name($game_id);
-		$control_data['players'] = $this->control_model->get_players();
-		$this->load->view('control/index', $control_data);
-		
-		$html_footer_data['script'] = 'control.js';
-		$this->load->view('templates/html_footer', $html_footer_data);
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
 	}
 	
 	public function select() {
-		$html_header_data['title'] = 'Vyber hru';
-		$html_header_data['style'] = 'list.css';
-		$this->load->view('templates/html_header', $html_header_data);
-		
-		$list_data['header'] = 'Hry:';
-		$list_data['items'] = $this->control_model->get_games();
-		$this->load->view('templates/list', $list_data);
-		
-		$this->load->view('templates/html_footer');
+		try {
+			$this->ip_model->validate_ip();
+			
+			$html_header_data['title'] = 'Vyber hru';
+			$html_header_data['style'] = 'list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$list_data['header'] = 'Hry:';
+			$list_data['items'] = $this->control_model->get_games();
+			$this->load->view('templates/list', $list_data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
 	}
 	
 	public function submit($game_id = false) {
@@ -62,5 +76,16 @@ class Control extends CI_Controller {
 			redirect(base_url($url . '?error=' . $error_message));
 		else
 			redirect(base_url($url));
+	}
+	
+	private function show_error_page($error) {
+		$html_header_data['title'] = 'Chyba';
+		$html_header_data['style'] = 'error.css';
+		$this->load->view('templates/html_header', $html_header_data);
+		
+		$data['message'] = $error->getMessage();
+		$this->load->view('templates/error', $data);
+		
+		$this->load->view('templates/html_footer');
 	}
 }
