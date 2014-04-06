@@ -68,4 +68,16 @@ class Admin extends CI_Controller {
 		else
 			redirect('admin/addplayers?message=success');
 	}
+	
+	public function whitelist() {
+		$html_header_data['title'] = 'IP whitelist';
+		$html_header_data['style'] = 'editable_list.css';
+		$this->load->view('templates/html_header', $html_header_data);
+		
+		$list_data['header'] = 'Povolené IP adresy:';
+		$list_data['items'] = $this->admin_model->get_ips();
+		$this->load->view('templates/editable_list', $list_data);
+		
+		$this->load->view('templates/html_footer');
+	}
 }
