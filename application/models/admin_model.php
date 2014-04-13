@@ -49,21 +49,34 @@ class Admin_model extends CI_Model {
 	}
 	
 	private function add_player_data($name, $avatar_id) {
+		$score = $this->get_skills_num() * 100;
+		
 		$players_data = array(
 			'name' => $name,
 			'avatar_id' => $avatar_id,
-			'pure_score' => 300,
+			'pure_score' => $score,
+			'score' => $score,
+			'bonus_score' => 0,
 			'nick' => $this->get_nick($name)
 		);
 		
 	$this->db->insert('players', $players_data);
 	}
 	
+	private function get_skills_num() {
+		return $this->db
+			->select('id')
+			->from('skills')
+			->get()->num_rows();
+	}
+	
 	private function add_player_skills($player_id) {
-		for ($i = 1; $i <= 3; $i++) {
-			$players_skills_data[$i] = array(
+		$skills = $this->get_skills();
+		
+		foreach ($skills as $skill) {
+			$players_skills_data[] = array(
 				'player_id' => $player_id,
-				'skill_id' => $i,
+				'skill_id' => $skill['id'],
 				'value' => 100
 			);
 		}
