@@ -184,6 +184,7 @@ class Admin_model extends CI_Model {
 		if ($id === false)
 			throw new Exception('empty');
 		
+		$this->db->delete('log_duels', array('game_id', $id));
 		$this->db->delete('games', array('id' => $id));
 	}
 	
@@ -209,6 +210,7 @@ class Admin_model extends CI_Model {
 		if ($id === false)
 			throw new Exception('empty');
 		
+		$this->db->delete('games', array('skill_id' => $id));
 		$this->db->delete('skills', array('id' => $id));
 	}
 }
