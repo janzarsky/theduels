@@ -215,6 +215,67 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function skills() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			$html_header_data['title'] = 'Skilly';
+			$html_header_data['style'] = 'editable_list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$data['header'] = 'Skilly:';
+			$data['items'] = $this->admin_model->get_skills_as_items();
+			
+			$data['add'] = $this->load->view('admin/skills_add', null, true);
+			
+			$delete_data['items'] = $data['items'];
+			$data['delete'] = $this->load->view('admin/skills_delete', $delete_data, true);
+			
+			$this->load->view('templates/editable_list', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function skills_add_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			try {
+				$this->admin_model->add_skill($this->input->post('name'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/skills', $message);
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function skills_delete_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			try {
+				$this->admin_model->delete_skill($this->input->post('id'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/skills', $message);
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	private function redirect_with_message($url, $message) {
 		if (isset($message) || $message != '')
 			redirect(base_url($url) . '?message=' . $message);
