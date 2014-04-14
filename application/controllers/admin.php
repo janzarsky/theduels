@@ -92,67 +92,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function whitelist() {
-		try {
-			$this->ip_model->validate_ip();
-			
-			$html_header_data['title'] = 'IP whitelist';
-			$html_header_data['style'] = 'editable_list.css';
-			$this->load->view('templates/html_header', $html_header_data);
-			
-			$data['header'] = 'Povolené IP adresy:';
-			$data['items'] = $this->admin_model->get_ips();
-			
-			$data['add'] = $this->load->view('admin/whitelist_add', null, true);
-			
-			$delete_data['items'] = $data['items'];
-			$delete_data['submit_url'] = 'admin/whitelist_delete_submit';
-			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
-			
-			$this->load->view('templates/editable_list', $data);
-			
-			$this->load->view('templates/html_footer');
-		}
-		catch (Exception $e) {
-			$this->show_error_page($e);
-		}
-	}
 	
-	public function whitelist_add_submit() {
-		try {
-			$this->ip_model->validate_ip();
-			
-			try {
-				$this->admin_model->add_ip($this->input->post('ip'), $this->input->post('name'));
-			}
-			catch (Exception $e) {
-				$message .= $e->getMessage();
-			}
-			
-			$this->redirect_with_message('admin/whitelist', $message);
-		}
-		catch (Exception $e) {
-			$this->show_error_page($e);
-		}
-	}
-	
-	public function whitelist_delete_submit() {
-		try {
-			$this->ip_model->validate_ip();
-			
-			try {
-				$this->admin_model->delete_ip($this->input->post('id'));
-			}
-			catch (Exception $e) {
-				$message .= $e->getMessage();
-			}
-			
-			$this->redirect_with_message('admin/whitelist', $message);
-		}
-		catch (Exception $e) {
-			$this->show_error_page($e);
-		}
-	}
 	
 	public function games() {
 		try {
