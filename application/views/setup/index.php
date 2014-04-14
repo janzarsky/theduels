@@ -6,11 +6,17 @@
 	<section class="list">
 		<ul class="list__list">
 			<?php foreach ($items as $item): ?>
+				<?php if ($locked): ?>
+					<li class="list__list__item list__list__item--unavailable">
+						<?php echo $item['label']; ?>
+					</li>
+				<?php else: ?>
 				<a href="<?php echo base_url($item['url']); ?>">
 					<li class="list__list__item">
 						<?php echo $item['label']; ?>
 					</li>
 				</a>
+				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
 		
