@@ -50,6 +50,7 @@ class Setup extends CI_Controller {
 	public function whitelist() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			$html_header_data['title'] = 'IP whitelist';
 			$html_header_data['style'] = 'editable_list.css';
@@ -76,6 +77,7 @@ class Setup extends CI_Controller {
 	public function whitelist_add_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->setup_model->add_ip($this->input->post('ip'), $this->input->post('name'));
@@ -94,6 +96,7 @@ class Setup extends CI_Controller {
 	public function whitelist_delete_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->setup_model->delete_ip($this->input->post('id'));
@@ -112,6 +115,7 @@ class Setup extends CI_Controller {
 	public function skills() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			$html_header_data['title'] = 'Skilly';
 			$html_header_data['style'] = 'editable_list.css';
@@ -138,6 +142,7 @@ class Setup extends CI_Controller {
 	public function skills_add_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->setup_model->add_skill($this->input->post('name'));
@@ -156,6 +161,7 @@ class Setup extends CI_Controller {
 	public function skills_delete_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->setup_model->delete_skill($this->input->post('id'));
@@ -174,6 +180,7 @@ class Setup extends CI_Controller {
 	public function games() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			$html_header_data['title'] = 'Hry';
 			$html_header_data['style'] = 'editable_list.css';
@@ -201,6 +208,7 @@ class Setup extends CI_Controller {
 	public function games_add_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->setup_model->add_game($this->input->post('name'), $this->input->post('skill_id'));
@@ -219,6 +227,7 @@ class Setup extends CI_Controller {
 	public function games_delete_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->setup_model->delete_game($this->input->post('id'));
@@ -232,6 +241,11 @@ class Setup extends CI_Controller {
 		catch (Exception $e) {
 			$this->show_error_page($e);
 		}
+	}
+	
+	private function check_lock() {
+		if ($this->setup_model->get_lock() == true)
+			throw new Exception('Setup is locked');
 	}
 	
 	private function redirect_with_message($url, $message) {
