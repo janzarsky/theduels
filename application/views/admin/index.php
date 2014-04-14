@@ -18,6 +18,12 @@
 					</a>
 				<?php endforeach; ?>
 			</ul>
+			
+			<form method="post" action="<?php echo base_url('admin/lock_submit'); ?>">
+				<input type="hidden" name="lock" value="<?php echo ($stage['locked']) ? 0 : 1; ?>">
+				
+				<input class="field__submit" type="submit" value="<?php echo ($stage['locked']) ? 'Odemknout' : 'Zamknout'; ?>">
+			</form>
 		</section>
 	<?php endforeach; ?>
 </div>
