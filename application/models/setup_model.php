@@ -7,6 +7,14 @@ class Setup_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	public function get_pages() {
+		return array(
+			array('label' => 'Skilly', 'url' => '/setup/skills'),
+			array('label' => 'Hry', 'url' => '/setup/games'),
+			array('label' => 'IP whitelist', 'url' => '/setup/whitelist')
+		);
+	}
+	
 	public function get_ips() {
 		return $this->db
 			->select("CONCAT(`name`, ' (', `ip`, ')') as label, id as id", false)
@@ -57,5 +65,40 @@ class Setup_model extends CI_Model {
 		
 		$this->db->delete('games', array('skill_id' => $id));
 		$this->db->delete('skills', array('id' => $id));
+	}
+	
+	public function get_games() {
+		return $this->db
+			->select("CONCAT(`games`.`name`, ' (', `skills`.`name`, ')') as label, `games`.`id` as id", false)
+			->join("skills", "skills.id = games.skill_id")
+			->from('games')
+			->get()->result_array();
+	}
+	
+	public function get_skills() {
+		return $this->db
+			->select('id, name')
+			->from('skills')
+			->get()->result_array();
+	}
+	
+	public function add_game($name = false, $skill_id = false) {
+		if ($name === false || $skill_id === false)
+			throw new Exception('empty');
+		
+		$data = array(
+			'name' => $name,
+			'skill_id' => $skill_id
+		);
+		
+		$this->db->insert('games', $data);
+	}
+	
+	public function delete_game($id = false) {
+		if ($id === false)
+			throw new Exception('empty');
+		
+		$this->db->delete('log_duels', array('game_id' => $id));
+		$this->db->delete('games', array('id' => $id));
 	}
 }
