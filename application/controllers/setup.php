@@ -19,10 +19,28 @@ class Setup extends CI_Controller {
 			$this->load->view('templates/html_header', $html_header_data);
 			
 			$data['items'] = $this->setup_model->get_pages();
-			$data['locked'] = false;
+			$data['locked'] = $this->setup_model->get_lock();
 			$this->load->view('setup/index', $data);
 			
 			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function lock_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			try {
+				$this->setup_model->set_lock($this->input->post('lock'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('setup', $message);
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);

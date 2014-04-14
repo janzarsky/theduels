@@ -15,6 +15,19 @@ class Setup_model extends CI_Model {
 		);
 	}
 	
+	public function get_lock() {
+		return $this->db
+			->select('value')
+			->from('settings')
+			->where('name', 'setup_lock')
+			->get()->row_array()['value'];
+	}
+	
+	public function set_lock($state) {
+		if (isset($state))
+			$this->db->update('settings', array('value' => $state), array('name' => 'setup_lock'));
+	}
+	
 	public function get_ips() {
 		return $this->db
 			->select("CONCAT(`name`, ' (', `ip`, ')') as label, id as id", false)
