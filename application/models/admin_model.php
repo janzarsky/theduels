@@ -8,13 +8,31 @@ class Admin_model extends CI_Model {
 
 	public function get_pages() {
 		return array(
-			array('label' => 'IP whitelist', 'url' => '/admin/whitelist'),
-			array('label' => 'Skilly', 'url' => '/admin/skills'),
-			array('label' => 'Hry', 'url' => '/admin/games'),
-			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
-			array('label' => 'Zadávání duelů', 'url' => '/control'),
-			array('label' => 'Přehled', 'url' => '/overview'),
-			array('label' => 'Prohlížeč', 'url' => '/viewer')
+			array(
+				'header' => '1. Pravidla',
+				'items' => array(
+					array('label' => 'Skilly', 'url' => '/admin/skills'),
+					array('label' => 'Hry', 'url' => '/admin/games'),
+					array('label' => 'IP whitelist', 'url' => '/admin/whitelist')
+				),
+				'locked' => false
+			),
+			array(
+				'header' => '2. Hráči',
+				'items' => array(
+					array('label' => 'Správa hráčů', 'url' => '/admin/players')
+				),
+				'locked' => false
+			),
+			array(
+				'header' => '3. Hra',
+				'items' => array(
+					array('label' => 'Zadávání duelů', 'url' => '/control'),
+					array('label' => 'Přehled', 'url' => '/overview'),
+					array('label' => 'Prohlížeč', 'url' => '/viewer')
+				),
+				'locked' => false
+			)
 		);
 	}
 	
