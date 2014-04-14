@@ -14,7 +14,7 @@
 			<?php endforeach; ?>
 		</ul>
 		
-		<form method="post" action="<?php echo base_url('admin/lock_submit'); ?>">
+		<form method="post" action="<?php echo base_url('setup/lock_submit'); ?>">
 			<input type="hidden" name="lock" value="<?php echo ($locked) ? 0 : 1; ?>">
 			
 			<input class="field__submit" type="submit" value="<?php echo ($locked) ? 'Odemknout' : 'Zamknout'; ?>">
