@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo base_url('admin/skills_add_submit'); ?>">
+<form method="post" action="<?php echo base_url('setup/skills_add_submit'); ?>">
 	<div class="field">
 		<header class="field__header">
 			Jméno:
