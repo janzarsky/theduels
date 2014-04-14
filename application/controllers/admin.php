@@ -44,7 +44,8 @@ class Admin extends CI_Controller {
 			$data['add'] = $this->load->view('admin/players_add', $add_data, true);
 			
 			$delete_data['items'] = $data['items'];
-			$data['delete'] = $this->load->view('admin/players_delete', $delete_data, true);
+			$delete_data['submit_url'] = 'admin/players_delete_submit';
+			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
 			
 			$this->load->view('templates/editable_list', $data);
 			
@@ -106,7 +107,8 @@ class Admin extends CI_Controller {
 			$data['add'] = $this->load->view('admin/whitelist_add', null, true);
 			
 			$delete_data['items'] = $data['items'];
-			$data['delete'] = $this->load->view('admin/whitelist_delete', $delete_data, true);
+			$delete_data['submit_url'] = 'admin/whitelist_delete_submit';
+			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
 			
 			$this->load->view('templates/editable_list', $data);
 			
@@ -168,7 +170,8 @@ class Admin extends CI_Controller {
 			$data['add'] = $this->load->view('admin/games_add', $add_data, true);
 			
 			$delete_data['items'] = $data['items'];
-			$data['delete'] = $this->load->view('admin/games_delete', $delete_data, true);
+			$delete_data['submit_url'] = 'admin/games_delete_submit';
+			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
 			
 			$this->load->view('templates/editable_list', $data);
 			
@@ -229,7 +232,8 @@ class Admin extends CI_Controller {
 			$data['add'] = $this->load->view('admin/skills_add', null, true);
 			
 			$delete_data['items'] = $data['items'];
-			$data['delete'] = $this->load->view('admin/skills_delete', $delete_data, true);
+			$delete_data['submit_url'] = 'admin/skills_delete_submit';
+			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
 			
 			$this->load->view('templates/editable_list', $data);
 			

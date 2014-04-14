@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo base_url('admin/games_delete_submit'); ?>">
+<form method="post" action="<?php echo base_url($submit_url); ?>">
 	<div class="field">
 		<header class="field__header">
 			Jméno:
