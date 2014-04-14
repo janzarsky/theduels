@@ -10,6 +10,25 @@ class Setup extends CI_Controller {
 		$this->load->model('ip_model');
 	}
 	
+	public function index() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			$html_header_data['title'] = 'Nastavení';
+			$html_header_data['style'] = 'setup.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$data['items'] = $this->setup_model->get_pages();
+			$data['locked'] = false;
+			$this->load->view('setup/index', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	public function whitelist() {
 		try {
 			$this->ip_model->validate_ip();
@@ -128,6 +147,69 @@ class Setup extends CI_Controller {
 			}
 			
 			$this->redirect_with_message('setup/skills', $message);
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function games() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			$html_header_data['title'] = 'Hry';
+			$html_header_data['style'] = 'editable_list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$data['header'] = 'Hry:';
+			$data['items'] = $this->setup_model->get_games();
+			
+			$add_data['skills'] = $this->setup_model->get_skills();
+			$data['add'] = $this->load->view('setup/games_add', $add_data, true);
+			
+			$delete_data['items'] = $data['items'];
+			$delete_data['submit_url'] = 'setup/games_delete_submit';
+			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
+			
+			$this->load->view('templates/editable_list', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function games_add_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			try {
+				$this->setup_model->add_game($this->input->post('name'), $this->input->post('skill_id'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('setup/games', $message);
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function games_delete_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			
+			try {
+				$this->setup_model->delete_game($this->input->post('id'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('setup/games', $message);
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
