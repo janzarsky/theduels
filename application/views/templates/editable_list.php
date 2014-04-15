@@ -3,33 +3,37 @@
 		<?php echo $header; ?>
 	</header>
 	
-	<section class="list">
-		<ul class="list__list">
-			<?php foreach ($items as $item): ?>
-				<li class="list__list__item">
-					<?php if (isset($item['image_url'])) : ?>
-						<img src="<?php echo base_url($item['image_url']); ?>.png" height="48">
-					<?php endif; ?>
-					
-					<?php echo $item['label']; ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-	</section>
+	<div class="main">
+		<section class="list">
+			<ul class="list__list">
+				<?php foreach ($items as $item): ?>
+					<li class="list__list__item">
+						<?php if (isset($item['image_url'])) : ?>
+							<img src="<?php echo base_url($item['image_url']); ?>.png" height="48">
+						<?php endif; ?>
+						
+						<?php echo $item['label']; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</section>
+	</div>
 	
-	<section class="add">
-		<header class="section__header">
-			Přidat
-		</header>
+	<div class="aside">
+		<section class="section">
+			<header class="section__header">
+				Přidat
+			</header>
+			
+			<?php echo $add; ?>
+		</section>
 		
-		<?php echo $add; ?>
-	</section>
-	
-	<section class="delete">
-		<header class="section__header">
-			Smazat
-		</header>
-		
-		<?php echo $delete; ?>
-	</section>
+		<section class="section">
+			<header class="section__header">
+				Smazat
+			</header>
+			
+			<?php echo $delete; ?>
+		</section>
+	</div>
 </div>
