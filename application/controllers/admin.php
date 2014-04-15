@@ -15,11 +15,12 @@ class Admin extends CI_Controller {
 			$this->ip_model->validate_ip();
 			
 			$html_header_data['title'] = 'Admin';
-			$html_header_data['style'] = 'admin.css';
+			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
-			$data['stages'] = $this->admin_model->get_pages();
-			$this->load->view('admin/index', $data);
+			$data['header'] = 'Admin';
+			$data['items'] = $this->admin_model->get_pages();
+			$this->load->view('templates/list', $data);
 			
 			$this->load->view('templates/html_footer');
 		}
