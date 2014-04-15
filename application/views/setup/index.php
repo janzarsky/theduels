@@ -3,16 +3,16 @@
 		Nastavení
 	</header>
 	
-	<section class="list">
-		<ul class="list__list">
+	<div class="main main--center">
+		<ul class="list">
 			<?php foreach ($items as $item): ?>
 				<?php if ($locked): ?>
-					<li class="list__list__item list__list__item--unavailable">
+					<li class="list__item list__item--unavailable">
 						<?php echo $item['label']; ?>
 					</li>
 				<?php else: ?>
 				<a href="<?php echo base_url($item['url']); ?>">
-					<li class="list__list__item">
+					<li class="list__item">
 						<?php echo $item['label']; ?>
 					</li>
 				</a>
@@ -25,5 +25,5 @@
 			
 			<input class="field__submit" type="submit" value="<?php echo ($locked) ? 'Odemknout' : 'Zamknout'; ?>">
 		</form>
-	</section>
+	</div>
 </div>

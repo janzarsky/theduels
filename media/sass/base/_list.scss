@@ -1,20 +1,12 @@
 .list {
-	margin: 16px 0;
-}
-.list__header {
-	font-size: 24px;
-	color: $bluegreen;
-	margin: 16px 0;
-}
-.list__list {
 	list-style: none;
 	font-size:  20px;
 	padding: 16px;
 }
-.list__list__item {
+.list__item {
 	color: $orange;
 	margin: 8px 0;
 }
-.list__list__item--unavailable {
+.list__item--unavailable {
 	color: $light-gray;
 }
