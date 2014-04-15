@@ -2,7 +2,10 @@
 	<header class="content__header">
 		Chyba!
 	</header>
-	<div class="message">
-		<?php echo $message; ?>
+	
+	<div class="main main--center">
+		<div class="message">
+			<?php echo $message; ?>
+		</div>
 	</div>
 </div>
