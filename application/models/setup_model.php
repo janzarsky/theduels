@@ -11,6 +11,7 @@ class Setup_model extends CI_Model {
 		return array(
 			array('label' => 'Skilly', 'url' => '/setup/skills'),
 			array('label' => 'Hry', 'url' => '/setup/games'),
+			array('label' => 'Achievementy', 'url' => '/setup/achievements'),
 			array('label' => 'IP whitelist', 'url' => '/setup/whitelist')
 		);
 	}
@@ -26,6 +27,13 @@ class Setup_model extends CI_Model {
 	public function set_lock($state) {
 		if (isset($state))
 			$this->db->update('settings', array('value' => $state), array('name' => 'setup_lock'));
+	}
+	
+	public function get_achievements() {
+		return $this->db
+			->select('id as id, enabled as enabled, name as label')
+			->from('achievements')
+			->get()->result_array();
 	}
 	
 	public function get_ips() {

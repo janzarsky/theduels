@@ -47,6 +47,27 @@ class Setup extends CI_Controller {
 		}
 	}
 	
+	public function achievements() {
+		try {
+			$this->ip_model->validate_ip();
+			$this->check_lock();
+			
+			$html_header_data['title'] = 'Achievementy';
+			$html_header_data['style'] = 'switch_list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$data['header'] = 'Achievementy:';
+			$data['items'] = $this->setup_model->get_achievements();
+			$data['submit_url'] = 'setup/achievements_submit';
+			$this->load->view('templates/switch_list', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	public function whitelist() {
 		try {
 			$this->ip_model->validate_ip();
