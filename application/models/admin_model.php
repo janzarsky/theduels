@@ -148,4 +148,12 @@ class Admin_model extends CI_Model {
 			->or_where('name', 'ip_whitelist_enabled')
 			->get()->result_array();
 	}
+	
+	public function set_settings($ids, $states) {
+		foreach ($ids as $key => $id) {
+			$data[] = array('id' => $id, 'value' => $states[$key]);
+		}
+		
+		$this->db->update_batch('settings', $data, 'id');
+	}
 }
