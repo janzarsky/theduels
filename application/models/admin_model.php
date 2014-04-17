@@ -9,6 +9,7 @@ class Admin_model extends CI_Model {
 	public function get_pages() {
 		return array(
 			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
+			array('label' => 'Možnosti', 'url' => '/admin/settings'),
 			array('label' => 'Zadávání duelů', 'url' => '/control'),
 			array('label' => 'Přehled', 'url' => '/overview'),
 			array('label' => 'Prohlížeč', 'url' => '/viewer')
@@ -137,5 +138,14 @@ class Admin_model extends CI_Model {
 		catch (Exception $e) {
 			throw new Exception('dberror');
 		}
+	}
+	
+	public function get_settings() {
+		return $this->db
+			->select('label as label, value as enabled, id as id')
+			->from('settings')
+			->where('name', 'position_visible')
+			->or_where('name', 'ip_whitelist_enabled')
+			->get()->result_array();
 	}
 }

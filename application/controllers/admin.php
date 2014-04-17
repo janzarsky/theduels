@@ -101,6 +101,29 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function settings() {
+		try {
+			$this->ip_model->validate_ip();
+			$this->check_lock();
+			
+			$html_header_data['title'] = 'Možnosti';
+			$html_header_data['style'] = 'switch_list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
+			
+			$data['header'] = 'Možnosti:';
+			$data['items'] = $this->admin_model->get_settings();
+			$data['submit_url'] = 'admin/settings_submit';
+			$this->load->view('templates/switch_list', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	private function check_lock() {
 		if ($this->admin_model->get_setup_lock() == false)
 			throw new Exception('You must lock setup first!');
