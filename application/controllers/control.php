@@ -57,8 +57,7 @@ class Control extends CI_Controller {
 	
 	public function submit($game_id = false) {
 		try {
-			if ($this->ip_model->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
-				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+			$this->ip_model->validate_ip();
 			
 			$this->control_model->submit_duel($this->input->post('game_id'), $this->input->post('player_1_id'),
 																				$this->input->post('player_2_id'), $this->input->post('score'));
