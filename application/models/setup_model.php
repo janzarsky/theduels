@@ -36,6 +36,14 @@ class Setup_model extends CI_Model {
 			->get()->result_array();
 	}
 	
+	public function set_achievements($ids, $states) {
+		foreach ($ids as $key => $id) {
+			$data[] = array('id' => $id, 'enabled' => $states[$key]);
+		}
+		
+		$this->db->update_batch('achievements', $data, 'id');
+	}
+	
 	public function get_ips() {
 		return $this->db
 			->select("CONCAT(`name`, ' (', `ip`, ')') as label, id as id", false)

@@ -68,6 +68,25 @@ class Setup extends CI_Controller {
 		}
 	}
 	
+	public function achievements_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			$this->check_lock();
+			
+			try {
+				$this->setup_model->set_achievements($this->input->post('id'), $this->input->post('state'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('setup/achievements', $message);
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	public function whitelist() {
 		try {
 			$this->ip_model->validate_ip();
