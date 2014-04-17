@@ -15,6 +15,14 @@ class Admin_model extends CI_Model {
 		);
 	}
 
+	public function get_setup_lock() {
+		return $this->db
+			->select('value')
+			->from('settings')
+			->where('name', 'setup_lock')
+			->get()->row_array()['value'];
+	}
+	
 	public function get_players()
 	{
 		return $this->db
