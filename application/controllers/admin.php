@@ -19,6 +19,8 @@ class Admin extends CI_Controller {
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
+			$this->load->view('templates/menu');
+			
 			$data['header'] = 'Admin';
 			$data['items'] = $this->admin_model->get_pages();
 			$this->load->view('templates/list', $data);
@@ -38,6 +40,8 @@ class Admin extends CI_Controller {
 			$html_header_data['title'] = 'Správa hráčů';
 			$html_header_data['styles'] = array('editable_list.css', 'admin__players_add.css');
 			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
 			
 			$data['header'] = 'Správa hráčů';
 			$data['items'] = $this->admin_model->get_players();

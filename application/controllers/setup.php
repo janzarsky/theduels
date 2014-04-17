@@ -18,6 +18,8 @@ class Setup extends CI_Controller {
 			$html_header_data['style'] = 'setup.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
+			$this->load->view('templates/menu');
+			
 			$data['items'] = $this->setup_model->get_pages();
 			$data['locked'] = $this->setup_model->get_lock();
 			$this->load->view('setup/index', $data);
@@ -55,6 +57,8 @@ class Setup extends CI_Controller {
 			$html_header_data['title'] = 'Achievementy';
 			$html_header_data['style'] = 'switch_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
 			
 			$data['header'] = 'Achievementy:';
 			$data['items'] = $this->setup_model->get_achievements();
@@ -95,6 +99,8 @@ class Setup extends CI_Controller {
 			$html_header_data['title'] = 'IP whitelist';
 			$html_header_data['style'] = 'editable_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
 			
 			$data['header'] = 'Povolené IP adresy:';
 			$data['items'] = $this->setup_model->get_ips();
@@ -161,6 +167,8 @@ class Setup extends CI_Controller {
 			$html_header_data['style'] = 'editable_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
+			$this->load->view('templates/menu');
+			
 			$data['header'] = 'Skilly:';
 			$data['items'] = $this->setup_model->get_skills_as_items();
 			
@@ -225,6 +233,8 @@ class Setup extends CI_Controller {
 			$html_header_data['title'] = 'Hry';
 			$html_header_data['style'] = 'editable_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
 			
 			$data['header'] = 'Hry:';
 			$data['items'] = $this->setup_model->get_games();
@@ -299,6 +309,8 @@ class Setup extends CI_Controller {
 		$html_header_data['title'] = 'Chyba';
 		$html_header_data['style'] = 'error.css';
 		$this->load->view('templates/html_header', $html_header_data);
+		
+		$this->load->view('templates/menu');
 		
 		$data['message'] = $error->getMessage();
 		$this->load->view('templates/error', $data);
