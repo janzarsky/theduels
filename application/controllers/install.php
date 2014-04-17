@@ -6,23 +6,33 @@ class Install extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper('url');
-		$this->load->model('install_model');
+		$this->load->helper('file');
 	}
 
 	public function index() {
 		$html_header_data['title'] = 'Admin';
-		$html_header_data['style'] = 'list.css';
+		$html_header_data['style'] = 'install.css';
 		$this->load->view('templates/html_header', $html_header_data);
+		
+		$this->load->view('install/index');
+		
+		$this->load->view('templates/html_footer');
+	}
+	
+	public function db_setup_submit() {
+		$config = read_file('./application/config/database-template.php');
+		
+		$config = str_replace('@hostname', $this->input->post('hostname'), $config);
+		$config = str_replace('@username', $this->input->post('username'), $config);
+		$config = str_replace('@password', $this->input->post('password'), $config);
+		$config = str_replace('@database', $this->input->post('database'), $config);
+		
+		write_file('./application/config/database.php', $config);
+		
+		$this->load->model('install_model');
 		
 		$this->install_model->create_db();
 		
-		$list_data['header'] = 'Installation';
-		$list_data['items'] = array(
-			array('label' => 'Database created!', 'url' => '/admin'),
-			array('label' => 'Continue', 'url' => '/admin')
-		);
-		$this->load->view('templates/list', $list_data);
-		
-		$this->load->view('templates/html_footer');
+		redirect('setup');
 	}
 }
