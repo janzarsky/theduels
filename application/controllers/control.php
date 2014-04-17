@@ -23,6 +23,8 @@ class Control extends CI_Controller {
 			$html_header_data['style'] = 'control.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
+			$this->load->view('templates/menu');
+			
 			$control_data['game_id'] = $game_id;
 			$control_data['game_name'] = $this->control_model->get_game_name($game_id);
 			$control_data['players'] = $this->control_model->get_players();
@@ -43,6 +45,8 @@ class Control extends CI_Controller {
 			$html_header_data['title'] = 'Vyber hru';
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
 			
 			$list_data['header'] = 'Hry:';
 			$list_data['items'] = $this->control_model->get_games();
