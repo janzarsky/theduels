@@ -102,70 +102,78 @@ class Control_model extends CI_Model {
 	}
 	
 	private function update_achievement_skiller($player_id, $skill_value) {
-		$level = $this->get_achievement_level($player_id, 1);
-		
-		if ($level == 3)
-			return;
-		
-		$limit = $this->get_achievement_limit(1, $level + 1);
-		
-		if ($skill_value >= $limit)
-			$this->set_achievement_level($player_id, 1, $level+1);
+		if ($this->is_achievement_enabled(1)) {
+			$level = $this->get_achievement_level($player_id, 1);
+			
+			if ($level == 3)
+				return;
+			
+			$limit = $this->get_achievement_limit(1, $level + 1);
+			
+			if ($skill_value >= $limit)
+				$this->set_achievement_level($player_id, 1, $level+1);
+		}
 	}
 	
 	private function update_achievement_gamer($player_id) {
-		$level = $this->get_achievement_level($player_id, 2);
+		if ($this->is_achievement_enabled(2)) {
+			$level = $this->get_achievement_level($player_id, 2);
+			
+			if ($level == 3)
+				return;
+			
+			$limit = $this->get_achievement_limit(2, $level + 1);
+			
+			$games = $this->db->select('id')->from('log_duels')->where(array('player_1_id' => $player_id))->get()->num_rows();
+			$games += $this->db->select('id')->from('log_duels')->where(array('player_2_id' => $player_id))->get()->num_rows();
 		
-		if ($level == 3)
-			return;
-		
-		$limit = $this->get_achievement_limit(2, $level + 1);
-		
-		$games = $this->db->select('id')->from('log_duels')->where(array('player_1_id' => $player_id))->get()->num_rows();
-		$games += $this->db->select('id')->from('log_duels')->where(array('player_2_id' => $player_id))->get()->num_rows();
-	
-		if ($games >= $limit)
-			$this->set_achievement_level($player_id, 2, $level+1);
+			if ($games >= $limit)
+				$this->set_achievement_level($player_id, 2, $level+1);
+		}
 	}
 	
 	private function update_achievement_winner($player_id) {
-		$level = $this->get_achievement_level($player_id, 3);
-		
-		if ($level == 3)
-			return;
-		
-		$limit = $this->get_achievement_limit(3, $level + 1);
-		
-		$r = $this->db->select('timestamp')->from('log_duels')->where(array('player_1_id' => $player_id, 'score' => 2))
-			->order_by('timestamp', 'desc')->get();
+		if ($this->is_achievement_enabled(3)) {
+			$level = $this->get_achievement_level($player_id, 3);
 			
-		if ($r->num_rows() < $limit)
-			return;
-		
-		$nth_win_time = $r->row_array($limit - 1)['timestamp'];
-		
-		$last_lose_time = $this->db->select('timestamp')->from('log_duels')->where(array('player_2_id' => $player_id, 'score' => 2))
-			->order_by('timestamp', 'desc')->get()->row_array(0)['timestamp'];
-		
-		if ($last_lose_time < $nth_win_time)
-			$this->set_achievement_level($player_id, 3, $level+1);
+			if ($level == 3)
+				return;
+			
+			$limit = $this->get_achievement_limit(3, $level + 1);
+			
+			$r = $this->db->select('timestamp')->from('log_duels')->where(array('player_1_id' => $player_id, 'score' => 2))
+				->order_by('timestamp', 'desc')->get();
+				
+			if ($r->num_rows() < $limit)
+				return;
+			
+			$nth_win_time = $r->row_array($limit - 1)['timestamp'];
+			
+			$last_lose_time = $this->db->select('timestamp')->from('log_duels')->where(array('player_2_id' => $player_id, 'score' => 2))
+				->order_by('timestamp', 'desc')->get()->row_array(0)['timestamp'];
+			
+			if ($last_lose_time < $nth_win_time)
+				$this->set_achievement_level($player_id, 3, $level+1);
+		}
 	}
 	
 	private function update_achievement_jumper($player_id, $skill_value_1, $skill_value_2) {
-		if ($skill_value_1 >= $skill_value_2)
-			return;
-		
-		$level = $this->get_achievement_level($player_id, 4);
-		
-		if ($level == 3)
-			return;
-		
-		$limit = $this->get_achievement_limit(4, $level + 1);
-		
-		$diff = (($skill_value_2/$skill_value_1) - 1)*100;
-		
-		if ($diff >= $limit)
-			$this->set_achievement_level($player_id, 4, $level+1);
+		if ($this->is_achievement_enabled(4)) {
+			if ($skill_value_1 >= $skill_value_2)
+				return;
+			
+			$level = $this->get_achievement_level($player_id, 4);
+			
+			if ($level == 3)
+				return;
+			
+			$limit = $this->get_achievement_limit(4, $level + 1);
+			
+			$diff = (($skill_value_2/$skill_value_1) - 1)*100;
+			
+			if ($diff >= $limit)
+				$this->set_achievement_level($player_id, 4, $level+1);
+		}
 	}
 	
 	private function get_achievement_level($player_id, $achievement_id) {
@@ -206,5 +214,13 @@ class Control_model extends CI_Model {
 		$score = $result['pure_score'] + $result['bonus_score'];
 		
 		$this->db->update('players', array('score' => $score), array('id' => $player_id));
+	}
+	
+	private function is_achievement_enabled($id) {
+		return $this->db
+			->select('enabled')
+			->from('achievements')
+			->where('id', $id)
+			->get()->row_array()['enabled'] == '1';
 	}
 }
