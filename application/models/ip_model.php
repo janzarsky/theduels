@@ -7,8 +7,17 @@ class Ip_model extends CI_Model {
 	}
 
 	public function validate_ip() {
-		if ($this->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
-			throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+		if ($this->is_ip_whitelist_enabled())
+			if ($this->is_ip_valid($this->input->server('REMOTE_ADDR')) == false)
+				throw new Exception('Invalid ip address ' . $this->input->server('REMOTE_ADDR'));
+	}
+	
+	private function is_ip_whitelist_enabled() {
+		return $this->db
+			->select('value')
+			->from('settings')
+			->where('name', 'ip_whitelist_enabled')
+			->get()->row_array()['value'] == true;
 	}
 	
 	private function is_ip_valid($ip) {
