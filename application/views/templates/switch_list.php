@@ -11,7 +11,9 @@
 						<?php echo $item['label']; ?>
 					</header>
 					
-					<select class="field__select" name="<?php echo $item['id']; ?>">
+					<input type="hidden" name="id[]" value="<?php echo $item['id']; ?>">
+					
+					<select class="field__select" name="state[]">
 						<option value="1" <?php echo ($item['enabled']) ? 'selected="selected"' : ''; ?>>
 							Zapnuto
 						</option>
