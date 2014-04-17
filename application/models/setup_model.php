@@ -11,8 +11,7 @@ class Setup_model extends CI_Model {
 		return array(
 			array('label' => 'Skilly', 'url' => '/setup/skills'),
 			array('label' => 'Hry', 'url' => '/setup/games'),
-			array('label' => 'Achievementy', 'url' => '/setup/achievements'),
-			array('label' => 'IP whitelist', 'url' => '/setup/whitelist')
+			array('label' => 'Achievementy', 'url' => '/setup/achievements')
 		);
 	}
 	
@@ -42,32 +41,6 @@ class Setup_model extends CI_Model {
 		}
 		
 		$this->db->update_batch('achievements', $data, 'id');
-	}
-	
-	public function get_ips() {
-		return $this->db
-			->select("CONCAT(`name`, ' (', `ip`, ')') as label, id as id", false)
-			->from('ip_whitelist')
-			->get()->result_array();
-	}
-	
-	public function add_ip($ip = false, $name = false) {
-		if ($ip === false || $name === false)
-			throw new Exception('empty');
-		
-		$data = array(
-			'ip' => $ip,
-			'name' => $name
-		);
-		
-		$this->db->insert('ip_whitelist', $data);
-	}
-	
-	public function delete_ip($id = false) {
-		if ($id === false)
-			throw new Exception('empty');
-		
-		$this->db->delete('ip_whitelist', array('id' => $id));
 	}
 	
 	public function get_skills_as_items() {
