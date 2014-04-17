@@ -86,6 +86,8 @@ class Control extends CI_Controller {
 		$html_header_data['style'] = 'error.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
+		$this->load->view('templates/menu');
+		
 		$data['message'] = $error->getMessage();
 		$this->load->view('templates/error', $data);
 		
