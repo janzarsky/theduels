@@ -124,6 +124,25 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function settings_submit() {
+		try {
+			$this->ip_model->validate_ip();
+			$this->check_lock();
+			
+			try {
+				$this->admin_model->set_settings($this->input->post('id'), $this->input->post('state'));
+			}
+			catch (Exception $e) {
+				$message .= $e->getMessage();
+			}
+			
+			$this->redirect_with_message('admin/settings', $message);
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	private function check_lock() {
 		if ($this->admin_model->get_setup_lock() == false)
 			throw new Exception('You must lock setup first!');
