@@ -14,6 +14,14 @@ class Install_model extends CI_Model {
 			if (trim($query) != '')
 				$this->db->query($query);
 		
-		return $sql;
+		$sql = read_file('./application/avatars.sql');
+		
+		foreach (explode(';',$sql) as $query)
+			if (trim($query) != '')
+				$this->db->query($query);
+		
+		$this->db->insert('ip_whitelist', array('ip' => '127.0.0.1', 'name' => 'localhost'));
+		$this->db->insert('settings', array('name' => 'position_visible', 'value' => 'true'));
+		$this->db->insert('settings', array('name' => 'setup_lock', 'value' => 'false'));
 	}
 }
