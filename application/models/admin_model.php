@@ -82,6 +82,13 @@ class Admin_model extends CI_Model {
 		$this->db->insert_batch('players_skills', $players_skills_data);
 	}
 	
+	public function get_skills() {
+		return $this->db
+			->select('id, name')
+			->from('skills')
+			->get()->result_array();
+	}
+	
 	private function add_player_achievements($player_id) {
 		for ($i = 1; $i <= 4; $i++) {
 			$players_achievements_data[$i] = array(
