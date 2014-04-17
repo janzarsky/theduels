@@ -13,6 +13,7 @@ class Admin extends CI_Controller {
 	public function index() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			$html_header_data['title'] = 'Admin';
 			$html_header_data['style'] = 'list.css';
@@ -32,6 +33,7 @@ class Admin extends CI_Controller {
 	public function players() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			$html_header_data['title'] = 'Správa hráčů';
 			$html_header_data['styles'] = array('editable_list.css', 'admin__players_add.css');
@@ -60,6 +62,7 @@ class Admin extends CI_Controller {
 	public function players_add_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
@@ -78,6 +81,7 @@ class Admin extends CI_Controller {
 	public function players_delete_submit() {
 		try {
 			$this->ip_model->validate_ip();
+			$this->check_lock();
 			
 			try {
 				$this->admin_model->delete_player($this->input->post('id'));
@@ -91,6 +95,11 @@ class Admin extends CI_Controller {
 		catch (Exception $e) {
 			$this->show_error_page($e);
 		}
+	}
+	
+	private function check_lock() {
+		if ($this->admin_model->get_setup_lock() == false)
+			throw new Exception('You must lock setup first!');
 	}
 	
 	private function redirect_with_message($url, $message) {
