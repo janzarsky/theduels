@@ -14,9 +14,9 @@
 			Odhlásit se
 		</span>
 	</a>
-	<?php if (isset($message)) : ?>
-		<div class="menu__message <?php if (isset($message_type)) echo 'menu__message--' . $message_type; ?>">
-			<?php echo $message; ?>
+	<?php if ($this->session->flashdata('message') != false): ?>
+		<div class="menu__message">
+			<?php echo $this->session->flashdata('message'); ?>
 		</div>
 	<?php endif; ?>
 </nav>
