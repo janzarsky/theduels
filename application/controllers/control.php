@@ -67,18 +67,16 @@ class Control extends CI_Controller {
 																				$this->input->post('player_2_id'), $this->input->post('score'));
 		}
 		catch (Exception $e) {
-			$error_message .= $e->getMessage();
+			$this->session->set_flashdata('message', $e->getMessage());
+			$this->session->set_flashdata('message_type', 'error');
 		}
 		
 		if ($game_id === false)
 			$url = '/control';
 		else
 			$url = '/control/' . $game_id;
-		
-		if (isset($error_message))
-			redirect(base_url($url . '?error=' . $error_message));
-		else
-			redirect(base_url($url));
+
+		redirect(base_url($url));
 	}
 	
 	private function check_login() {
