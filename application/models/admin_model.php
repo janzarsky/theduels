@@ -10,6 +10,7 @@ class Admin_model extends CI_Model {
 		return array(
 			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
 			array('label' => 'Možnosti', 'url' => '/admin/settings'),
+			array('label' => 'Změnit heslo', 'url' => '/admin/password'),
 			array('label' => 'Zadávání duelů', 'url' => '/control')
 		);
 	}
@@ -150,5 +151,9 @@ class Admin_model extends CI_Model {
 		}
 		
 		$this->db->update_batch('settings', $data, 'id');
+	}
+	
+	public function set_password($password) {
+		$this->db->update('settings', array('value' => $password), array('name' => 'password'));
 	}
 }
