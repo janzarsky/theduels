@@ -81,7 +81,7 @@ class Setup extends CI_Controller {
 			try {
 				$this->setup_model->set_achievements($this->input->post('id'), $this->input->post('state'));
 				
-				$this->session->set_flashdata('message', 'Nastavení uloženo');
+				$this->session->set_flashdata('message', 'Achievementy uloženy');
 				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
@@ -89,7 +89,7 @@ class Setup extends CI_Controller {
 				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			redirect('setup/achievements');
+			redirect('setup');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
