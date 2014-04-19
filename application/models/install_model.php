@@ -22,6 +22,14 @@ class Install_model extends CI_Model {
 					$this->db->query($query);
 		}
 		
+		$sql = read_file('./application/achievements.sql');
+		
+		if ($this->db->select('*')->from('achievements')->get()->num_rows() == false) {
+			foreach (explode(';',$sql) as $query)
+				if (trim($query) != '')
+					$this->db->query($query);
+		}
+		
 		if ($this->db->select('*')->from('settings')->get()->num_rows() == false) {
 			$this->db->insert('settings', array('name' => 'position_visible', 'label' => 'Zobrazení pořadí', 'value' => '1'));
 			$this->db->insert('settings', array('name' => 'setup_lock', 'label' => 'Setup lock', 'value' => '0'));
