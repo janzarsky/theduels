@@ -75,7 +75,7 @@ class Admin extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('admin/players', $message);
+			redirect('admin/players');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -94,7 +94,7 @@ class Admin extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('admin/players', $message);
+			redirect('admin/players');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -151,13 +151,6 @@ class Admin extends CI_Controller {
 	private function check_lock() {
 		if ($this->admin_model->get_setup_lock() == false)
 			throw new Exception('You must lock setup first!');
-	}
-	
-	private function redirect_with_message($url, $message) {
-		if (isset($message) || $message != '')
-			redirect(base_url($url) . '?message=' . $message);
-		else
-			redirect(base_url($url) . '?message=success');
 	}
 	
 	private function show_error_page($error) {
