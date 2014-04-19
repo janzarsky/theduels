@@ -154,7 +154,7 @@ class Admin extends CI_Controller {
 			try {
 				$this->admin_model->set_settings($this->input->post('id'), $this->input->post('state'));
 				
-				$this->session->set_flashdata('message', 'Nastavení uloženo');
+				$this->session->set_flashdata('message', 'Možnosti uloženy');
 				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
@@ -162,7 +162,7 @@ class Admin extends CI_Controller {
 				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			redirect('admin/settings');
+			redirect('admin');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
