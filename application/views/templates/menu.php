@@ -15,7 +15,9 @@
 		</span>
 	</a>
 	<?php if ($this->session->flashdata('message') != false): ?>
-		<div class="menu__message">
+		<div class="menu__message
+			<?php if ($this->session->flashdata('message_type') != false)
+				echo 'menu__message--' . $this->session->flashdata('message_type'); ?>">
 			<?php echo $this->session->flashdata('message'); ?>
 		</div>
 	<?php endif; ?>
