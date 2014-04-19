@@ -38,6 +38,8 @@
 |
 */
 
+$route['logout'] = "login/logout";
+
 $route['viewer/(:num)'] = "viewer/index/$1";
 $route['viewer/data/(:num)'] = "viewer/data/$1";
 

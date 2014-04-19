@@ -33,6 +33,11 @@ class Login extends CI_Controller {
 			$this->redirect_with_message('login', 'Wrong password');
 	}
 	
+	public function logout() {
+		session_destroy();
+		redirect('login');
+	}
+	
 	private function redirect_with_message($url, $message) {
 		if (isset($message) || $message != '')
 			redirect(base_url($url) . '?message=' . $message);
