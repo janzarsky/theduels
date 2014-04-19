@@ -5,12 +5,15 @@ class Control extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->model('control_model');
 	}
 
 	public function index($game_id = false) {
 		try {
+			$this->check_login();
+			
 			if ($game_id === false) {
 				$this->select();
 				return;
@@ -37,6 +40,8 @@ class Control extends CI_Controller {
 	
 	public function select() {
 		try {
+			$this->check_login();
+			
 			$html_header_data['title'] = 'Vyber hru';
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
@@ -56,6 +61,8 @@ class Control extends CI_Controller {
 	
 	public function submit($game_id = false) {
 		try {
+			$this->check_login();
+			
 			$this->control_model->submit_duel($this->input->post('game_id'), $this->input->post('player_1_id'),
 																				$this->input->post('player_2_id'), $this->input->post('score'));
 		}
@@ -72,6 +79,11 @@ class Control extends CI_Controller {
 			redirect(base_url($url . '?error=' . $error_message));
 		else
 			redirect(base_url($url));
+	}
+	
+	private function check_login() {
+		if ($this->session->userdata('logged_in') == false)
+			redirect('login');
 	}
 	
 	private function show_error_page($error) {
