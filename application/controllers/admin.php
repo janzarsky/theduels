@@ -70,9 +70,13 @@ class Admin extends CI_Controller {
 			
 			try {
 				$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
+				
+				$this->session->set_flashdata('message', 'Hráč přidán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('admin/players');
@@ -89,9 +93,13 @@ class Admin extends CI_Controller {
 			
 			try {
 				$this->admin_model->delete_player($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Hráč odebrán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('admin/players');
@@ -131,12 +139,16 @@ class Admin extends CI_Controller {
 			
 			try {
 				$this->admin_model->set_settings($this->input->post('id'), $this->input->post('state'));
+				
+				$this->session->set_flashdata('message', 'Nastavení uloženo');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('admin/settings', $message);
+			redirect('admin/settings');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
