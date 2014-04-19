@@ -141,7 +141,7 @@ class Admin_model extends CI_Model {
 			$this->db->delete('players', array('id' => $id));
 		}
 		catch (Exception $e) {
-			throw new Exception('dberror');
+			throw new Exception('Chyba databáze!');
 		}
 	}
 	

@@ -176,7 +176,7 @@ class Admin extends CI_Controller {
 	
 	private function check_lock() {
 		if ($this->admin_model->get_setup_lock() == false)
-			throw new Exception('You must lock setup first!');
+			throw new Exception('Nejdříve musíte zamknout pravidla!');
 	}
 	
 	private function show_error_page($error) {

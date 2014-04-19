@@ -30,7 +30,7 @@ class Control_model extends CI_Model {
 	
 	public function submit_duel($game_id, $player_1_id, $player_2_id, $score) {
 		if ($player_1_id == $player_2_id)
-			throw new Exception("players are the same");
+			throw new Exception("Oba hráči jsou stejní!");
 		
 		$skill_id = $this->get_skill_id($game_id);
 		

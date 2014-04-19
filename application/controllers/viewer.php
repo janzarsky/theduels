@@ -33,7 +33,7 @@ class Viewer extends CI_Controller {
 	}
 	
 	public function select() {
-		$html_header_data['title'] = 'Vyber hráče';
+		$html_header_data['title'] = 'Prohlížeč';
 		$html_header_data['style'] = 'list.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
