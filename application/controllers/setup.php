@@ -39,7 +39,8 @@ class Setup extends CI_Controller {
 				$this->setup_model->set_lock($this->input->post('lock'));
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('setup');
@@ -79,9 +80,13 @@ class Setup extends CI_Controller {
 			
 			try {
 				$this->setup_model->set_achievements($this->input->post('id'), $this->input->post('state'));
+				
+				$this->session->set_flashdata('message', 'Nastavení uloženo');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('setup/achievements');
@@ -127,9 +132,13 @@ class Setup extends CI_Controller {
 			
 			try {
 				$this->setup_model->add_skill($this->input->post('name'));
+				
+				$this->session->set_flashdata('message', 'Skill přidán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('setup/skills');
@@ -146,9 +155,13 @@ class Setup extends CI_Controller {
 			
 			try {
 				$this->setup_model->delete_skill($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Skill odebrán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('setup/skills');
@@ -195,9 +208,13 @@ class Setup extends CI_Controller {
 			
 			try {
 				$this->setup_model->add_game($this->input->post('name'), $this->input->post('skill_id'));
+				
+				$this->session->set_flashdata('message', 'Hra přidána');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('setup/games');
@@ -214,9 +231,13 @@ class Setup extends CI_Controller {
 			
 			try {
 				$this->setup_model->delete_game($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Hra odebrána');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
 			redirect('setup/games');
