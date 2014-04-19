@@ -254,7 +254,7 @@ class Setup extends CI_Controller {
 	
 	private function check_lock() {
 		if ($this->setup_model->get_lock() == true)
-			throw new Exception('Setup is locked');
+			throw new Exception('Pravidla jsou zamčena!');
 	}
 	
 	private function show_error_page($error) {

@@ -9,7 +9,7 @@
 			
 			<div class="field" id="player1">
 				<header class="field__header">
-					hráč 1
+					Hráč 1:
 				</header>
 				<select class="field__select" name="player_1_id" autofocus>
 					<?php	foreach ($players as $player) : ?>
@@ -22,7 +22,7 @@
 			
 			<div class="field">
 				<header class="field__header">
-					skóre
+					Skóre:
 				</header>
 				<select class="field__select" name="score">
 					<option class="field__select__option" value="2">
@@ -36,7 +36,7 @@
 			
 			<div class="field" id="player2">
 				<header class="field__header">
-					hráč 2
+					Hráč 2:
 				</header>
 				<select class="field__select" name="player_2_id">
 					<?php	foreach ($players as $player) : ?>
