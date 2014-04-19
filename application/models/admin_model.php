@@ -10,7 +10,12 @@ class Admin_model extends CI_Model {
 		return array(
 			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
 			array('label' => 'Možnosti', 'url' => '/admin/settings'),
-			array('label' => 'Zadávání duelů', 'url' => '/control'),
+			array('label' => 'Zadávání duelů', 'url' => '/control')
+		);
+	}
+	
+	public function get_free_pages() {
+		return array(
 			array('label' => 'Přehled', 'url' => '/overview'),
 			array('label' => 'Prohlížeč', 'url' => '/viewer')
 		);

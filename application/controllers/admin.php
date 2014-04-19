@@ -31,6 +31,20 @@ class Admin extends CI_Controller {
 			$this->show_error_page($e);
 		}
 	}
+	
+	public function free() {
+		$html_header_data['title'] = 'Veřejné';
+		$html_header_data['style'] = 'list.css';
+		$this->load->view('templates/html_header', $html_header_data);
+		
+		$this->load->view('templates/menu');
+		
+		$data['header'] = 'Veřejné';
+		$data['items'] = $this->admin_model->get_free_pages();
+		$this->load->view('templates/list', $data);
+		
+		$this->load->view('templates/html_footer');
+	}
 
 	public function players() {
 		try {

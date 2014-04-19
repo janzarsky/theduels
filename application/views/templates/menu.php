@@ -9,6 +9,11 @@
 			Data
 		</span>
 	</a>
+	<a href="<?php echo base_url('/free'); ?>">
+		<span class="menu__item">
+			Veřejné
+		</span>
+	</a>
 	<a href="<?php echo base_url('/logout'); ?>">
 		<span class="menu__item">
 			Odhlásit se

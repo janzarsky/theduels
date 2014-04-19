@@ -39,6 +39,7 @@
 */
 
 $route['logout'] = "login/logout";
+$route['free'] = "admin/free";
 
 $route['viewer/(:num)'] = "viewer/index/$1";
 $route['viewer/data/(:num)'] = "viewer/data/$1";
