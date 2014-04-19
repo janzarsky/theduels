@@ -7,13 +7,10 @@ class Control extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('control_model');
-		$this->load->model('ip_model');
 	}
 
 	public function index($game_id = false) {
 		try {
-			$this->ip_model->validate_ip();
-			
 			if ($game_id === false) {
 				$this->select();
 				return;
@@ -40,8 +37,6 @@ class Control extends CI_Controller {
 	
 	public function select() {
 		try {
-			$this->ip_model->validate_ip();
-			
 			$html_header_data['title'] = 'Vyber hru';
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
@@ -61,8 +56,6 @@ class Control extends CI_Controller {
 	
 	public function submit($game_id = false) {
 		try {
-			$this->ip_model->validate_ip();
-			
 			$this->control_model->submit_duel($this->input->post('game_id'), $this->input->post('player_1_id'),
 																				$this->input->post('player_2_id'), $this->input->post('score'));
 		}

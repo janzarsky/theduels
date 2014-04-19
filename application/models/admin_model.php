@@ -9,7 +9,6 @@ class Admin_model extends CI_Model {
 	public function get_pages() {
 		return array(
 			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
-			array('label' => 'IP whitelist', 'url' => '/admin/whitelist'),
 			array('label' => 'Možnosti', 'url' => '/admin/settings'),
 			array('label' => 'Zadávání duelů', 'url' => '/control'),
 			array('label' => 'Přehled', 'url' => '/overview'),
@@ -141,38 +140,11 @@ class Admin_model extends CI_Model {
 		}
 	}
 	
-	public function get_ips() {
-		return $this->db
-			->select("CONCAT(`name`, ' (', `ip`, ')') as label, id as id", false)
-			->from('ip_whitelist')
-			->get()->result_array();
-	}
-	
-	public function add_ip($ip = false, $name = false) {
-		if ($ip === false || $name === false)
-			throw new Exception('empty');
-		
-		$data = array(
-			'ip' => $ip,
-			'name' => $name
-		);
-		
-		$this->db->insert('ip_whitelist', $data);
-	}
-	
-	public function delete_ip($id = false) {
-		if ($id === false)
-			throw new Exception('empty');
-		
-		$this->db->delete('ip_whitelist', array('id' => $id));
-	}
-	
 	public function get_settings() {
 		return $this->db
 			->select('label as label, value as enabled, id as id')
 			->from('settings')
 			->where('name', 'position_visible')
-			->or_where('name', 'ip_whitelist_enabled')
 			->get()->result_array();
 	}
 	

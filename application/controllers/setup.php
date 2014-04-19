@@ -7,12 +7,10 @@ class Setup extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('setup_model');
-		$this->load->model('ip_model');
 	}
 	
 	public function index() {
 		try {
-			$this->ip_model->validate_ip();
 			
 			$html_header_data['title'] = 'Nastavení';
 			$html_header_data['style'] = 'setup.css';
@@ -33,8 +31,6 @@ class Setup extends CI_Controller {
 	
 	public function lock_submit() {
 		try {
-			$this->ip_model->validate_ip();
-			
 			try {
 				$this->setup_model->set_lock($this->input->post('lock'));
 			}
@@ -51,7 +47,6 @@ class Setup extends CI_Controller {
 	
 	public function achievements() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Achievementy';
@@ -74,7 +69,6 @@ class Setup extends CI_Controller {
 	
 	public function achievements_submit() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			try {
@@ -93,7 +87,6 @@ class Setup extends CI_Controller {
 	
 	public function skills() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Skilly';
@@ -122,7 +115,6 @@ class Setup extends CI_Controller {
 	
 	public function skills_add_submit() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			try {
@@ -141,7 +133,6 @@ class Setup extends CI_Controller {
 	
 	public function skills_delete_submit() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			try {
@@ -160,7 +151,6 @@ class Setup extends CI_Controller {
 	
 	public function games() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Hry';
@@ -190,7 +180,6 @@ class Setup extends CI_Controller {
 	
 	public function games_add_submit() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			try {
@@ -209,7 +198,6 @@ class Setup extends CI_Controller {
 	
 	public function games_delete_submit() {
 		try {
-			$this->ip_model->validate_ip();
 			$this->check_lock();
 			
 			try {
