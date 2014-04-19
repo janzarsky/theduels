@@ -24,8 +24,20 @@ class Setup_model extends CI_Model {
 	}
 	
 	public function set_lock($state) {
-		if (isset($state))
+		if (isset($state)) {
 			$this->db->update('settings', array('value' => $state), array('name' => 'setup_lock'));
+			
+			$this->remove_data();
+		}
+	}
+	
+	private function remove_data() {
+		$this->db->empty_table('players_achievements');
+		$this->db->empty_table('players_skills');
+		$this->db->empty_table('players');
+		$this->db->empty_table('log_duels');
+		
+		$this->db->update('avatars', array('free' => '1'));
 	}
 	
 	public function get_achievements() {
