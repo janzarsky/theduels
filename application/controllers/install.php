@@ -27,7 +27,8 @@ class Install extends CI_Controller {
 		$config = str_replace('@password', $this->input->post('password'), $config);
 		$config = str_replace('@database', $this->input->post('database'), $config);
 		
-		write_file('./application/config/database.php', $config);
+		if (file_exists('./application/config/database.php') == false)
+			write_file('./application/config/database.php', $config);
 		
 		$this->load->model('install_model');
 		
