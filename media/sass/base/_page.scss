@@ -23,6 +23,12 @@
 	margin: 16px 0;
 }
 
+.note {
+	color: $light-gray;
+	margin: 16px 0;
+	text-align: center;
+}
+
 @media screen and (max-width: 480px) {
 	.content {
 		width: 100%;
