@@ -169,6 +169,49 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function password() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			$html_header_data['title'] = 'Změnit heslo';
+			$html_header_data['style'] = 'password.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
+			
+			$this->load->view('admin/password');
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function password_submit() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			try {
+				$this->admin_model->set_password($this->input->post('password'));
+				
+				$this->session->set_flashdata('message', 'Heslo změněno');
+				$this->session->set_flashdata('message_type', 'success');
+			}
+			catch (Exception $e) {
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
+			}
+			
+			redirect('admin');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
 	private function check_login() {
 		if ($this->session->userdata('logged_in') == false)
 			redirect('login');
