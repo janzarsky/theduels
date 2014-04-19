@@ -18,6 +18,8 @@ class Login extends CI_Controller {
 		$html_header_data['style'] = 'login.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
+		$this->load->view('templates/menu');
+		
 		$this->load->view('login/index');
 		
 		$this->load->view('templates/html_footer');
@@ -29,20 +31,17 @@ class Login extends CI_Controller {
 			
 			redirect('setup');
 		}
-		else
-			$this->redirect_with_message('login', 'Wrong password');
+		else {
+			$this->session->set_flashdata('message', 'Špatné heslo');
+			$this->session->set_flashdata('message_type', 'error');
+			
+			redirect('login');
+		}
 	}
 	
 	public function logout() {
 		$this->session->unset_userdata('logged_in');
 		session_destroy();
 		redirect('login');
-	}
-	
-	private function redirect_with_message($url, $message) {
-		if (isset($message) || $message != '')
-			redirect(base_url($url) . '?message=' . $message);
-		else
-			redirect(base_url($url) . '?message=success');
 	}
 }
