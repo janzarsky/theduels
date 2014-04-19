@@ -42,7 +42,7 @@ class Setup extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('setup', $message);
+			redirect('setup');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -84,7 +84,7 @@ class Setup extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('setup/achievements', $message);
+			redirect('setup/achievements');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -132,7 +132,7 @@ class Setup extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('setup/skills', $message);
+			redirect('setup/skills');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -151,7 +151,7 @@ class Setup extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('setup/skills', $message);
+			redirect('setup/skills');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -200,7 +200,7 @@ class Setup extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('setup/games', $message);
+			redirect('setup/games');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -219,7 +219,7 @@ class Setup extends CI_Controller {
 				$message .= $e->getMessage();
 			}
 			
-			$this->redirect_with_message('setup/games', $message);
+			redirect('setup/games');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -234,13 +234,6 @@ class Setup extends CI_Controller {
 	private function check_lock() {
 		if ($this->setup_model->get_lock() == true)
 			throw new Exception('Setup is locked');
-	}
-	
-	private function redirect_with_message($url, $message) {
-		if (isset($message) || $message != '')
-			redirect(base_url($url) . '?message=' . $message);
-		else
-			redirect(base_url($url) . '?message=success');
 	}
 	
 	private function show_error_page($error) {
