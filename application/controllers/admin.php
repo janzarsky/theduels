@@ -5,12 +5,14 @@ class Admin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->model('admin_model');
 	}
 
 	public function index() {
 		try {
+			$this->check_login();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Admin';
@@ -32,6 +34,7 @@ class Admin extends CI_Controller {
 
 	public function players() {
 		try {
+			$this->check_login();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Správa hráčů';
@@ -62,6 +65,7 @@ class Admin extends CI_Controller {
 	
 	public function players_add_submit() {
 		try {
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
@@ -80,6 +84,7 @@ class Admin extends CI_Controller {
 	
 	public function players_delete_submit() {
 		try {
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
@@ -98,6 +103,7 @@ class Admin extends CI_Controller {
 	
 	public function settings() {
 		try {
+			$this->check_login();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Možnosti';
@@ -120,6 +126,7 @@ class Admin extends CI_Controller {
 	
 	public function settings_submit() {
 		try {
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
@@ -134,6 +141,11 @@ class Admin extends CI_Controller {
 		catch (Exception $e) {
 			$this->show_error_page($e);
 		}
+	}
+	
+	private function check_login() {
+		if ($this->session->userdata('logged_in') == false)
+			redirect('login');
 	}
 	
 	private function check_lock() {
