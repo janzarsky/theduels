@@ -9,9 +9,9 @@
 			Admin
 		</span>
 	</a>
-	<a href="<?php echo base_url('/'); ?>">
+	<a href="<?php echo base_url('/logout'); ?>">
 		<span class="menu__item">
-			Public
+			Odhlásit se
 		</span>
 	</a>
 </nav>
