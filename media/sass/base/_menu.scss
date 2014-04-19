@@ -9,6 +9,18 @@
 	line-height: 200%;
 	color: $orange;
 }
+.menu__message {
+	padding: 8px;
+	line-height: 200%;
+	color: $light-gray;
+}
+.menu__message--success {
+	color: $green;
+}
+.menu__message--error {
+	color: $red;
+}
+
 
 @media screen and (max-width: 480px) {
 	.menu {
