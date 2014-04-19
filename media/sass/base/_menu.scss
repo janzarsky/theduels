@@ -21,10 +21,14 @@
 	color: $red;
 }
 
-
 @media screen and (max-width: 480px) {
 	.menu {
 		width: 100%;
 		margin: 0;
+	}
+}
+@media screen and (min-width: 960px) {
+	.menu {
+		width: 960px;
 	}
 }
