@@ -68,8 +68,7 @@ class Admin_model extends CI_Model {
 			'avatar_id' => $avatar_id,
 			'pure_score' => $score,
 			'score' => $score,
-			'bonus_score' => 0,
-			'nick' => $this->get_nick($name)
+			'bonus_score' => 0
 		);
 		
 	$this->db->insert('players', $players_data);
@@ -117,14 +116,6 @@ class Admin_model extends CI_Model {
 	
 	private function set_avatar_availability($avatar_id, $available) {
 		$this->db->update('avatars', array('free' => $available), array('id' => $avatar_id));
-	}
-	
-	private function get_nick($name) {
-		return str_replace(
-			array('ě', 'é', 'ř', 'ť', 'ý', 'ú', 'ů', 'í', 'ó', 'á', 'š', 'ď', 'ž', 'č', 'ň'),
-			array('e', 'e', 'r', 't', 'y', 'u', 'u', 'i', 'o', 'a', 's', 'd', 'z', 'c', 'n'),
-			strtolower($name)
-		);
 	}
 	
 	public function delete_player($id)
