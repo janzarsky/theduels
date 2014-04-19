@@ -42,13 +42,13 @@ class Control extends CI_Controller {
 		try {
 			$this->check_login();
 			
-			$html_header_data['title'] = 'Vyber hru';
+			$html_header_data['title'] = 'Disciplíny';
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
 			$this->load->view('templates/menu');
 			
-			$list_data['header'] = 'Hry:';
+			$list_data['header'] = 'Disciplíny:';
 			$list_data['items'] = $this->control_model->get_games();
 			$this->load->view('templates/list', $list_data);
 			

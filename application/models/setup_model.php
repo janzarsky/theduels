@@ -10,7 +10,7 @@ class Setup_model extends CI_Model {
 	public function get_pages() {
 		return array(
 			array('label' => 'Skilly', 'url' => '/setup/skills'),
-			array('label' => 'Hry', 'url' => '/setup/games'),
+			array('label' => 'Disciplíny', 'url' => '/setup/games'),
 			array('label' => 'Achievementy', 'url' => '/setup/achievements')
 		);
 	}

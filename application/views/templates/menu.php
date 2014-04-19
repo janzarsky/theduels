@@ -1,12 +1,12 @@
 <nav class="menu">
 	<a href="<?php echo base_url('/setup'); ?>">
 		<span class="menu__item">
-			Nastavení
+			Pravidla
 		</span>
 	</a>
 	<a href="<?php echo base_url('/admin'); ?>">
 		<span class="menu__item">
-			Admin
+			Data
 		</span>
 	</a>
 	<a href="<?php echo base_url('/logout'); ?>">

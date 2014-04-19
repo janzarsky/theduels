@@ -14,7 +14,7 @@ class Setup extends CI_Controller {
 		try {
 			$this->check_login();
 			
-			$html_header_data['title'] = 'Nastavení';
+			$html_header_data['title'] = 'Pravidla';
 			$html_header_data['style'] = 'setup.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
@@ -176,13 +176,13 @@ class Setup extends CI_Controller {
 			$this->check_login();
 			$this->check_lock();
 			
-			$html_header_data['title'] = 'Hry';
+			$html_header_data['title'] = 'Disciplíny:';
 			$html_header_data['style'] = 'editable_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
 			$this->load->view('templates/menu');
 			
-			$data['header'] = 'Hry:';
+			$data['header'] = 'Disciplíny:';
 			$data['items'] = $this->setup_model->get_games();
 			
 			$add_data['skills'] = $this->setup_model->get_skills();
@@ -209,7 +209,7 @@ class Setup extends CI_Controller {
 			try {
 				$this->setup_model->add_game($this->input->post('name'), $this->input->post('skill_id'));
 				
-				$this->session->set_flashdata('message', 'Hra přidána');
+				$this->session->set_flashdata('message', 'Disciplína přidána');
 				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
@@ -232,7 +232,7 @@ class Setup extends CI_Controller {
 			try {
 				$this->setup_model->delete_game($this->input->post('id'));
 				
-				$this->session->set_flashdata('message', 'Hra odebrána');
+				$this->session->set_flashdata('message', 'Disciplína odebrána');
 				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
