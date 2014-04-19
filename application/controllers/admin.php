@@ -15,13 +15,13 @@ class Admin extends CI_Controller {
 			$this->check_login();
 			$this->check_lock();
 			
-			$html_header_data['title'] = 'Admin';
+			$html_header_data['title'] = 'Data';
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
 			$this->load->view('templates/menu');
 			
-			$data['header'] = 'Admin';
+			$data['header'] = 'Data';
 			$data['items'] = $this->admin_model->get_pages();
 			$this->load->view('templates/list', $data);
 			

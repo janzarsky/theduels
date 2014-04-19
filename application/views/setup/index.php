@@ -1,6 +1,6 @@
 <div class="content">
 	<header class="content__header">
-		Nastavení
+		Pravidla
 	</header>
 	
 	<div class="main main--center">
