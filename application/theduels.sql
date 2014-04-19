@@ -9,6 +9,12 @@ CREATE TABLE IF NOT EXISTS `achievements` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `avatars`
+--
+
 CREATE TABLE IF NOT EXISTS `avatars` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
@@ -28,20 +34,7 @@ CREATE TABLE IF NOT EXISTS `games` (
   `skill_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `skill` (`skill_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabulky `ip_whitelist`
---
-
-CREATE TABLE IF NOT EXISTS `ip_whitelist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ip` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -59,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `log_duels` (
   PRIMARY KEY (`id`),
   KEY `player_1_id` (`player_1_id`),
   KEY `player_2_id` (`player_2_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=627 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=628 ;
 
 -- --------------------------------------------------------
 
@@ -70,13 +63,12 @@ CREATE TABLE IF NOT EXISTS `log_duels` (
 CREATE TABLE IF NOT EXISTS `players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `score` smallint(6) NOT NULL,
   `pure_score` int(11) NOT NULL,
   `bonus_score` int(11) NOT NULL,
   `avatar_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
 -- --------------------------------------------------------
 
@@ -93,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `players_achievements` (
   PRIMARY KEY (`id`),
   KEY `player_id` (`player_id`),
   KEY `achievement_id` (`achievement_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=261 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=285 ;
 
 -- --------------------------------------------------------
 
@@ -109,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `players_skills` (
   PRIMARY KEY (`id`),
   KEY `player_id` (`player_id`),
   KEY `skill_id` (`skill_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=274 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=292 ;
 
 -- --------------------------------------------------------
 
@@ -120,9 +112,10 @@ CREATE TABLE IF NOT EXISTS `players_skills` (
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `label` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `value` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -134,4 +127,4 @@ CREATE TABLE IF NOT EXISTS `skills` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
