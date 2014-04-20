@@ -13,7 +13,7 @@ class Viewer_model extends CI_Model {
 			->where('name', 'position_visible')
 			->get()->row_array()['value'];
 		
-		return ($visible == 'true');
+		return ($visible == true);
 	}
 	
 	public function get_player($id = FALSE) {

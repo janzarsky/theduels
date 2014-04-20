@@ -5,23 +5,23 @@ class Admin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->model('admin_model');
-		$this->load->model('ip_model');
 	}
 
 	public function index() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
-			$html_header_data['title'] = 'Admin';
+			$html_header_data['title'] = 'Data';
 			$html_header_data['style'] = 'list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
 			$this->load->view('templates/menu');
 			
-			$data['header'] = 'Admin';
+			$data['header'] = 'Data';
 			$data['items'] = $this->admin_model->get_pages();
 			$this->load->view('templates/list', $data);
 			
@@ -31,10 +31,24 @@ class Admin extends CI_Controller {
 			$this->show_error_page($e);
 		}
 	}
+	
+	public function free() {
+		$html_header_data['title'] = 'Veřejné';
+		$html_header_data['style'] = 'list.css';
+		$this->load->view('templates/html_header', $html_header_data);
+		
+		$this->load->view('templates/menu');
+		
+		$data['header'] = 'Veřejné';
+		$data['items'] = $this->admin_model->get_free_pages();
+		$this->load->view('templates/list', $data);
+		
+		$this->load->view('templates/html_footer');
+	}
 
 	public function players() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Správa hráčů';
@@ -65,17 +79,21 @@ class Admin extends CI_Controller {
 	
 	public function players_add_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->admin_model->add_player($this->input->post('name'), $this->input->post('avatar_id'));
+				
+				$this->session->set_flashdata('message', 'Hráč přidán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('admin/players', $message);
+			redirect('admin/players');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -84,33 +102,124 @@ class Admin extends CI_Controller {
 	
 	public function players_delete_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->admin_model->delete_player($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Hráč odebrán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('admin/players', $message);
+			redirect('admin/players');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
 		}
 	}
 	
-	private function check_lock() {
-		if ($this->admin_model->get_setup_lock() == false)
-			throw new Exception('You must lock setup first!');
+	public function settings() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			$html_header_data['title'] = 'Možnosti';
+			$html_header_data['style'] = 'switch_list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
+			
+			$data['header'] = 'Možnosti:';
+			$data['items'] = $this->admin_model->get_settings();
+			$data['submit_url'] = 'admin/settings_submit';
+			$this->load->view('templates/switch_list', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
 	}
 	
-	private function redirect_with_message($url, $message) {
-		if (isset($message) || $message != '')
-			redirect(base_url($url) . '?message=' . $message);
-		else
-			redirect(base_url($url) . '?message=success');
+	public function settings_submit() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			try {
+				$this->admin_model->set_settings($this->input->post('id'), $this->input->post('state'));
+				
+				$this->session->set_flashdata('message', 'Možnosti uloženy');
+				$this->session->set_flashdata('message_type', 'success');
+			}
+			catch (Exception $e) {
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
+			}
+			
+			redirect('admin');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function password() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			$html_header_data['title'] = 'Změnit heslo';
+			$html_header_data['style'] = 'password.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
+			
+			$this->load->view('admin/password');
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function password_submit() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			try {
+				$this->admin_model->set_password($this->input->post('password'));
+				
+				$this->session->set_flashdata('message', 'Heslo změněno');
+				$this->session->set_flashdata('message_type', 'success');
+			}
+			catch (Exception $e) {
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
+			}
+			
+			redirect('admin');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	private function check_login() {
+		if ($this->session->userdata('logged_in') == false)
+			redirect('login');
+	}
+	
+	private function check_lock() {
+		if ($this->admin_model->get_setup_lock() == false)
+			throw new Exception('Nejdříve musíte zamknout pravidla!');
 	}
 	
 	private function show_error_page($error) {

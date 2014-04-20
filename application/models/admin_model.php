@@ -9,7 +9,14 @@ class Admin_model extends CI_Model {
 	public function get_pages() {
 		return array(
 			array('label' => 'Správa hráčů', 'url' => '/admin/players'),
-			array('label' => 'Zadávání duelů', 'url' => '/control'),
+			array('label' => 'Možnosti', 'url' => '/admin/settings'),
+			array('label' => 'Změnit heslo', 'url' => '/admin/password'),
+			array('label' => 'Zadávání duelů', 'url' => '/control')
+		);
+	}
+	
+	public function get_free_pages() {
+		return array(
 			array('label' => 'Přehled', 'url' => '/overview'),
 			array('label' => 'Prohlížeč', 'url' => '/viewer')
 		);
@@ -62,8 +69,7 @@ class Admin_model extends CI_Model {
 			'avatar_id' => $avatar_id,
 			'pure_score' => $score,
 			'score' => $score,
-			'bonus_score' => 0,
-			'nick' => $this->get_nick($name)
+			'bonus_score' => 0
 		);
 		
 	$this->db->insert('players', $players_data);
@@ -113,14 +119,6 @@ class Admin_model extends CI_Model {
 		$this->db->update('avatars', array('free' => $available), array('id' => $avatar_id));
 	}
 	
-	private function get_nick($name) {
-		return str_replace(
-			array('ě', 'é', 'ř', 'ť', 'ý', 'ú', 'ů', 'í', 'ó', 'á', 'š', 'ď', 'ž', 'č', 'ň'),
-			array('e', 'e', 'r', 't', 'y', 'u', 'u', 'i', 'o', 'a', 's', 'd', 'z', 'c', 'n'),
-			strtolower($name)
-		);
-	}
-	
 	public function delete_player($id)
 	{
 		try {
@@ -135,7 +133,27 @@ class Admin_model extends CI_Model {
 			$this->db->delete('players', array('id' => $id));
 		}
 		catch (Exception $e) {
-			throw new Exception('dberror');
+			throw new Exception('Chyba databáze!');
 		}
+	}
+	
+	public function get_settings() {
+		return $this->db
+			->select('label as label, value as enabled, id as id')
+			->from('settings')
+			->where('name', 'position_visible')
+			->get()->result_array();
+	}
+	
+	public function set_settings($ids, $states) {
+		foreach ($ids as $key => $id) {
+			$data[] = array('id' => $id, 'value' => $states[$key]);
+		}
+		
+		$this->db->update_batch('settings', $data, 'id');
+	}
+	
+	public function set_password($password) {
+		$this->db->update('settings', array('value' => $password), array('name' => 'password'));
 	}
 }

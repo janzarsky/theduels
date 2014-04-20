@@ -5,16 +5,16 @@ class Setup extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->model('setup_model');
-		$this->load->model('ip_model');
 	}
 	
 	public function index() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			
-			$html_header_data['title'] = 'Nastavení';
+			$html_header_data['title'] = 'Pravidla';
 			$html_header_data['style'] = 'setup.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
@@ -33,16 +33,17 @@ class Setup extends CI_Controller {
 	
 	public function lock_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			
 			try {
 				$this->setup_model->set_lock($this->input->post('lock'));
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('setup', $message);
+			redirect('setup');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -51,7 +52,7 @@ class Setup extends CI_Controller {
 	
 	public function achievements() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Achievementy';
@@ -74,84 +75,21 @@ class Setup extends CI_Controller {
 	
 	public function achievements_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->setup_model->set_achievements($this->input->post('id'), $this->input->post('state'));
+				
+				$this->session->set_flashdata('message', 'Achievementy uloženy');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('setup/achievements', $message);
-		}
-		catch (Exception $e) {
-			$this->show_error_page($e);
-		}
-	}
-	
-	public function whitelist() {
-		try {
-			$this->ip_model->validate_ip();
-			$this->check_lock();
-			
-			$html_header_data['title'] = 'IP whitelist';
-			$html_header_data['style'] = 'editable_list.css';
-			$this->load->view('templates/html_header', $html_header_data);
-			
-			$this->load->view('templates/menu');
-			
-			$data['header'] = 'Povolené IP adresy:';
-			$data['items'] = $this->setup_model->get_ips();
-			
-			$data['add'] = $this->load->view('setup/whitelist_add', null, true);
-			
-			$delete_data['items'] = $data['items'];
-			$delete_data['submit_url'] = 'setup/whitelist_delete_submit';
-			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
-			
-			$this->load->view('templates/editable_list', $data);
-			
-			$this->load->view('templates/html_footer');
-		}
-		catch (Exception $e) {
-			$this->show_error_page($e);
-		}
-	}
-	
-	public function whitelist_add_submit() {
-		try {
-			$this->ip_model->validate_ip();
-			$this->check_lock();
-			
-			try {
-				$this->setup_model->add_ip($this->input->post('ip'), $this->input->post('name'));
-			}
-			catch (Exception $e) {
-				$message .= $e->getMessage();
-			}
-			
-			$this->redirect_with_message('setup/whitelist', $message);
-		}
-		catch (Exception $e) {
-			$this->show_error_page($e);
-		}
-	}
-	
-	public function whitelist_delete_submit() {
-		try {
-			$this->ip_model->validate_ip();
-			$this->check_lock();
-			
-			try {
-				$this->setup_model->delete_ip($this->input->post('id'));
-			}
-			catch (Exception $e) {
-				$message .= $e->getMessage();
-			}
-			
-			$this->redirect_with_message('setup/whitelist', $message);
+			redirect('setup');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -160,7 +98,7 @@ class Setup extends CI_Controller {
 	
 	public function skills() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			$html_header_data['title'] = 'Skilly';
@@ -189,17 +127,21 @@ class Setup extends CI_Controller {
 	
 	public function skills_add_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->setup_model->add_skill($this->input->post('name'));
+				
+				$this->session->set_flashdata('message', 'Skill přidán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('setup/skills', $message);
+			redirect('setup/skills');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -208,17 +150,21 @@ class Setup extends CI_Controller {
 	
 	public function skills_delete_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->setup_model->delete_skill($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Skill odebrán');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('setup/skills', $message);
+			redirect('setup/skills');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -227,16 +173,16 @@ class Setup extends CI_Controller {
 	
 	public function games() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
-			$html_header_data['title'] = 'Hry';
+			$html_header_data['title'] = 'Disciplíny:';
 			$html_header_data['style'] = 'editable_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
 			
 			$this->load->view('templates/menu');
 			
-			$data['header'] = 'Hry:';
+			$data['header'] = 'Disciplíny:';
 			$data['items'] = $this->setup_model->get_games();
 			
 			$add_data['skills'] = $this->setup_model->get_skills();
@@ -257,17 +203,21 @@ class Setup extends CI_Controller {
 	
 	public function games_add_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->setup_model->add_game($this->input->post('name'), $this->input->post('skill_id'));
+				
+				$this->session->set_flashdata('message', 'Disciplína přidána');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('setup/games', $message);
+			redirect('setup/games');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
@@ -276,33 +226,35 @@ class Setup extends CI_Controller {
 	
 	public function games_delete_submit() {
 		try {
-			$this->ip_model->validate_ip();
+			$this->check_login();
 			$this->check_lock();
 			
 			try {
 				$this->setup_model->delete_game($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Disciplína odebrána');
+				$this->session->set_flashdata('message_type', 'success');
 			}
 			catch (Exception $e) {
-				$message .= $e->getMessage();
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			$this->redirect_with_message('setup/games', $message);
+			redirect('setup/games');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
 		}
 	}
 	
-	private function check_lock() {
-		if ($this->setup_model->get_lock() == true)
-			throw new Exception('Setup is locked');
+	private function check_login() {
+		if ($this->session->userdata('logged_in') == false)
+			redirect('login');
 	}
 	
-	private function redirect_with_message($url, $message) {
-		if (isset($message) || $message != '')
-			redirect(base_url($url) . '?message=' . $message);
-		else
-			redirect(base_url($url) . '?message=success');
+	private function check_lock() {
+		if ($this->setup_model->get_lock() == true)
+			throw new Exception('Pravidla jsou zamčena!');
 	}
 	
 	private function show_error_page($error) {

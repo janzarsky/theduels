@@ -10,7 +10,7 @@ class Overview extends CI_Controller {
 	}
 
 	public function index() {
-		$html_header_data['title'] = 'Overview';
+		$html_header_data['title'] = 'Přehled';
 		$html_header_data['style'] = 'overview.css';
 		$this->load->view('templates/html_header', $html_header_data);
 		
