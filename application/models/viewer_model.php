@@ -71,6 +71,7 @@ class Viewer_model extends CI_Model {
 			->from('players_achievements')
 			->join('achievements', 'players_achievements.achievement_id = achievements.id')
 			->where('player_id', $id)
+			->where('achievements.enabled', '1')
 			->order_by('achievement_id', 'asc')
 			->get()->result_array();
 	}
