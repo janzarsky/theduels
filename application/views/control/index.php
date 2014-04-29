@@ -2,6 +2,9 @@
 	<header class="content__header">
 		<?php echo $game_name; ?>
 	</header>
+	<header class="content__subheader">
+		(<?php echo $game_skill; ?>)
+	</header>
 	
 	<div class="main main--center">
 		<form action="<?php echo base_url('control/submit/' . $game_id); ?>" method="post">

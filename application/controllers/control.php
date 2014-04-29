@@ -27,6 +27,7 @@ class Control extends CI_Controller {
 			
 			$control_data['game_id'] = $game_id;
 			$control_data['game_name'] = $this->control_model->get_game_name($game_id);
+			$control_data['game_skill'] = $this->control_model->get_game_skill($game_id);
 			$control_data['players'] = $this->control_model->get_players();
 			$this->load->view('control/index', $control_data);
 			
