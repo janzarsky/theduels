@@ -17,11 +17,12 @@ class Control_model extends CI_Model {
 	
 	public function get_games()
 	{
-		$this->db->select("`name` as label, CONCAT('/control/', `games`.`id`) as url", false);
-		$this->db->from('games');
-		$this->db->order_by('id');
-			
-		return $this->db->get()->result_array();
+		return $this->db
+			->select("CONCAT(`games`.`name`, ' (', `skills`.`name`, ')') as label, CONCAT('/control/', `games`.`id`) as url", false)
+			->from('games')
+			->join('skills', 'games.skill_id = skills.id')
+			->order_by('games.id')
+			->get()->result_array();
 	}
 	
 	public function get_game_name($game_id) {
