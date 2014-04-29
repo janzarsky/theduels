@@ -29,6 +29,15 @@ class Control_model extends CI_Model {
 		return $this->db->select('name')->from('games')->where('id', $game_id)->get()->row_array()['name'];
 	}
 	
+	public function get_game_skill($game_id) {
+		return $this->db
+			->select('skills.name')
+			->from('games')
+			->join('skills', 'skills.id = games.skill_id')
+			->where('games.id', $game_id)
+			->get()->row_array()['name'];
+	}
+	
 	public function submit_duel($game_id, $player_1_id, $player_2_id, $score) {
 		if ($player_1_id == $player_2_id)
 			throw new Exception("Oba hráči jsou stejní!");
