@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/janzarsky/theduels.png?label=ready&title=Ready)](https://waffle.io/janzarsky/theduels)
 TheDuels
 ========
 
