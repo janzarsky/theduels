@@ -29,14 +29,29 @@
 	margin: 16px 0;
 }
 
+.footer {
+	width: 480px;
+	margin: 0 auto 16px auto;
+}
+
 .note {
 	color: $light-gray;
 	margin: 16px 0;
 	text-align: center;
 }
 
+.button {
+	color: $green;
+	background: $dark-gray;
+	border: none;
+	padding: 16px;
+	margin-top: 16px;
+	cursor: pointer;
+	width: 100%;
+}
+
 @media screen and (max-width: 480px) {
-	.content {
+	.content, .footer, .main {
 		width: 100%;
 		margin: 0;
 	}

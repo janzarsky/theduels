@@ -34,4 +34,14 @@
 			<?php echo $delete; ?>
 		</section>
 	</div>
+	
+	<?php if (isset($url_back)): ?>
+		<div class="footer">
+			<a href="<?php echo base_url($url_back); ?>">
+				<button class="button" type="button">
+					Hotovo!
+				</button>
+			</a>
+		</div>
+	<?php endif; ?>
 </div>

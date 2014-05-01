@@ -109,6 +109,7 @@ class Setup extends CI_Controller {
 			
 			$data['header'] = 'Skilly:';
 			$data['items'] = $this->setup_model->get_skills_as_items();
+			$data['url_back'] = 'setup';
 			
 			$data['add'] = $this->load->view('setup/skills_add', null, true);
 			
@@ -184,6 +185,7 @@ class Setup extends CI_Controller {
 			
 			$data['header'] = 'Disciplíny:';
 			$data['items'] = $this->setup_model->get_games();
+			$data['url_back'] = 'setup';
 			
 			$add_data['skills'] = $this->setup_model->get_skills();
 			$data['add'] = $this->load->view('setup/games_add', $add_data, true);
