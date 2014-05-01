@@ -295,7 +295,30 @@ class Setup extends CI_Controller {
 				$this->session->set_flashdata('message_type', 'error');
 			}
 			
-			//redirect('setup/avatars');
+			redirect('setup/avatars');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function avatars_delete_submit() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			try {
+				$this->setup_model->delete_avatar($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Avatar odebrán');
+				$this->session->set_flashdata('message_type', 'success');
+			}
+			catch (Exception $e) {
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
+			}
+			
+			redirect('setup/avatars');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);
