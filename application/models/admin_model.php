@@ -33,7 +33,7 @@ class Admin_model extends CI_Model {
 	public function get_players()
 	{
 		return $this->db
-			->select("`players`.`name` as label, CONCAT('/media/images/avatars/', `avatars`.`number` ) as image_url,
+			->select("`players`.`name` as label, CONCAT('/media/images/avatars/', `avatars`.`id` ) as image_url,
 							 CONCAT('/viewer/', `players`.`id` ) as url, `players`.`id` as id", false)
 			->from('players')
 			->join('avatars', 'players.avatar_id = avatars.id', 'left')
