@@ -145,4 +145,13 @@ class Setup_model extends CI_Model {
 		
 		move_uploaded_file($file["tmp_name"], "media/images/avatars/" . $filename . ".png");
 	}
+	
+	public function delete_avatar($id = false) {
+		if ($id === false)
+			throw new Exception('empty');
+		
+		$this->db->delete('avatars', array('id' => $id));
+		
+		unlink('media/images/avatars/' . $id . '.png');
+	}
 }
