@@ -24,7 +24,7 @@ option {
 	padding: 16px;
 	text-align: center;
 }
-.field__select, .field__text {
+.field__select, .field__text, .field__file {
 	color: $orange;
 }
 .field__submit {
@@ -46,14 +46,14 @@ option {
 		padding: 16px 5%;
 		float: left;
 	}
-	.field__select, .field__text {
+	.field__select, .field__text, .field__file {
 		width: 40%;
 		padding: 16px 5%;
 		float: left;
 	}
 }
 @media screen and (max-width: 320px) {
-	.field, .field__select, .field__text {
+	.field, .field__select, .field__text, .field__file {
 		float: none;
 		width: 100%;
 	}

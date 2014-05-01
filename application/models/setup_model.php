@@ -11,7 +11,8 @@ class Setup_model extends CI_Model {
 		return array(
 			array('label' => 'Skilly', 'url' => '/setup/skills'),
 			array('label' => 'Disciplíny', 'url' => '/setup/games'),
-			array('label' => 'Achievementy', 'url' => '/setup/achievements')
+			array('label' => 'Achievementy', 'url' => '/setup/achievements'),
+			array('label' => 'Avataři', 'url' => '/setup/avatars')
 		);
 	}
 	
@@ -114,5 +115,36 @@ class Setup_model extends CI_Model {
 		
 		$this->db->delete('log_duels', array('game_id' => $id));
 		$this->db->delete('games', array('id' => $id));
+	}
+	
+	public function get_avatars() {
+		return $this->db
+			->select("CONCAT('media/images/avatars/', `number`) as image_url, id as label, id as id", false)
+			->from('avatars')
+			->get()->result_array();
+	}
+	
+	public function add_avatar($file = false) {
+		if ($file === false)
+			throw new Exception('Nebyl zvolen žádný soubor');
+		
+		if ($file["error"] > 0)
+			throw new Exception('Chyba při posílání souboru');
+		
+		$extension = end(explode(".", $file["name"]));
+		
+		if (($file["type"] != "image/png") || ($extension != 'png'))
+			throw new Exception('Soubor musí být formátu png');
+		
+		if ($file["size"] > 1048576)
+			throw new Exception('Soubor je příliš velký. Maximální povolená velikost je 1MB');
+		
+		$this->db->insert('avatars', array('free' => '1'));
+		
+		$filename = $this->db->insert_id();
+		
+		move_uploaded_file($file["tmp_name"], "media/images/avatars/" . $filename . ".png");
+		
+		$this->db->update('avatars', array('number' => $filename), array('id' => $filename));
 	}
 }
