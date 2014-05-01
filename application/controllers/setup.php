@@ -109,6 +109,7 @@ class Setup extends CI_Controller {
 			
 			$data['header'] = 'Skilly:';
 			$data['items'] = $this->setup_model->get_skills_as_items();
+			$data['url_back'] = 'setup';
 			
 			$data['add'] = $this->load->view('setup/skills_add', null, true);
 			
@@ -184,6 +185,7 @@ class Setup extends CI_Controller {
 			
 			$data['header'] = 'Disciplíny:';
 			$data['items'] = $this->setup_model->get_games();
+			$data['url_back'] = 'setup';
 			
 			$add_data['skills'] = $this->setup_model->get_skills();
 			$data['add'] = $this->load->view('setup/games_add', $add_data, true);
@@ -241,6 +243,82 @@ class Setup extends CI_Controller {
 			}
 			
 			redirect('setup/games');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function avatars() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			$html_header_data['title'] = 'Avataři:';
+			$html_header_data['style'] = 'editable_list.css';
+			$this->load->view('templates/html_header', $html_header_data);
+			
+			$this->load->view('templates/menu');
+			
+			$data['header'] = 'Avataři:';
+			$data['items'] = $this->setup_model->get_avatars();
+			$data['url_back'] = 'setup';
+			
+			$data['add'] = $this->load->view('setup/avatars_add', null, true);
+			
+			$delete_data['items'] = $data['items'];
+			$delete_data['submit_url'] = 'setup/avatars_delete_submit';
+			$data['delete'] = $this->load->view('templates/editable_list_delete', $delete_data, true);
+			
+			$this->load->view('templates/editable_list', $data);
+			
+			$this->load->view('templates/html_footer');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function avatars_add_submit() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			try {
+				$this->setup_model->add_avatar($_FILES['file']);
+				
+				$this->session->set_flashdata('message', 'Avatar přidán');
+				$this->session->set_flashdata('message_type', 'success');
+			}
+			catch (Exception $e) {
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
+			}
+			
+			redirect('setup/avatars');
+		}
+		catch (Exception $e) {
+			$this->show_error_page($e);
+		}
+	}
+	
+	public function avatars_delete_submit() {
+		try {
+			$this->check_login();
+			$this->check_lock();
+			
+			try {
+				$this->setup_model->delete_avatar($this->input->post('id'));
+				
+				$this->session->set_flashdata('message', 'Avatar odebrán');
+				$this->session->set_flashdata('message_type', 'success');
+			}
+			catch (Exception $e) {
+				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('message_type', 'error');
+			}
+			
+			redirect('setup/avatars');
 		}
 		catch (Exception $e) {
 			$this->show_error_page($e);

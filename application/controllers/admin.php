@@ -59,6 +59,7 @@ class Admin extends CI_Controller {
 			
 			$data['header'] = 'Správa hráčů';
 			$data['items'] = $this->admin_model->get_players();
+			$data['url_back'] = 'admin';
 			
 			$add_data['avatars'] = $this->admin_model->get_free_avatars();
 			$data['add'] = $this->load->view('admin/players_add', $add_data, true);

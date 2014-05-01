@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 	
 	public function logout() {
 		$this->session->unset_userdata('logged_in');
-		session_destroy();
+		$this->session->sess_destroy();
 		redirect('login');
 	}
 }

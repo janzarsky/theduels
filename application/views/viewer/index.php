@@ -2,7 +2,7 @@
 	<div class="player__info">
 		<header class="player__name"><?php echo $player['name']; ?></header>
 		<div class="player__image">
-			<img src="<?php echo base_url('/media/images/avatars/' . $player['number']); ?>.png">
+			<img src="<?php echo base_url('/media/images/avatars/' . $player['id']); ?>.png">
 		</div>
 		<div class="player__score">
 			Skóre: <?php echo $player['score']; ?>

@@ -4,6 +4,16 @@ class Overview_model extends CI_Model {
 	public function __construct() {
 		$this->load->database();
 	}
+	
+	public function is_position_visible() {
+		$visible = $this->db
+			->select('value')
+			->from('settings')
+			->where('name', 'position_visible')
+			->get()->row_array()['value'];
+		
+		return ($visible == true);
+	}
 
 	public function get_players()	{
 		return $this->db
