@@ -22,7 +22,7 @@
 	<div class="images">
 		<?php	foreach ($avatars as $avatar) : ?>
 			<div class="images__option" value="<?php echo $avatar['id']; ?>">
-				<img src="<?php echo base_url('/media/images/avatars/' . $avatar['number']); ?>.png">
+				<img src="<?php echo base_url('/media/images/avatars/' . $avatar['id']); ?>.png">
 				<div class="images__id">
 					<?php echo $avatar['id']; ?>
 				</div>

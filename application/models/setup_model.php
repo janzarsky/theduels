@@ -119,7 +119,7 @@ class Setup_model extends CI_Model {
 	
 	public function get_avatars() {
 		return $this->db
-			->select("CONCAT('media/images/avatars/', `number`) as image_url, id as label, id as id", false)
+			->select("CONCAT('media/images/avatars/', `id`) as image_url, id as label, id as id", false)
 			->from('avatars')
 			->get()->result_array();
 	}
@@ -144,7 +144,5 @@ class Setup_model extends CI_Model {
 		$filename = $this->db->insert_id();
 		
 		move_uploaded_file($file["tmp_name"], "media/images/avatars/" . $filename . ".png");
-		
-		$this->db->update('avatars', array('number' => $filename), array('id' => $filename));
 	}
 }
