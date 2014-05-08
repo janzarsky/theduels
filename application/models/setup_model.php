@@ -148,9 +148,39 @@ class Setup_model extends CI_Model {
 		
 		$this->db->insert('avatars', array('free' => '1'));
 		
-		$filename = $this->db->insert_id();
+		$filename = "media/images/avatars/" . $this->db->insert_id() . ".png";
 		
-		move_uploaded_file($file["tmp_name"], "media/images/avatars/" . $filename . ".png");
+		move_uploaded_file($file["tmp_name"], $filename);
+		
+		$this->resize_image($filename);
+	}
+	
+	private function resize_image($filename) {
+		$max_width = 480;
+		$max_height = 800;
+		
+		list($width, $height) = getimagesize($filename);
+		
+		$ratio = $width/$height;
+		
+		if ($max_width/$max_height > $ratio) {
+			$new_width = $max_height*$ratio;
+			$new_height = $max_height;
+		} else {
+			$new_width = $max_width;
+			$new_height = $max_width/$ratio;
+		}
+		
+		$thumb = imagecreatetruecolor($new_width, $new_height);
+		$source = imagecreatefrompng($filename);
+		
+		imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
+		imagealphablending($thumb, false);
+		imagesavealpha($thumb, true);
+		
+		imagecopyresampled($thumb, $source, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+		
+		imagepng($thumb, $filename);
 	}
 	
 	public function delete_avatar($id = false) {
