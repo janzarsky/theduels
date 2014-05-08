@@ -33,6 +33,13 @@
 				<input type="text" class="field__text" name="database">
 			</div>
 			
+			<div class="field">
+				<header class="field__header">
+					Prefix:
+				</header>
+				<input type="text" class="field__text" name="prefix">
+			</div>
+			
 			<input class="field__submit" type="submit" value="OK">
 		</form>
 	</div>
