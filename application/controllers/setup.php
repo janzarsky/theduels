@@ -177,6 +177,8 @@ class Setup extends CI_Controller {
 			$this->check_login();
 			$this->check_lock();
 			
+			$this->check_if_any_skills_exists();
+			
 			$html_header_data['title'] = 'Disciplíny:';
 			$html_header_data['style'] = 'editable_list.css';
 			$this->load->view('templates/html_header', $html_header_data);
@@ -201,6 +203,11 @@ class Setup extends CI_Controller {
 		catch (Exception $e) {
 			$this->show_error_page($e);
 		}
+	}
+	
+	public function check_if_any_skills_exists() {
+		if ($this->setup_model->is_there_any_skills() == false)
+			throw new Exception('Musíte nejdříve přidat skilly');
 	}
 	
 	public function games_add_submit() {

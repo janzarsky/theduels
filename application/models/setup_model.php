@@ -56,6 +56,13 @@ class Setup_model extends CI_Model {
 		$this->db->update_batch('achievements', $data, 'id');
 	}
 	
+	public function is_there_any_skills() {
+		return $this->db
+			->select('id')
+			->from('skills')
+			->get()->num_rows() > 0;
+	}
+	
 	public function get_skills_as_items() {
 		return $this->db
 			->select('name as label, id as id')
