@@ -1,4 +1,4 @@
-INSERT INTO `avatars` (`id`, `number`, `free`) VALUES
+INSERT INTO `{PRE}avatars` (`id`, `number`, `free`) VALUES
 (1, 0, 1),
 (2, 1, 1),
 (3, 2, 1),
