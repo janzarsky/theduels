@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `achievements` (
+CREATE TABLE IF NOT EXISTS `{PRE}achievements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `number` int(11) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `achievements` (
 -- Struktura tabulky `avatars`
 --
 
-CREATE TABLE IF NOT EXISTS `avatars` (
+CREATE TABLE IF NOT EXISTS `{PRE}avatars` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
   `free` tinyint(1) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `avatars` (
 -- Struktura tabulky `games`
 --
 
-CREATE TABLE IF NOT EXISTS `games` (
+CREATE TABLE IF NOT EXISTS `{PRE}games` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `skill_id` int(11) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `games` (
 -- Struktura tabulky `log_duels`
 --
 
-CREATE TABLE IF NOT EXISTS `log_duels` (
+CREATE TABLE IF NOT EXISTS `{PRE}log_duels` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `game_id` int(11) NOT NULL,
   `player_1_id` int(11) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `log_duels` (
 -- Struktura tabulky `players`
 --
 
-CREATE TABLE IF NOT EXISTS `players` (
+CREATE TABLE IF NOT EXISTS `{PRE}players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `score` smallint(6) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `players` (
 -- Struktura tabulky `players_achievements`
 --
 
-CREATE TABLE IF NOT EXISTS `players_achievements` (
+CREATE TABLE IF NOT EXISTS `{PRE}players_achievements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
   `achievement_id` int(11) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `players_achievements` (
 -- Struktura tabulky `players_skills`
 --
 
-CREATE TABLE IF NOT EXISTS `players_skills` (
+CREATE TABLE IF NOT EXISTS `{PRE}players_skills` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `players_skills` (
 -- Struktura tabulky `settings`
 --
 
-CREATE TABLE IF NOT EXISTS `settings` (
+CREATE TABLE IF NOT EXISTS `{PRE}settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `label` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Struktura tabulky `skills`
 --
 
-CREATE TABLE IF NOT EXISTS `skills` (
+CREATE TABLE IF NOT EXISTS `{PRE}skills` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
