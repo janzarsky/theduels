@@ -1,6 +1,6 @@
 .player {
 	padding: 8px;
-	max-width: 480px;
+	max-width: $column-width;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -74,7 +74,7 @@
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $column-width) {
 	.player__info, .player__skills, .player__achievements {
 		width: 100%;
 	}

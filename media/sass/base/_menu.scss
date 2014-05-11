@@ -1,5 +1,5 @@
 .menu {
-	width: 480px;
+	width: $column-width;
 	margin: 0 auto;
 	background: $dark-gray;
 	text-align: center;
@@ -21,14 +21,14 @@
 	color: $red;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $column-width) {
 	.menu {
 		width: 100%;
 		margin: 0;
 	}
 }
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 2*$column-width) {
 	.menu {
-		width: 960px;
+		width: 2*$column-width;
 	}
 }

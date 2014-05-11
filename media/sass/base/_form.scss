@@ -37,7 +37,7 @@ option {
 	width: 100%;
 }
 
-@media screen and (min-width: 320px) {
+@media screen and (min-width: $column-width) {
 	.field {
 		width: 100%;
 	}
@@ -52,7 +52,7 @@ option {
 		float: left;
 	}
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: $column-width) {
 	.field, .field__select, .field__text, .field__file {
 		float: none;
 		width: 100%;

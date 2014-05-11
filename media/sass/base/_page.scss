@@ -1,5 +1,5 @@
 .content {
-	width: 480px;
+	width: $column-width;
 	margin: 0 auto;
 }
 .content__header {
@@ -30,7 +30,7 @@
 }
 
 .footer {
-	width: 480px;
+	width: $column-width;
 	margin: 0 auto 16px auto;
 }
 
@@ -50,18 +50,18 @@
 	width: 100%;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $column-width) {
 	.content, .footer, .main {
 		width: 100%;
 		margin: 0;
 	}
 }
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 2*$column-width) {
 	.content {
-		width: 960px;
+		width: 2*$column-width;
 	}
 	.main {
-		width: 480px;
+		width: $column-width;
 		float: left;
 	}
 	.main--center {
@@ -69,7 +69,7 @@
 		float: none;
 	}
 	.aside {
-		width: 480px;
-		margin: 0 0 0 480px;
+		width: $column-width;
+		margin: 0 0 0 $column-width;
 	}
 }
