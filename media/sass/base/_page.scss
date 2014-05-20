@@ -68,6 +68,9 @@
 		margin: 0 auto;
 		float: none;
 	}
+	.main--wide {
+		width: 2*$column-width;
+	}
 	.aside {
 		width: $column-width;
 		margin: 0 0 0 $column-width;

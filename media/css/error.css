@@ -434,6 +434,9 @@ img {
     margin: 0 auto;
     float: none; }
 
+  .main--wide {
+    width: 960px; }
+
   .aside {
     width: 480px;
     margin: 0 0 0 480px; } }
