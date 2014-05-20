@@ -43,6 +43,8 @@ class Stats_model extends CI_Model {
 			->select('players.id as player_id, players_achievements.achievement_id, players_achievements.level')
 			->from('players')
 			->join('players_achievements', 'players_achievements.player_id = players.id')
+			->join('achievements', 'achievements.id = players_achievements.achievement_id')
+			->where('achievements.enabled', '1')
 			->order_by('players.name')
 			->get()->result_array();
 	}
