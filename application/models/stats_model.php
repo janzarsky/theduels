@@ -31,12 +31,27 @@ class Stats_model extends CI_Model {
 			->get()->result_array();
 	}
 	
+	public function get_skills_names() {
+		return $this->db
+			->select('id, name')
+			->from('skills')
+			->get()->result_array();
+	}
+	
 	public function get_achievements_data() {
 		return $this->db
 			->select('players.id as player_id, players_achievements.achievement_id, players_achievements.level')
 			->from('players')
 			->join('players_achievements', 'players_achievements.player_id = players.id')
 			->order_by('players.name')
+			->get()->result_array();
+	}
+	
+	public function get_achievements_names() {
+		return $this->db
+			->select('id, name')
+			->from('achievements')
+			->where('enabled', '1')
 			->get()->result_array();
 	}
 }

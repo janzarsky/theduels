@@ -17,7 +17,8 @@ class Stats extends CI_Controller {
 		
 		$this->load->view('templates/menu');
 		
-		$stats_data['players'] = $this->create_players_table();
+		$stats_data['table'] = $this->create_players_table();
+		$stats_data['table_head'] = $this->create_players_table_head();
 		$this->load->view('stats/index', $stats_data);
 		
 		$this->load->view('templates/html_footer');
@@ -41,5 +42,19 @@ class Stats extends CI_Controller {
 		}
 		
 		return $table;
+	}
+	
+	private function create_players_table_head() {
+		$head = array('name' => 'Jméno');
+		
+		foreach ($this->stats_model->get_skills_names() as $skill) {
+			$head['skill_' . $skill['id']] = $skill['name'];
+		}
+		
+		foreach ($this->stats_model->get_achievements_names() as $achievement) {
+			$head['achievement_' . $achievement['id']] = $achievement['name'];
+		}
+		
+		return $head;
 	}
 }
