@@ -1,1 +1,16 @@
-.images{width:100%;margin-top:8px}.images__option{float:left;cursor:pointer}.images__option img{width:96px}.images__option--selected{background:#666}.images__id{text-align:center;color:#ddd}
+.images {
+  width: 100%;
+  margin-top: 8px; }
+
+.images__option {
+  float: left;
+  cursor: pointer; }
+  .images__option img {
+    width: 96px; }
+
+.images__option--selected {
+  background: #666666; }
+
+.images__id {
+  text-align: center;
+  color: #dddddd; }

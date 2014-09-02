@@ -1,0 +1,78 @@
+.content {
+	width: $column-width;
+	margin: 0 auto;
+}
+.content__header {
+	font-size: 32px;
+	color: $yellow;
+	text-align: center;
+	margin: 16px 0;
+}
+.content__subheader {
+	font-size: 18px;
+	color: $light-gray;
+	text-align: center;
+	margin: 8px 0 16px 0;
+}
+
+.main, .aside {
+	width: 100%;
+}
+
+.section {
+	margin-top: 16px;
+}
+.section__header {
+	font-size: 24px;
+	color: $bluegreen;
+	text-align: center;
+	margin: 16px 0;
+}
+
+.footer {
+	width: $column-width;
+	margin: 0 auto 16px auto;
+}
+
+.note {
+	color: $light-gray;
+	margin: 16px 0;
+	text-align: center;
+}
+
+.button {
+	color: $green;
+	background: $dark-gray;
+	border: none;
+	padding: 16px;
+	margin-top: 16px;
+	cursor: pointer;
+	width: 100%;
+}
+
+@media screen and (max-width: $column-width) {
+	.content, .footer, .main {
+		width: 100%;
+		margin: 0;
+	}
+}
+@media screen and (min-width: 2*$column-width) {
+	.content {
+		width: 2*$column-width;
+	}
+	.main {
+		width: $column-width;
+		float: left;
+	}
+	.main--center {
+		margin: 0 auto;
+		float: none;
+	}
+	.main--wide {
+		width: 2*$column-width;
+	}
+	.aside {
+		width: $column-width;
+		margin: 0 0 0 $column-width;
+	}
+}

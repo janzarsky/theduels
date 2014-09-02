@@ -1,0 +1,34 @@
+.menu {
+	width: $column-width;
+	margin: 0 auto;
+	background: $dark-gray;
+	text-align: center;
+}
+.menu__item {
+	padding: 8px;
+	line-height: 200%;
+	color: $orange;
+}
+.menu__message {
+	padding: 8px;
+	line-height: 200%;
+	color: $light-gray;
+}
+.menu__message--success {
+	color: $green;
+}
+.menu__message--error {
+	color: $red;
+}
+
+@media screen and (max-width: $column-width) {
+	.menu {
+		width: 100%;
+		margin: 0;
+	}
+}
+@media screen and (min-width: 2*$column-width) {
+	.menu {
+		width: 2*$column-width;
+	}
+}

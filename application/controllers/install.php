@@ -26,7 +26,9 @@ class Install extends CI_Controller {
 		$config = str_replace('@username', $this->input->post('username'), $config);
 		$config = str_replace('@password', $this->input->post('password'), $config);
 		$config = str_replace('@database', $this->input->post('database'), $config);
-		$config = str_replace('@prefix', $this->input->post('prefix'), $config);
+		
+		$prefix = ($this->input->post('prefix') == '') ? 'td_' : $this->input->post('prefix');
+		$config = str_replace('@prefix', $prefix, $config);
 		
 		write_file('./application/config/database.php', $config);
 		
