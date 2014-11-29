@@ -26,13 +26,20 @@ class Viewer_model extends CI_Model {
 	}
 	
 	public function get_players() {
-		return $this->db
-			->select("`players`.`name` as label, CONCAT('/media/images/avatars/', `avatars`.`id` ) as image_url,
-							 CONCAT('/viewer/', `players`.`id` ) as url", false)
+		$data = $this->db
+			->select('avatars.id as avatar_id, players.id as id, players.name as label')
 			->from('players')
 			->join('avatars', 'players.avatar_id = avatars.id', 'left')
 			->order_by('name')
 			->get()->result_array();
+		
+		
+		foreach ($data as $key => $d) {
+			$data[$key]['image_url'] = '/media/images/avatars/' . $d['avatar_id'];
+			$data[$key]['url'] = '/viewer/' . $d['id'];
+		}
+		
+		return $data;
 	}
 	
 	public function get_player_id($nick = FALSE) {

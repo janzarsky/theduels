@@ -90,11 +90,17 @@ class Setup_model extends CI_Model {
 	}
 	
 	public function get_games() {
-		return $this->db
-			->select("CONCAT(`games`.`name`, ' (', `skills`.`name`, ')') as label, `games`.`id` as id", false)
+		$data = $this->db
+			->select("skills.name as skill_name, games.name as game_name, games.id as id")
 			->join("skills", "skills.id = games.skill_id")
 			->from('games')
 			->get()->result_array();
+		
+		foreach ($data as $key => $d) {
+			$data[$key]['label'] = $d['game_name'] . '(' . $d['skill_name'] . ')';
+		}
+		
+		return $data;
 	}
 	
 	public function get_skills() {
@@ -125,10 +131,16 @@ class Setup_model extends CI_Model {
 	}
 	
 	public function get_avatars() {
-		return $this->db
-			->select("CONCAT('media/images/avatars/', `id`) as image_url, id as label, id as id", false)
+		$data = $this->db
+			->select("id as label, id as id")
 			->from('avatars')
 			->get()->result_array();
+		
+		foreach ($data as $key => $d) {
+			$data[$key]['image_url'] = 'media/images/avatars/' . $d['id'];
+		}
+		
+		return $data;
 	}
 	
 	public function add_avatar($file = false) {
