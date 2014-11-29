@@ -49,18 +49,18 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'theduely';
-$db['default']['password'] = '4PpNCQqwS7UDpZu7';
-$db['default']['database'] = 'theduely';
-$db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = '';
+$db['default']['username'] = 'd45399_duels';
+$db['default']['password'] = 'Bqz5c6JMfn4LBDXH';
+$db['default']['database'] = 'd45399_duels';
+$db['default']['dbdriver'] = 'mysqli';
+$db['default']['dbprefix'] = 'td_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
 $db['default']['char_set'] = 'utf8';
 $db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
+$db['default']['swap_pre'] = '{PRE}';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
